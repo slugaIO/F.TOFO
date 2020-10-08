@@ -2,17 +2,17 @@ import React from 'react';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
-const styles = theme => ({
-    margin: {
-        margin: theme.spacing.unit * 2,
-    },
-    padding: {
-        padding: theme.spacing.unit
-    }
-});
 
 class Login extends React.Component {
     render() {
+        const styles = theme => ({
+            margin: {
+                margin: theme.spacing.unit * 2,
+            },
+            padding: {
+                padding: theme.spacing.unit
+            }
+        });
         const { classes } = this.props;
         return (
             <React.Fragment>

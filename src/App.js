@@ -29,17 +29,7 @@ class App extends Component {
     }
   }
   updateState = (object) =>{
-    console.table({
-      message:'update',
-      data:object
-    })
-    console.table(object)
     this.setState(object);
-  }
-  renderLogin= () =>{
-    this.setState({
-      login:true
-    })
   }
 
   render() {
@@ -84,6 +74,8 @@ class App extends Component {
     {
       this.state.login === true ?
       <Login></Login>
+      :this.state.register === true ?
+      <Register />
       :null
     }
     </React.Fragment>
