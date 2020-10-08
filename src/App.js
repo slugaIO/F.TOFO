@@ -10,25 +10,34 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Paper from 'material-ui/Paper';
 
 import Login from './Components/Main/Login'
-
-import BottomUI from './Components/Main/BottomContainer'
-
+import Register from './Components/Main/Register'
+import MenuTop from './Components/Main/TopNavigation'
+import Welcome from './Components/Main/Welcome/WelcomeScreen'
+import Dashboard from './Components/Main/Dashboard/Dashboard'
 
 import './App.css';
 
 class App extends Component {
-
   state = {
-    login:false,
-    logout:false,
-    register:false
+    navigation:{
+      welcome:true
+    },
+    dashboard:{},
+    access:{
+      accessToken:'access Token',
+      refreshToken:'refresh Token',
+      isAuthorized:false
+    }
   }
 
-  renderLogin= () =>{
-    console.log("renderLogin");
-    this.setState({
-      login:true
+  updateState = (object) =>{
+    console.table({
+      message:'update',
+      data:object
     })
+    console.table(object)
+    this.setState(object);
+    console.table(this.state.access);
   }
 
   render() {
@@ -65,17 +74,25 @@ class App extends Component {
         <Typography variant="h6" style={style.title}>
           ToDo
         </Typography>
-        <Button color="inherit" onClick={this.renderLogin}>Login</Button>
-        <Button color="inherit">Register</Button>
-        <Button color="inherit">Logout</Button>
-        <AccountCircle />
+        <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
       </Toolbar>
     </AppBar>
     <Toolbar /> 
     {
-      this.state.login === true ?
-      <Login></Login>
-      :null
+       this.state.navigation.welcome === true ?
+       <React.Fragment>
+          <Welcome/>
+       </React.Fragment>
+       :
+       this.state.navigation.login === true ?
+       <Login updateState={this.updateState.bind(this)} />
+       :
+       this.state.navigation.register === true ? 
+       <Register/>
+       :
+       this.state.access.isAuthorized === true ?
+       <Dashboard/>
+       :null
     }
     </React.Fragment>
     )
