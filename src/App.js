@@ -12,6 +12,8 @@ import Paper from 'material-ui/Paper';
 import Login from './Components/Main/Login'
 import Register from './Components/Main/Register'
 import MenuTop from './Components/Main/TopNavigation'
+import Dashboard from './Components/Main/Dashboard/Dashboard'
+import Welcome from './Components/Main/Welcome/Welcome'
 // import Welcome from './Components/Main/Welcome/WelcomeScreen'
 // import Dashboard from './Components/Main/Dashboard/Dashboard'
 import BottomUI from './Components/Main/BottomContainer'
@@ -21,11 +23,11 @@ import './App.css';
 class App extends Component {
 
   state = {
-    login:false,
-    logout:false,
-    register:false,
     access:{
       isAuthorized:false
+    },
+    navigation:{
+      welcome:true
     }
   }
   updateState = (object) =>{
@@ -72,10 +74,14 @@ class App extends Component {
     
     <Toolbar /> 
     {
-      this.state.login === true ?
-      <Login></Login>
-      :this.state.register === true ?
-      <Register />
+      this.state.navigation.welcome === true ?
+      <Welcome/>
+      :this.state.navigation.login === true ?
+      <Login  updateState={this.updateState.bind(this)} ></Login>
+      :this.state.navigation.register === true ?
+      <Register  updateState={this.updateState.bind(this)}  />
+      :this.state.access.isAuthorized === true && this.state.navigation.dashboard === true ?
+      <Dashboard/>
       :null
     }
     </React.Fragment>

@@ -28,9 +28,17 @@ class TopNavigation extends React.Component{
     logout = () => {
         this.updateState({
             navigation:{
-                logout:true
+                welcome:true
+            },
+            access:{
+                accessToken:'',
+                refreshToken:'',
+                isAuthorized:false
             }
         });
+    }
+    componentWillReceiveProps(props){
+        this.setState(props);
     }
     render(){
         return(
