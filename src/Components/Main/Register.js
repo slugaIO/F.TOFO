@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container, Typography } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
@@ -63,3 +64,5 @@ class Register extends React.Component {
 }
 
 export default Register;
+=======
+>>>>>>> parent of 846ac96... login to dashboard works via API
