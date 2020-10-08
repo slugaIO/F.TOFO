@@ -9,13 +9,6 @@ class Register extends React.Component {
         super(props);
         this.props = props;
     }
-    componentDidMount(){
-        console.table({
-            message:'Login',
-            accessToken:`${this.props.accessToken}`,
-            refreshToken:`${this.props.refreshToken}`
-        })
-    }
     doLogin = () =>  {
         alert(`${process.env.REACT_APP_API_HOST}`);
     }
