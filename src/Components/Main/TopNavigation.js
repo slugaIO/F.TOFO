@@ -9,7 +9,6 @@ class TopNavigation extends React.Component{
     }
     constructor(props){
         super(props);
-        this.isAuthorized = props.isAuthorized;
         this.updateState = props.updateState;
     }
     login = () => {
@@ -20,7 +19,6 @@ class TopNavigation extends React.Component{
         });
     }
     register = () => {
-        console.log(`Auth: ${this.state.isAuthorized}`);
         this.updateState({
             navigation:{
                 register:true
@@ -29,14 +27,10 @@ class TopNavigation extends React.Component{
     }
     logout = () => {
         this.updateState({
-            access:{},
             navigation:{
-                welcome:true
-              }
+                logout:true
+            }
         });
-    }
-    componentWillReceiveProps(props){
-        this.setState(props);
     }
     render(){
         return(

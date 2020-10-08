@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container, Typography } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
@@ -9,6 +8,13 @@ class Register extends React.Component {
     constructor(props){
         super(props);
         this.props = props;
+    }
+    componentDidMount(){
+        console.table({
+            message:'Login',
+            accessToken:`${this.props.accessToken}`,
+            refreshToken:`${this.props.refreshToken}`
+        })
     }
     doLogin = () =>  {
         alert(`${process.env.REACT_APP_API_HOST}`);
@@ -64,5 +70,3 @@ class Register extends React.Component {
 }
 
 export default Register;
-=======
->>>>>>> parent of 846ac96... login to dashboard works via API
