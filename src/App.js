@@ -23,7 +23,10 @@ class App extends Component {
   state = {
     login:false,
     logout:false,
-    register:false
+    register:false,
+    access:{
+      isAuthorized:false
+    }
   }
   updateState = (object) =>{
     console.table({
@@ -73,13 +76,10 @@ class App extends Component {
         <Typography variant="h6" style={style.title}>
           ToDo
         </Typography>
-        <Button color="inherit" onClick={this.renderLogin}>Login</Button>
-        <Button color="inherit">Register</Button>
-        <Button color="inherit">Logout</Button>
-        <AccountCircle />
+        <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
       </Toolbar>
     </AppBar>
-    <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
+    
     <Toolbar /> 
     {
       this.state.login === true ?
