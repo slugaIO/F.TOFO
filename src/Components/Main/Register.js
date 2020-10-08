@@ -5,14 +5,17 @@ import { Face, Fingerprint,Group } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 // TODO add forgot password
 class Register extends React.Component {
     state = {
         email:'',
         password:'',
-        gender:'',
-        registrationError:false
+        gender:'', 
+        registrationError:false,
+        showSpinner:false
     }
     constructor(props){
         super(props);
@@ -24,6 +27,9 @@ class Register extends React.Component {
         })
     }
     registration = () =>  {
+        this.setState({
+            showSpinner:true
+        })
         const API_URL = `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/user/register`;
         const data    = JSON.stringify({"email":`${this.state.email}`,"password":`${this.state.password}`});
         const config  = {
@@ -37,9 +43,11 @@ class Register extends React.Component {
         axios(config)
         .then( (response) => {
             if(response.data.success && response.data && response.data.tokens){
-                console.log("Login to dashbaord");
                 const accessToken  = response.data.tokens.accessToken || '';
                 const refreshToken = response.data.tokens.refreshToken || '';
+                this.setState({
+                    showSpinner:false
+                })
                 this.updateState({
                     access:{
                         accessToken:accessToken,
@@ -52,7 +60,8 @@ class Register extends React.Component {
                 });
             }else{
                 this.setState({
-                    registrationError:true
+                    registrationError:true,
+                    showSpinner:false
                 })
             }
         })
@@ -60,6 +69,7 @@ class Register extends React.Component {
             const success = error.response.data.success;
             const status  = error.response.status;
             this.setState({
+                showSpinner:false,
                 registrationError:true
             })
         });
@@ -75,6 +85,17 @@ class Register extends React.Component {
         }
     return (
         <React.Fragment>
+        <Loader
+        style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}
+        type="Bars" 
+        color="#CCC"
+        height={250}
+        width={250}
+        visible={this.state.showSpinner}
+     />
         <CssBaseline />
         <Container maxWidth="sm">
             <Paper style={style.padding}>
@@ -95,7 +116,7 @@ class Register extends React.Component {
                             <Fingerprint />
                         </Grid>
                         <Grid item md={true} sm={true} xs={true}>
-                            <TextField id="regPassword" label="Password" type="password" fullWidth required error={this.state.registrationError}   onChange={ (val) => this.setValue('email', val) } />
+                            <TextField id="regPassword" label="Password" type="password" fullWidth required error={this.state.registrationError}   onChange={ (val) => this.setValue('password', val) } />
                         </Grid>
                     </Grid>
                     <Grid container alignItems="center" justify="space-between">

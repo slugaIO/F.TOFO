@@ -6,13 +6,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 class Login extends React.Component {
     state = {
         email:'',
         password:'',
-        loginError:false
+        loginError:false,
+        showSpinner:false
     }
     constructor(props){
         super(props);
@@ -24,6 +26,9 @@ class Login extends React.Component {
         })
     }
     doLogin = () =>  {
+        this.setState({
+            showSpinner:true
+        })
         const API_URL = `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/user/login`;
         const data    = JSON.stringify({"email":`${this.state.email}`,"password":`${this.state.password}`});
         const config  = {
@@ -39,6 +44,9 @@ class Login extends React.Component {
             if(response.data.success){
                 const accessToken  = response.data.tokens.accessToken || '';
                 const refreshToken = response.data.tokens.refreshToken || '';
+                this.setState({
+                    showSpinner:false
+                })
                 this.updateState({
                     access:{
                         accessToken:accessToken,
@@ -49,13 +57,19 @@ class Login extends React.Component {
                         dashboard:true
                     }
                 });
+            }else{
+                this.setState({
+                    loginError:true,
+                    showSpinner:false
+                })
             }
         })
         .catch( (error) => {
             const success = error.response.data.success;
             const status  = error.response.status;
             this.setState({
-                loginError:true
+                loginError:true,
+                showSpinner:false
             })
         });
     }
@@ -70,6 +84,17 @@ class Login extends React.Component {
         }
         return (
             <React.Fragment>
+            <Loader
+                style={{
+                    position: 'absolute', left: '50%', top: '50%',
+                    transform: 'translate(-50%, -50%)'
+                }}
+                type="Bars" 
+                color="#CCC"
+                height={250}
+                width={250}
+                visible={this.state.showSpinner}
+             />
             <CssBaseline />
             <Container maxWidth="sm">
             <Typography variant="h6" style={style.title}>
@@ -105,7 +130,7 @@ class Login extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid container justify="center" style={{ marginTop: '10px' }}>
-                        <Button onClick={this.doLogin} variant="outlined" color="primary" style={{ textTransform: "none" }}>Login</Button>
+                        <Button onClick={this.doLogin} variant="outlined" color="primary" style={{ textTransform: "none" }}  style={{marginBottom:'20px'}}>Login</Button>
                     </Grid>
                 </div>
             </Paper>
