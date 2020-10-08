@@ -31,6 +31,10 @@ class App extends Component {
     }
   }
   updateState = (object) =>{
+    console.table({
+      message:'login'
+    })
+    console.table(object);
     this.setState(object);
   }
 

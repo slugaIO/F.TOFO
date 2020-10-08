@@ -24,11 +24,6 @@ class Login extends React.Component {
         })
     }
     doLogin = () =>  {
-        console.table({
-            message:'login',
-            email:this.state.email,
-            password:this.state.password
-        });
         const API_URL = `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/user/login`;
         const data    = JSON.stringify({"email":`${this.state.email}`,"password":`${this.state.password}`});
         const config  = {
@@ -65,7 +60,6 @@ class Login extends React.Component {
         });
     }
     render() {
-    
         const style = {
             padding:{
                 paddingLeft:'10px'
