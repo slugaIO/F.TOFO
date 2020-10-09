@@ -19,6 +19,9 @@ class AuthService{
     setAuthCookieData = (cookieData) => {
         localStorage.setItem(this.COOKIE_ID, JSON.stringify(cookieData));
     }
+    getAuthCookieData = () => {
+        return JSON.parse(localStorage.getItem(this.COOKIE_ID));
+    }
     authCheck = () => {
         const API_URL    = `${this.API_URL}/api/user/token-validation`;
         const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
