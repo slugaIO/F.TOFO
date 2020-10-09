@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Paper from 'material-ui/Paper';
 
 import AuthService from './services/api/auth.service'
 import Logger from './services/debug/logger'
@@ -18,7 +14,6 @@ import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 // import Welcome from './Components/Main/Welcome/WelcomeScreen'
 // import Dashboard from './Components/Main/Dashboard/Dashboard'
-import BottomUI from './Components/Main/BottomContainer'
 
 import './App.css';
 
@@ -28,9 +23,7 @@ class App extends Component {
     access:{
       isAuthorized:false
     },
-    navigation:{
-      welcome:true
-    }
+    navigation:null
   }
   updateState = (object) =>{
     this.setState(object);
@@ -39,15 +32,40 @@ class App extends Component {
   componentDidMount(){
     const userData = AuthService.getAuthCookieData();
     if(!userData){
-      // TODO Keine Cookie Daten, daher passiert hier nichts ?!
-      Logger.table({
-        message:'no user data'
-      })
+      this.setState({
+        access:{
+          isAuthorized:false
+        },
+        navigation:{
+          welcome:true
+        }
+      });
     }else{
       Logger.table({
         message:'user data',
         token:userData.token,
         user:userData.user
+      })
+      AuthService.authCheck()
+      .then((res) => {
+        this.setState({
+          access:{
+            isAuthorized:true
+          },
+          navigation:{
+            dashboard:true
+          }
+        });
+      })
+      .catch(error => {
+        this.setState({
+          access:{
+            isAuthorized:false
+          },
+          navigation:{
+            welcome:true
+          }
+        });
       })
     }
   }
@@ -86,12 +104,18 @@ class App extends Component {
         <Typography variant="h6" style={style.title}>
           ToDo
         </Typography>
-        <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
+        {
+          this.state.navigation === null && this.state.access === null ?
+          null:<MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
+        }
+        
       </Toolbar>
     </AppBar>
     
     <Toolbar /> 
     {
+      this.state.navigation === null ?
+      null:
       this.state.navigation.welcome === true ?
       <Welcome/>
       :this.state.navigation.login === true ?

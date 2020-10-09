@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios'
-import { Paper,  Grid, TextField, Button, FormControlLabel,  Container, Typography } from '@material-ui/core';
-import { Face, Fingerprint,Group } from '@material-ui/icons'
+import { Paper,  Grid, TextField, Button, Container, Typography } from '@material-ui/core';
+import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 
@@ -123,7 +121,7 @@ class Register extends React.Component {
                     </Grid>
                 </Grid>
                     <Grid container justify="center" style={{ marginBottom: '10px' }}>
-                        <Button onClick={this.registration} variant="outlined" color="primary" style={{ textTransform: "none" }} style={{marginBottom:'20px'}}>Register</Button>
+                        <Button onClick={this.registration} variant="outlined" color="primary" style={{marginBottom:'20px'}}>Register</Button>
                     </Grid>
                 </div>
             </Paper>

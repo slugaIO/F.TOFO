@@ -1,7 +1,6 @@
 import React from 'react';
-import { Paper,  Button, Checkbox, Container, Typography } from '@material-ui/core';
+import { Paper,  Button, Container, Typography } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
-import axios from 'axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import TextField from '@material-ui/core/TextField';
@@ -39,6 +38,15 @@ class Login extends React.Component {
             Logger.table({message:'Token Data', tokenData:token});
             this.setState({showSpinner:false});
             AuthService.setAuthCookieData({user,token});
+            this.updateState({
+                access:{
+                    isAuthorized:true
+                },
+                navigation:{
+                    dashboard:true
+                },
+                user:user
+            })
         })
         .catch( (data) => {
             this.setState({showSpinner:false,loginError:true});
@@ -101,7 +109,7 @@ class Login extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid container justify="center" style={{ marginTop: '10px' }}>
-                        <Button onClick={this.doLogin} variant="outlined" color="primary" style={{ textTransform: "none" }}  style={{marginBottom:'20px'}}>Login</Button>
+                        <Button onClick={this.doLogin} variant="outlined" color="primary" style={{marginBottom:'20px'}}>Login</Button>
                     </Grid>
                 </div>
             </Paper>

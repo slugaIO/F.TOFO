@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import Logger from '../../services/debug/logger'
 class TopNavigation extends React.Component{
     state = {
         isAuthorized : false
@@ -38,6 +38,10 @@ class TopNavigation extends React.Component{
         });
     }
     componentWillReceiveProps(props){
+        Logger.table({
+            message:'Navigation Update',
+            isAuthorized:props.isAuthorized
+        })
         this.setState(props);
     }
     render(){
