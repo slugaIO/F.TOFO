@@ -5,3 +5,6 @@
 ## AUTH Service
 * [X] Login Auth Service
 * [ ] Check what axios-router-dom does
+
+## Debugging
+* [X] Logger Factory
