@@ -47,6 +47,9 @@ class Login extends React.Component {
                 this.setState({
                     showSpinner:false
                 })
+                localStorage.setItem("sluga.io-ToDo", JSON.stringify(response.data));
+                const storage = JSON.parse(localStorage.getItem('sluga.io-ToDo'));
+                console.table(storage);
                 this.updateState({
                     access:{
                         accessToken:accessToken,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Typography } from '@material-ui/core';
+import {Container, Grid, Paper } from '@material-ui/core';
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -9,11 +9,7 @@ class Dashboard extends React.Component{
     render() {
         return(
             <React.Fragment>
-            <Container maxWidth="sm">
-            <Typography variant="h6">
-                Dashboard
-            </Typography>
-            </Container>
+            <h1>Dashboard</h1>
             </React.Fragment>
         )
     }

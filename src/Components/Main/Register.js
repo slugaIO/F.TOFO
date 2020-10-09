@@ -66,8 +66,6 @@ class Register extends React.Component {
             }
         })
         .catch( (error) => {
-            const success = error.response.data.success;
-            const status  = error.response.status;
             this.setState({
                 showSpinner:false,
                 registrationError:true
