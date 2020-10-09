@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Paper from 'material-ui/Paper';
 
+import AuthService from './services/api/auth.service'
+import Logger from './services/debug/logger'
 import Login from './Components/Main/Login'
 import Register from './Components/Main/Register'
 import MenuTop from './Components/Main/TopNavigation'
@@ -35,6 +37,21 @@ class App extends Component {
   }
   updateState = (object) =>{
     this.setState(object);
+  }
+
+  componentDidMount(){
+    const userData = AuthService.getAuthCookieData();
+    if(!userData){
+      Logger.table({
+        message:'no user data'
+      })
+    }else{
+      Logger.table({
+        message:'user data',
+        token:userData.token,
+        user:userData.user
+      })
+    }
   }
 
   render() {
