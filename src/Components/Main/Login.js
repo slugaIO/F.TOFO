@@ -31,6 +31,25 @@ class Login extends React.Component {
         this.setState({
             showSpinner:true
         });
+        AuthService.userLogin(this.state.email, this.state.password)
+        .then( (res) => {
+            console.table(res.response.data);
+            console.table(res.response.header);
+        })
+        .catch( (err) => {
+            
+            console.table({
+
+            })
+            console.table(err.response);
+            console.table(err.response.data);
+            console.table(err.response.s);
+        });
+        this.setState({
+            showSpinner:false,
+            loginError:true
+        });
+        /*
         AuthService.userLogin(this.state.email,this.state.password).then( (resolve) => {
             this.setState({
                 showSpinner:false
@@ -51,6 +70,7 @@ class Login extends React.Component {
                 loginError:true
             });
         });
+        */
     }
     render() { 
         const style = {

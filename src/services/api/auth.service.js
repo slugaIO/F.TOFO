@@ -14,7 +14,8 @@ class AuthService{
             },
             data:data
         };
-        return axios(config)
+        return axios(config);
+        /**
         .then( (response) => {
             if(response.data.success){
                 const accessToken  = response.data.tokens.accessToken || '';
@@ -45,6 +46,7 @@ class AuthService{
                 })
             })
         });
+        **/
     }
     setAuthCookieData = (cookieData) => {
         localStorage.setItem(this.COOKIE_ID, JSON.stringify(cookieData));
