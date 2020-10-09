@@ -20,9 +20,6 @@ import Welcome from './Components/Main/Welcome/Welcome'
 // import Dashboard from './Components/Main/Dashboard/Dashboard'
 import BottomUI from './Components/Main/BottomContainer'
 
-// Debugging
-import Logger from './services/debug/logger';
-
 import './App.css';
 
 class App extends Component {
@@ -42,6 +39,7 @@ class App extends Component {
   componentDidMount(){
     const userData = AuthService.getAuthCookieData();
     if(!userData){
+      // TODO Keine Cookie Daten, daher passiert hier nichts ?!
       Logger.table({
         message:'no user data'
       })
@@ -78,10 +76,7 @@ class App extends Component {
         overflow: 'auto',
       }
     }
-    Logger.table({
-      message:'App started'
-    })
-    return(
+    return (
       <React.Fragment>
       <AppBar color="primary" position='sticky'>
       <Toolbar>
