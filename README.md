@@ -5,6 +5,7 @@
 ## AUTH Service
 * [X] Login Auth Service
 * [ ] Check what axios-router-dom does
+* [X] Refresh Token Check on Page Load in App.js
 
 ## Debugging
 * [X] Logger Factory
