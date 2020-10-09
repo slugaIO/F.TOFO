@@ -3,4 +3,4 @@
 * [X] Register
 
 ## AUTH Service
-* [X] Login Auth Service
+* [X] Login Auth Service (Axios Implementation)
