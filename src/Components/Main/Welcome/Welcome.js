@@ -2,10 +2,6 @@ import React from 'react';
 import {Container, Typography } from '@material-ui/core';
 
 class Welcome extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render() {
         return(
             <React.Fragment>
