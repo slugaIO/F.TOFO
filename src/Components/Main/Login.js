@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-
+import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
 class Login extends React.Component {
@@ -31,25 +31,16 @@ class Login extends React.Component {
         this.setState({
             showSpinner:true
         });
-        AuthService.userLogin(this.state.email,this.state.password).then( (resolve) => {
-            this.setState({
-                showSpinner:false
-            });
-            this.updateState({
-                access:{
-                    accessToken:resolve.token.accessToken,
-                    refreshToken:resolve.token.refreshToken,
-                    isAuthorized:true
-                },
-                navigation:{
-                    dashboard:true
-                }
-            })
-        }).catch( (error) => {
-            this.setState({
-                showSpinner:false,
-                loginError:true
-            });
+        AuthService.userLogin(this.state.email, this.state.password)
+        .then( (response) => {
+            const userData  = response.data.user;
+            const tokenData = response.data.token;
+            Logger.table({message:'Login Data', userData:userData});
+            Logger.table({message:'Token Data', tokenData:tokenData});
+            this.setState({showSpinner:false});
+        })
+        .catch( (data) => {
+            this.setState({showSpinner:false,loginError:true});
         });
     }
     render() { 

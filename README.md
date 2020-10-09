@@ -8,3 +8,4 @@
 
 ## Debugging
 * [X] Logger Factory
+* [X] Login Auth Service (Axios Implementation)
