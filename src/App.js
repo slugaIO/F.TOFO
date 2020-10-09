@@ -9,11 +9,9 @@ import AuthService from './services/api/auth.service'
 import Logger from './services/debug/logger'
 import Login from './Components/Main/Login'
 import Register from './Components/Main/Register'
-import MenuTop from './Components/Main/TopNavigation'
+import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
-// import Welcome from './Components/Main/Welcome/WelcomeScreen'
-// import Dashboard from './Components/Main/Dashboard/Dashboard'
 
 import './App.css';
 

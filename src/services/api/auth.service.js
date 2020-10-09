@@ -22,6 +22,24 @@ class AuthService{
     getAuthCookieData = () => {
         return JSON.parse(localStorage.getItem(this.COOKIE_ID));
     }
+    removeAuthCookie = () => {
+        const API_URL    = `${this.API_URL}/api/user/logout`;
+        const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
+        const data       = JSON.stringify({
+            "token":`${cookieData.token.refreshToken}`,
+            "user":`${cookieData.user.id}`
+        });
+        const config  = {
+            method:'post',
+            url:API_URL,
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            data:data
+        };
+        localStorage.removeItem(this.COOKIE_ID);
+        return axios(config);  
+    }
     authCheck = () => {
         const API_URL    = `${this.API_URL}/api/user/token-validation`;
         const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
