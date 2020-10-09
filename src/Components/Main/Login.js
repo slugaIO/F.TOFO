@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 
+import AuthService from '../../services/api/auth.service'
+
 class Login extends React.Component {
     state = {
         email:'',
@@ -28,55 +30,29 @@ class Login extends React.Component {
     doLogin = () =>  {
         this.setState({
             showSpinner:true
-        })
-        const API_URL = `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/user/login`;
-        const data    = JSON.stringify({"email":`${this.state.email}`,"password":`${this.state.password}`});
-        const config  = {
-            method:'post',
-            url:API_URL,
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            data:data
-        };
-        axios(config)
-        .then( (response) => {
-            if(response.data.success){
-                const accessToken  = response.data.tokens.accessToken || '';
-                const refreshToken = response.data.tokens.refreshToken || '';
-                this.setState({
-                    showSpinner:false
-                })
-                localStorage.setItem("sluga.io-ToDo", JSON.stringify(response.data));
-                const storage = JSON.parse(localStorage.getItem('sluga.io-ToDo'));
-                console.table(storage);
-                this.updateState({
-                    access:{
-                        accessToken:accessToken,
-                        refreshToken:refreshToken,
-                        isAuthorized:true
-                    },
-                    navigation:{
-                        dashboard:true
-                    }
-                });
-            }else{
-                this.setState({
-                    loginError:true,
-                    showSpinner:false
-                })
-            }
-        })
-        .catch( (error) => {
-            const success = error.response.data.success;
-            const status  = error.response.status;
+        });
+        AuthService.userLogin(this.state.email,this.state.password).then( (resolve) => {
             this.setState({
-                loginError:true,
                 showSpinner:false
+            });
+            this.updateState({
+                access:{
+                    accessToken:resolve.token.accessToken,
+                    refreshToken:resolve.token.refreshToken,
+                    isAuthorized:true
+                },
+                navigation:{
+                    dashboard:true
+                }
             })
+        }).catch( (error) => {
+            this.setState({
+                showSpinner:false,
+                loginError:true
+            });
         });
     }
-    render() {
+    render() { 
         const style = {
             padding:{
                 paddingLeft:'10px'
