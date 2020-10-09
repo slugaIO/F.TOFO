@@ -33,11 +33,13 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
-            const userData  = response.data.user;
+            const userData  = {user:response.data.user};
             const tokenData = response.data.token;
             Logger.table({message:'Login Data', userData:userData});
             Logger.table({message:'Token Data', tokenData:tokenData});
             this.setState({showSpinner:false});
+            const cookieData = {...userData,tokenData};
+            AuthService.setAuthCookieData(cookieData);
         })
         .catch( (data) => {
             this.setState({showSpinner:false,loginError:true});

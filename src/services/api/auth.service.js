@@ -15,38 +15,6 @@ class AuthService{
             data:data
         };
         return axios(config);
-        /**
-        .then( (response) => {
-            if(response.data.success){
-                const accessToken  = response.data.tokens.accessToken || '';
-                const refreshToken = response.data.tokens.refreshToken || '';
-                return new Promise( (resolve, reject) => {
-                    const cookieData = {
-                        success:true,
-                        token:{
-                            accessToken:accessToken,
-                            refreshToken:refreshToken
-                        }
-                    }
-                    this.setAuthCookieData(cookieData);
-                    resolve(cookieData);
-                });
-            }else{
-                return new Promise( (resolve, reject) => {
-                    reject({
-                        success:false
-                    })
-                })
-            }
-        })
-        .catch( (error) => {
-            return new Promise((resolve, reject) => {
-                reject({
-                    success:false
-                })
-            })
-        });
-        **/
     }
     setAuthCookieData = (cookieData) => {
         localStorage.setItem(this.COOKIE_ID, JSON.stringify(cookieData));
