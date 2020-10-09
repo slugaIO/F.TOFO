@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 class AuthService{
+    API_URL   =  `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
+    COOKIE_ID = 'sluga.io-TODO';
     userLogin = async (email,password) => {
-        const API_URL = `//${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/user/login`;
+        const API_URL = `${this.API_URL}/api/user/login`;
         const data    = JSON.stringify({"email":`${email}`,"password":`${password}`});
         const config  = {
             method:'post',
@@ -18,13 +20,15 @@ class AuthService{
                 const accessToken  = response.data.tokens.accessToken || '';
                 const refreshToken = response.data.tokens.refreshToken || '';
                 return new Promise( (resolve, reject) => {
-                    resolve({
+                    const cookieData = {
                         success:true,
                         token:{
                             accessToken:accessToken,
                             refreshToken:refreshToken
                         }
-                    })
+                    }
+                    this.setAuthCookieData(cookieData);
+                    resolve(cookieData);
                 });
             }else{
                 return new Promise( (resolve, reject) => {
@@ -41,6 +45,9 @@ class AuthService{
                 })
             })
         });
+    }
+    setAuthCookieData = (cookieData) => {
+        localStorage.setItem(COOKIE_ID, JSON.stringify(cookieData));
     }
 }
 
