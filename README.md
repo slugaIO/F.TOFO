@@ -12,3 +12,6 @@
 ## Debugging
 * [X] Logger Factory
 * [X] Login Auth Service (Axios Implementation)
+
+## DEPLOY
+* [X] 10.10.2020 --> branch warnings-remove in develop
