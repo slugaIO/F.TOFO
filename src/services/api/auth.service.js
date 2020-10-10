@@ -45,6 +45,7 @@ class AuthService{
     getCookieData = () => {
         const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
         if( typeof cookieData === 'undefined' ||
+            cookieData === null ||
             !cookieData.token || 
             !cookieData.token.accessToken   ||
             !cookieData.token.refreshToken  || 

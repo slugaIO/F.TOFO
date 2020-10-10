@@ -4,6 +4,7 @@ import Footer from 'react-footer-comp'
 import AuthService from '../../../services/api/auth.service'
 import {Redirect} from 'react-router-dom'
 
+import MainView from './main-view'
 
 
 class Dashboard extends React.Component{
@@ -29,8 +30,7 @@ class Dashboard extends React.Component{
                 { this.props.isLoggedIn === false ? <Redirect to='/' />:
                   this.state.initDone   === false ? this.checkUserCookie():
                   <React.Fragment>
-
-
+                  <MainView/>
                     <Footer 
                     text={`userID ${this.state.cookie.user.id} refreshToken ${this.state.cookie.token.refreshToken} <br/> ${this.state.cookie.token.accessToken}`}
                     />
