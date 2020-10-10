@@ -40,6 +40,9 @@ class App extends Component {
    * 1. Cookie Daten auslesen
    */
   componentDidMount(){
+    Logger.table({
+      message:'App mounted'
+    })
     // Prüfen ob das Cookie existiert
     const cookieData = AuthService.getCookieData();
     if(!cookieData) return 
