@@ -12,3 +12,6 @@
 ## Debugging
 * [X] Logger Factory
 * [X] Login Auth Service (Axios Implementation)
+
+## Security
+* [X] Check Token in Dashboard Component
