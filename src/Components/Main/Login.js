@@ -19,6 +19,12 @@ class Login extends React.Component {
     }
     constructor(props){
         super(props);
+       this.handleLogin = this.props.handleLogin;
+    }
+    updateState(object){
+        // TODO Update parent component
+        this.props.handleLogin(object);
+        //this.props.history.push('/dashboard');  
     }
     setValue(property,val){
         this.setState({
@@ -31,23 +37,27 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
-            console.log(response);
             const user  = response.data.user;
             const token = response.data.token;
             Logger.table({message:'Login Data', userData:user});
             Logger.table({message:'Token Data', tokenData:token});
             this.setState({showSpinner:false});
             AuthService.setAuthCookieData({user,token});
-            this.props.history.push('/dashboard');
-            // TODO logout in Navi anzeigen
             this.updateState({
                 access:{
                     isAuthorized:true
-                }
+                },
+                loggedInStatus:'OK'
             })
-            
+            // this.props.updateState({
+            //     access:{
+            //         isAuthorized:true
+            //     }
+            // })  
         })
-        .catch( (data) => {
+        .catch( (error) => {
+            console.log("login-Error");
+            console.log(error);
             this.setState({showSpinner:false,loginError:true});
         });
     }

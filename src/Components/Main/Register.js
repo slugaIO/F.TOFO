@@ -17,7 +17,6 @@ class Register extends React.Component {
     }
     constructor(props){
         super(props);
-        this.updateState = this.props.updateState;
     }
     setValue(property,val){
         this.setState({
@@ -96,7 +95,7 @@ class Register extends React.Component {
         <Container maxWidth="sm">
             <Paper style={style.padding}>
                 <Typography variant="h6" style={style.title}>
-                     Register
+                     Register {this.props.loggedInStatus}
                 </Typography>
                 <div style={style.margin}>
                     <Grid container spacing={8} alignItems="flex-end">

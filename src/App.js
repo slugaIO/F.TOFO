@@ -20,6 +20,7 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props);
+    this.handleLogin = this.handleLogin.bind(this);
   }
   state = {
     loggedInStatus:'NOT_LOGGED_IN',
@@ -31,6 +32,12 @@ class App extends Component {
   }
   updateState = (object) =>{
     this.setState(object);
+  }
+
+  handleLogin(object){
+    this.setState({
+      isAuthorized:true
+    })
   }
 
   componentDidMount(){
@@ -113,7 +120,7 @@ class App extends Component {
           
           this.state.navigation === null && this.state.access === null ?
           null:
-          <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
+          <MenuTop updateState={this.updateState.bind(this)}  isAuthorized={this.state.access.isAuthorized} />
         }
 
       </Toolbar>
@@ -141,10 +148,17 @@ class App extends Component {
             path='/login' 
             exact 
             render={props => (
-                <Login {...props}  loggedInStatus={this.state.loggedInStatus} />
+                <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />
             )}
           />
-         <Route path='/register' exact component={Register} />
+         <Route 
+            path='/register' 
+            exact 
+            render={props => (
+                <Register {...props} loggedInStatus={this.state.loggedInStatus} />
+              )
+            }
+          />
          <Route path='/dashboard' exact component={Dashboard} />
      </Switch>
      </Router>
