@@ -17,6 +17,8 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 import './App.css';
 
+require('dotenv').config();
+
 class App extends Component {
   constructor(props){
     super(props);
