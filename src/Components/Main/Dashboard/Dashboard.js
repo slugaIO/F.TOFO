@@ -7,21 +7,34 @@ class Dashboard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            check:false
+            initDone:false
         }
     }
-    componentDidMount(){
-
-    }
-    componentDidUpdate(){
-        console.log("Component Update");
+    checkUserCookie(){
+        const cookieData = AuthService.getCookieData();
+        if(!cookieData){
+             this.props.onAuthChange(false);
+        }
+        this.setState({
+            initDone:true,
+            cookie:cookieData
+        });
     }
     render(){
         return(
             <React.Fragment>
-            { this.props.isLoggedIn === false ? <Redirect to='/' />:null }
-            { this.state.check === true ? <h1>TRUE</h1>:<h1>FALSE</h1>}
-            <h1>Dashboard {this.props.isLoggedIn === true ? 'JA' : 'NEIN'}</h1>
+                { this.props.isLoggedIn === false ? <Redirect to='/' />:
+                  this.state.initDone   === false ? this.checkUserCookie():
+                  <React.Fragment>
+                    <h1>Dashboard</h1>
+                    <span>
+                        userID : {this.state.cookie.user.id}
+                        eMail : {this.state.cookie.user.email}
+                        refreshToken : {this.state.cookie.token.refreshToken}
+                        accessToken: {this.state.cookie.token.accessToken}
+                    </span>
+                  </React.Fragment>
+                }
             </React.Fragment>
         )
     }
