@@ -5,6 +5,7 @@ import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import AuthService from '../../services/api/auth.service'
 
 // TODO add forgot password
 class Register extends React.Component {
@@ -17,7 +18,6 @@ class Register extends React.Component {
     }
     constructor(props){
         super(props);
-        this.updateState = this.props.updateState;
     }
     setValue(property,val){
         this.setState({
@@ -40,41 +40,25 @@ class Register extends React.Component {
         };
         axios(config)
         .then( (response) => {
-            if(response.data.success && response.data && response.data.tokens){
-                const accessToken  = response.data.tokens.accessToken || '';
-                const refreshToken = response.data.tokens.refreshToken || '';
-                this.setState({
-                    showSpinner:false
-                })
-                this.updateState({
-                    access:{
-                        accessToken:accessToken,
-                        refreshToken:refreshToken,
-                        isAuthorized:true
-                    },
-                    navigation:{
-                        dashboard:true
-                    }
-                });
-            }else{
-                this.setState({
-                    registrationError:true,
-                    showSpinner:false
-                })
+            console.log(`response : ${response.status}`)
+            if(response.status === 200){
+                console.log("create User");
+                AuthService.setAuthCookieData(response);
+                this.setState({showSpinner:false})
+                this.props.onAuthChange(true);
+            }
+            else{
+                console.log("response rrror");
+                this.setState({showSpinner:false,registrationError:true});
             }
         })
         .catch( (error) => {
-            this.setState({
-                showSpinner:false,
-                registrationError:true
-            })
+            console.log(error);
+            this.setState({showSpinner:false,registrationError:true})
         });
     }
     render() {
         const style = {
-            padding:{
-                paddingLeft:'10px'
-            },
             margin:{
                 paddingLeft:'10px'
             }
@@ -94,10 +78,12 @@ class Register extends React.Component {
      />
         <CssBaseline />
         <Container maxWidth="sm">
-            <Paper style={style.padding}>
                 <Typography variant="h6" style={style.title}>
-                     Register
+                    Register
                 </Typography>
+        </Container>
+        <Container maxWidth="sm">
+            <Paper>
                 <div style={style.margin}>
                     <Grid container spacing={8} alignItems="flex-end">
                         <Grid item>
@@ -125,7 +111,7 @@ class Register extends React.Component {
                     </Grid>
                 </div>
             </Paper>
-            </Container>
+        </Container>
         </React.Fragment>
         );
     }
