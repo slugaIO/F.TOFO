@@ -11,25 +11,24 @@ import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
 class Login extends React.Component {
-    state = {
-        email:'',
-        password:'',
-        loginError:false,
-        showSpinner:false
-    }
-    constructor(props){
-        super(props);
-       this.handleLogin = this.props.handleLogin;
-    }
-    updateState(object){
-        // TODO Update parent component
-        this.props.handleLogin(object);
-        //this.props.history.push('/dashboard');  
+    constructor(){
+        super();
+        this.state = {
+            email:'',
+            password:'',
+            loginError:false,
+            showSpinner:false,
+            isAuthorized:undefined
+        }
     }
     setValue(property,val){
         this.setState({
             [property]:val.target.value
         })
+    }
+
+    onAuthChange(isAuthorized){
+        this.props.onAuthChange(this.state.isAuthorized);
     }
     doLogin = () =>  {
         this.setState({
@@ -43,12 +42,10 @@ class Login extends React.Component {
             Logger.table({message:'Token Data', tokenData:token});
             this.setState({showSpinner:false});
             AuthService.setAuthCookieData({user,token});
-            this.updateState({
-                access:{
-                    isAuthorized:true
-                },
-                loggedInStatus:'OK'
+            this.setState({
+                isAuthorized:true
             })
+            this.onAuthChange();
             // this.props.updateState({
             //     access:{
             //         isAuthorized:true
@@ -72,7 +69,6 @@ class Login extends React.Component {
         }
         return (
             <React.Fragment>
-            <h1>{this.props.loggedInStatus}</h1>
             <Loader
                 style={{
                     position: 'absolute', left: '50%', top: '50%',
@@ -87,7 +83,7 @@ class Login extends React.Component {
             <CssBaseline />
             <Container maxWidth="sm">
             <Typography variant="h6" style={style.title}>
-                Login
+                Login {this.props.isLoggedIn === true ? "logged in" : "logged out"}
             </Typography>
             </Container>
             <Container maxWidth="sm">

@@ -20,26 +20,25 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
   }
   state = {
     loggedInStatus:'NOT_LOGGED_IN',
+    isLoggedIn:false,
     user:{},
     access:{
       isAuthorized:false
     },
     navigation:null
   }
+
+  onAuthChange(isAuthorized){
+    this.setState({
+      isLoggedIn:isAuthorized
+    })
+  }
   updateState = (object) =>{
     this.setState(object);
   }
-
-  handleLogin(object){
-    this.setState({
-      isAuthorized:true
-    })
-  }
-
   componentDidMount(){
     const userData = AuthService.getAuthCookieData();
     if(!userData){
@@ -148,19 +147,20 @@ class App extends Component {
             path='/login' 
             exact 
             render={props => (
-                <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />
+                <Login {...props} isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
             )}
           />
          <Route 
             path='/register' 
             exact 
             render={props => (
-                <Register {...props} loggedInStatus={this.state.loggedInStatus} />
+                <Register {...props}  isLoggedIn={this.state.isLoggedIn} />
               )
             }
           />
          <Route path='/dashboard' exact component={Dashboard} />
      </Switch>
+     <h1>loggedIn {this.state.isLoggedIn === true ? 'logged in' : 'logged out'}</h1>
      </Router>
     </React.Fragment>
     )
