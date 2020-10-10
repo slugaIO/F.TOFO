@@ -14,6 +14,7 @@ import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import Footer from 'react-footer-comp'
 
 import './App.css';
 
@@ -126,8 +127,8 @@ class App extends Component {
          />
      </Switch>
      </Router>
-     <h1>Check { this.state.isLoggedIn === true ? 'JA' : 'NEIN'}</h1>
     </React.Fragment>
+   
     )
   }
 }
