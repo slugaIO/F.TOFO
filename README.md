@@ -10,3 +10,6 @@
 ## Debugging
 * [X] Logger Factory
 * [X] Login Auth Service (Axios Implementation)
+
+## Master
+* [X] 10.10.2020 Auth Login
