@@ -8,6 +8,7 @@
 * [X] Refresh Token Check on Page Load in App.js
 * [X] Cookie deleted after Logout in Local Storage and mongoDB
 * [X] One Flag in App.js to save if authorized
+* [ ] 
 
 ## Debugging
 * [X] Logger Factory
