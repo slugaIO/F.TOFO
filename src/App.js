@@ -26,7 +26,8 @@ class App extends Component {
   }
 
   onAuthChange(isAuthorized){
-    this.setState({
+      console.log("auth " + isAuthorized);
+      this.setState({
       isLoggedIn:isAuthorized
     })
   }
@@ -111,7 +112,7 @@ class App extends Component {
         </Typography>
         {
           
-          <MenuTop isLoggedIn={this.state.isLoggedIn}/>
+          <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
         }
 
       </Toolbar>
@@ -133,9 +134,16 @@ class App extends Component {
               )
             }
           />
-         <Route path='/dashboard' isLoggedIn={this.state.isLoggedIn} exact component={Dashboard} />
+         <Route path='/dashboard'  
+         exact
+         render={props => (
+              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  />
+          )
+         }
+         />
      </Switch>
      </Router>
+     <h1>Check { this.state.isLoggedIn === true ? 'JA' : 'NEIN'}</h1>
     </React.Fragment>
     )
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Paper,  Button, Container, Typography } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import {withRouter} from 'react-router-dom'
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -25,10 +26,6 @@ class Login extends React.Component {
             [property]:val.target.value
         })
     }
-
-    onAuthChange(isAuthorized){
-        this.props.onAuthChange(this.state.isAuthorized);
-    }
     doLogin = () =>  {
         this.setState({
             showSpinner:true
@@ -41,19 +38,10 @@ class Login extends React.Component {
             Logger.table({message:'Token Data', tokenData:token});
             this.setState({showSpinner:false});
             AuthService.setAuthCookieData({user,token});
-            this.setState({
-                isAuthorized:true
-            })
-            this.onAuthChange();
-            // this.props.updateState({
-            //     access:{
-            //         isAuthorized:true
-            //     }
-            // })  
+            this.props.onAuthChange(true);
+            this.props.history.push("/dashboard");
         })
         .catch( (error) => {
-            console.log("login-Error");
-            console.log(error);
             this.setState({showSpinner:false,loginError:true});
         });
     }
