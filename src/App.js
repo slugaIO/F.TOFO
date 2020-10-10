@@ -22,13 +22,7 @@ class App extends Component {
     super(props);
   }
   state = {
-    loggedInStatus:'NOT_LOGGED_IN',
-    isLoggedIn:false,
-    user:{},
-    access:{
-      isAuthorized:false
-    },
-    navigation:null
+    isLoggedIn:false
   }
 
   onAuthChange(isAuthorized){
@@ -117,30 +111,11 @@ class App extends Component {
         </Typography>
         {
           
-          this.state.navigation === null && this.state.access === null ?
-          null:
-          <MenuTop updateState={this.updateState.bind(this)}  isAuthorized={this.state.access.isAuthorized} />
+          <MenuTop isLoggedIn={this.state.isLoggedIn}/>
         }
 
       </Toolbar>
     </AppBar>
-    
-    <Toolbar /> 
-    {
-      /**
-      this.state.navigation === null ?
-      null:
-      this.state.navigation.welcome === true ?
-      <Welcome/>
-      :this.state.navigation.login === true ?
-      <Login  updateState={this.updateState.bind(this)} ></Login>
-      :this.state.navigation.register === true ?
-      <Register  updateState={this.updateState.bind(this)}  />
-      :this.state.access.isAuthorized === true && this.state.navigation.dashboard === true ?
-      <Dashboard/>
-      :null
-      **/
-    }
      <Switch>
          <Route path='/' exact component={Welcome} />
          <Route 
@@ -158,9 +133,8 @@ class App extends Component {
               )
             }
           />
-         <Route path='/dashboard' exact component={Dashboard} />
+         <Route path='/dashboard' isLoggedIn={this.state.isLoggedIn} exact component={Dashboard} />
      </Switch>
-     <h1>loggedIn {this.state.isLoggedIn === true ? 'logged in' : 'logged out'}</h1>
      </Router>
     </React.Fragment>
     )

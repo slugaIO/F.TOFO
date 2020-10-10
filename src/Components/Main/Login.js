@@ -17,8 +17,7 @@ class Login extends React.Component {
             email:'',
             password:'',
             loginError:false,
-            showSpinner:false,
-            isAuthorized:undefined
+            showSpinner:false
         }
     }
     setValue(property,val){
@@ -82,12 +81,10 @@ class Login extends React.Component {
              />
             <CssBaseline />
             <Container maxWidth="sm">
-            <Typography variant="h6" style={style.title}>
-                Login {this.props.isLoggedIn === true ? "logged in" : "logged out"}
-            </Typography>
-            </Container>
-            <Container maxWidth="sm">
-            <Paper style={style.padding}>
+                <Paper style={style.padding}>
+                    <Typography variant="h6" style={style.title}>
+                        Login 
+                    </Typography>
                 <div style={style.margin}>
                     <Grid container spacing={8} alignItems="flex-end">
                         <Grid item>

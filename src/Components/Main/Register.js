@@ -17,7 +17,6 @@ class Register extends React.Component {
     }
     constructor(props){
         super(props);
-        console.log(props);
     }
     setValue(property,val){
         this.setState({
@@ -72,16 +71,12 @@ class Register extends React.Component {
     }
     render() {
         const style = {
-            padding:{
-                paddingLeft:'10px'
-            },
             margin:{
                 paddingLeft:'10px'
             }
         }
     return (
         <React.Fragment>
-        <h1>{this.props.isLoggedIn ===true ? 'true':'false'}</h1>
         <Loader
         style={{
             position: 'absolute', left: '50%', top: '50%',
@@ -95,10 +90,12 @@ class Register extends React.Component {
      />
         <CssBaseline />
         <Container maxWidth="sm">
-            <Paper style={style.padding}>
                 <Typography variant="h6" style={style.title}>
-                    Register {this.props.isLoggedIn === true ? "logged in" : "logged out"}
+                    Register
                 </Typography>
+        </Container>
+        <Container maxWidth="sm">
+            <Paper>
                 <div style={style.margin}>
                     <Grid container spacing={8} alignItems="flex-end">
                         <Grid item>
@@ -126,7 +123,7 @@ class Register extends React.Component {
                     </Grid>
                 </div>
             </Paper>
-            </Container>
+        </Container>
         </React.Fragment>
         );
     }
