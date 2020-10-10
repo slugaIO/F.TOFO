@@ -7,6 +7,7 @@
 * [ ] Check what axios-router-dom does
 * [X] Refresh Token Check on Page Load in App.js
 * [X] Cookie deleted after Logout in Local Storage and mongoDB
+* [ ] https://www.youtube.com/watch?v=zSt5G3s3OJI Check this out
 
 ## Debugging
 * [X] Logger Factory
