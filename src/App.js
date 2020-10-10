@@ -83,7 +83,7 @@ class App extends Component {
       <Router>
       { 
         // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        this.state.isLoggedIn ? <Redirect to='/dashboard?=1'/>:<Redirect to='/?logout'/> 
+        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:<Redirect to='/?logout'/> 
       }
       <AppBar color="primary" position='sticky'>
       <Toolbar>
