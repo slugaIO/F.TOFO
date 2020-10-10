@@ -32,14 +32,13 @@ class Login extends React.Component {
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
             // TODO checken ob response gültig ist
-            const user  = response.data.user;
-            const token = response.data.token;
-            Logger.table({message:'Login Data', userData:user});
-            Logger.table({message:'Token Data', tokenData:token});
-            this.setState({showSpinner:false});
-            AuthService.setAuthCookieData({user,token});
-            this.props.onAuthChange(true);
-            this.props.history.push("/dashboard");
+            if(response.status === 200){
+               this.setState({showSpinner:false});
+               AuthService.setAuthCookieData(response);
+               this.props.onAuthChange(true);
+            }else{
+                this.setState({showSpinner:false,loginError:true});
+            }
         })
         .catch( (error) => {
             this.setState({showSpinner:false,loginError:true});

@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   onAuthChange(isAuthorized){
-      console.log("auth " + isAuthorized);
       this.setState({
       isLoggedIn:isAuthorized
     })
@@ -82,7 +81,10 @@ class App extends Component {
     return (
       <React.Fragment>
       <Router>
-      { this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null }
+      { 
+        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
+        this.state.isLoggedIn ? <Redirect to='/dashboard?=1'/>:<Redirect to='/?logout'/> 
+      }
       <AppBar color="primary" position='sticky'>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
@@ -111,7 +113,7 @@ class App extends Component {
             path='/register' 
             exact 
             render={props => (
-                <Register {...props}  isLoggedIn={this.state.isLoggedIn} />
+                <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
               )
             }
           />

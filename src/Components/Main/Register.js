@@ -40,18 +40,22 @@ class Register extends React.Component {
         };
         axios(config)
         .then( (response) => {
-            if(response.status ===  200){
+            console.log(`response : ${response.status}`)
+            if(response.status === 200){
+                console.log("create User");
                 AuthService.setAuthCookieData(response);
-                this.props.onAuthChange(true);
                 this.setState({showSpinner:false})
-                this.props.history.push("/dashboard");
+                this.props.onAuthChange(true);
             }
             else{
+                console.log("response rrror");
                 this.setState({showSpinner:false,registrationError:true});
             }
         })
         .catch( (error) => {
-            this.setState({showSpinner:false,registrationError:true})});
+            console.log(error);
+            this.setState({showSpinner:false,registrationError:true})
+        });
     }
     render() {
         const style = {

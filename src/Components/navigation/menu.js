@@ -12,15 +12,14 @@ class TopNavigation extends React.Component{
         super(props);
     }
     logout = () => {
-         AuthService.removeAuthCookie()
-         .then((res) => {
-             Logger.table({
-                 message:'logged out',
-                 data:'deleted'
-             })
+        AuthService.removeAuthCookie()
+        .then((res) => {
+            this.props.onAuthChange(false);
+        })
+        .catch((error) => {
+            this.props.onAuthChange(false);
         });
-        this.props.onAuthChange(false);
-        this.props.history.push("/");
+        
     }
     render(){
         return(
