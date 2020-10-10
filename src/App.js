@@ -12,8 +12,10 @@ import Register from './Components/Main/Register'
 import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
-
+import BottomNavigation from '@material-ui/core/BottomNavigation';
 import './App.css';
+
+require('dotenv').config();
 
 class App extends Component {
 
@@ -123,6 +125,16 @@ class App extends Component {
       :this.state.access.isAuthorized === true && this.state.navigation.dashboard === true ?
       <Dashboard/>
       :null
+    }
+    {
+      process.env.REACT_APP_DEBUG_MODE=== true ? 
+      <span>
+        LoggedIn:{this.state.isAuthorized === true ? "YES": "NO"}
+      </span>
+      :
+      <span>
+      LoggedIn:{this.state.isAuthorized === true ? "YES": "NO"}
+    </span>
     }
     </React.Fragment>
     )
