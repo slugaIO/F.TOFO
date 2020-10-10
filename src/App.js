@@ -120,7 +120,7 @@ class App extends Component {
          <Route path='/dashboard'  
          exact
          render={props => (
-              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  />
+              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  onAuthChange={this.onAuthChange.bind(this)}  />
           )
          }
          />
