@@ -13,11 +13,17 @@ import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+
 import './App.css';
 
 class App extends Component {
-
+  constructor(props){
+    super(props);
+  }
   state = {
+    loggedInStatus:'NOT_LOGGED_IN',
+    user:{},
     access:{
       isAuthorized:false
     },
@@ -94,6 +100,7 @@ class App extends Component {
     }
     return (
       <React.Fragment>
+      <Router>
       <AppBar color="primary" position='sticky'>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
@@ -103,15 +110,18 @@ class App extends Component {
           ToDo
         </Typography>
         {
+          
           this.state.navigation === null && this.state.access === null ?
-          null:<MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
+          null:
+          <MenuTop updateState={this.updateState.bind(this)} isAuthorized={this.state.access.isAuthorized} />
         }
-        
+
       </Toolbar>
     </AppBar>
     
     <Toolbar /> 
     {
+      /**
       this.state.navigation === null ?
       null:
       this.state.navigation.welcome === true ?
@@ -123,7 +133,21 @@ class App extends Component {
       :this.state.access.isAuthorized === true && this.state.navigation.dashboard === true ?
       <Dashboard/>
       :null
+      **/
     }
+     <Switch>
+         <Route path='/' exact component={Welcome} />
+         <Route 
+            path='/login' 
+            exact 
+            render={props => (
+                <Login {...props}  loggedInStatus={this.state.loggedInStatus} />
+            )}
+          />
+         <Route path='/register' exact component={Register} />
+         <Route path='/dashboard' exact component={Dashboard} />
+     </Switch>
+     </Router>
     </React.Fragment>
     )
   }

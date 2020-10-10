@@ -19,7 +19,6 @@ class Login extends React.Component {
     }
     constructor(props){
         super(props);
-        this.updateState = this.props.updateState;
     }
     setValue(property,val){
         this.setState({
@@ -32,21 +31,21 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
+            console.log(response);
             const user  = response.data.user;
             const token = response.data.token;
             Logger.table({message:'Login Data', userData:user});
             Logger.table({message:'Token Data', tokenData:token});
             this.setState({showSpinner:false});
             AuthService.setAuthCookieData({user,token});
+            this.props.history.push('/dashboard');
+            // TODO logout in Navi anzeigen
             this.updateState({
                 access:{
                     isAuthorized:true
-                },
-                navigation:{
-                    dashboard:true
-                },
-                user:user
+                }
             })
+            
         })
         .catch( (data) => {
             this.setState({showSpinner:false,loginError:true});
@@ -63,6 +62,7 @@ class Login extends React.Component {
         }
         return (
             <React.Fragment>
+            <h1>{this.props.loggedInStatus}</h1>
             <Loader
                 style={{
                     position: 'absolute', left: '50%', top: '50%',

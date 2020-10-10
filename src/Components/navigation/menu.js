@@ -5,6 +5,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
+import {Link, Redirect} from 'react-router-dom'
+
 class TopNavigation extends React.Component{
     state = {
         isAuthorized : false
@@ -49,6 +51,7 @@ class TopNavigation extends React.Component{
                 isAuthorized:false
             }
         });
+        this.props.history.push('/dashboard');
     }
     componentWillReceiveProps(props){
         Logger.table({
@@ -68,8 +71,13 @@ class TopNavigation extends React.Component{
                 </React.Fragment>
                 :
                 <React.Fragment>
-                  <Button color="inherit" onClick={this.login}>Login</Button>
-                  <Button color="inherit" onClick={this.register}>Register</Button>
+                  <Link to='/login'>
+                        <Button color="inherit" onClick={this.login}>Login</Button>
+                  </Link>
+                  <Link to='/register'>
+                        <Button color="inherit" onClick={this.register}>Register</Button>
+                  </Link>
+                  
                 </React.Fragment>
             }
             </React.Fragment>
