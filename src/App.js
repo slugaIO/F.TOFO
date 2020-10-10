@@ -22,9 +22,9 @@ require('dotenv').config();
 class App extends Component {
   constructor(props){
     super(props);
-  }
-  state = {
-    isLoggedIn:false
+    this.state = {
+      isLoggedIn:false
+    }
   }
 
   onAuthChange(isAuthorized){
