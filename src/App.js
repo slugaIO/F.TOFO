@@ -14,6 +14,7 @@ import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import Footer from 'react-footer-comp'
 
 import './App.css';
 
@@ -22,9 +23,9 @@ require('dotenv').config();
 class App extends Component {
   constructor(props){
     super(props);
-  }
-  state = {
-    isLoggedIn:false
+    this.state = {
+      isLoggedIn:false
+    }
   }
 
   onAuthChange(isAuthorized){
@@ -83,7 +84,7 @@ class App extends Component {
       <Router>
       { 
         // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        this.state.isLoggedIn ? <Redirect to='/dashboard?=1'/>:<Redirect to='/?logout'/> 
+        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:<Redirect to='/?logout'/> 
       }
       <AppBar color="primary" position='sticky'>
       <Toolbar>
@@ -120,14 +121,14 @@ class App extends Component {
          <Route path='/dashboard'  
          exact
          render={props => (
-              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  />
+              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  onAuthChange={this.onAuthChange.bind(this)}  />
           )
          }
          />
      </Switch>
      </Router>
-     <h1>Check { this.state.isLoggedIn === true ? 'JA' : 'NEIN'}</h1>
     </React.Fragment>
+   
     )
   }
 }

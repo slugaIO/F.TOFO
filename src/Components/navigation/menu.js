@@ -2,14 +2,13 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
-
-import {Link, Redirect, withRouter } from 'react-router-dom'
+import {Link, withRouter } from 'react-router-dom'
 
 class TopNavigation extends React.Component{
     constructor(props){
         super(props);
+        this.state = {}
     }
     logout = () => {
         AuthService.removeAuthCookie()
@@ -19,7 +18,6 @@ class TopNavigation extends React.Component{
         .catch((error) => {
             this.props.onAuthChange(false);
         });
-        
     }
     render(){
         return(
