@@ -2,7 +2,6 @@ import React from 'react';
 import { Paper,  Button, Container, Typography } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {withRouter} from 'react-router-dom'
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -32,6 +31,7 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
+            // TODO checken ob response gültig ist
             const user  = response.data.user;
             const token = response.data.token;
             Logger.table({message:'Login Data', userData:user});

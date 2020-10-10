@@ -16,8 +16,10 @@ class AuthService{
         };
         return axios(config);
     }
-    setAuthCookieData = (cookieData) => {
-        localStorage.setItem(this.COOKIE_ID, JSON.stringify(cookieData));
+    setAuthCookieData = (apiResponse) => {
+        const user   = apiResponse.data.user;
+        const token  = apiResponse.data.token;
+        localStorage.setItem(this.COOKIE_ID, JSON.stringify({user,token}));
     }
     getAuthCookieData = () => {
         return JSON.parse(localStorage.getItem(this.COOKIE_ID));

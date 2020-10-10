@@ -5,6 +5,7 @@ import { Face, Fingerprint } from '@material-ui/icons'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import AuthService from '../../services/api/auth.service'
 
 // TODO add forgot password
 class Register extends React.Component {
@@ -39,35 +40,18 @@ class Register extends React.Component {
         };
         axios(config)
         .then( (response) => {
-            if(response.data.success && response.data && response.data.tokens){
-                const accessToken  = response.data.tokens.accessToken || '';
-                const refreshToken = response.data.tokens.refreshToken || '';
-                this.setState({
-                    showSpinner:false
-                })
-                this.updateState({
-                    access:{
-                        accessToken:accessToken,
-                        refreshToken:refreshToken,
-                        isAuthorized:true
-                    },
-                    navigation:{
-                        dashboard:true
-                    }
-                });
-            }else{
-                this.setState({
-                    registrationError:true,
-                    showSpinner:false
-                })
+            if(response.status ===  200){
+                AuthService.setAuthCookieData(response);
+                this.props.onAuthChange(true);
+                this.setState({showSpinner:false})
+                this.props.history.push("/dashboard");
+            }
+            else{
+                this.setState({showSpinner:false,registrationError:true});
             }
         })
         .catch( (error) => {
-            this.setState({
-                showSpinner:false,
-                registrationError:true
-            })
-        });
+            this.setState({showSpinner:false,registrationError:true})});
     }
     render() {
         const style = {

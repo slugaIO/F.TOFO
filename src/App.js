@@ -37,6 +37,7 @@ class App extends Component {
     this.setState(object);
   }
   componentDidMount(){
+    /**
     const userData = AuthService.getAuthCookieData();
     if(!userData){
       this.setState({
@@ -75,6 +76,7 @@ class App extends Component {
         });
       })
     }
+    **/
   }
 
   render() {
