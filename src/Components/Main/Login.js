@@ -11,15 +11,14 @@ import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
 class Login extends React.Component {
-    state = {
-        email:'',
-        password:'',
-        loginError:false,
-        showSpinner:false
-    }
     constructor(props){
         super(props);
-        this.updateState = this.props.updateState;
+        this.state = {
+            email:'',
+            password:'',
+            loginError:false,
+            showSpinner:false
+        }
     }
     setValue(property,val){
         this.setState({
@@ -32,23 +31,16 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
-            const user  = response.data.user;
-            const token = response.data.token;
-            Logger.table({message:'Login Data', userData:user});
-            Logger.table({message:'Token Data', tokenData:token});
-            this.setState({showSpinner:false});
-            AuthService.setAuthCookieData({user,token});
-            this.updateState({
-                access:{
-                    isAuthorized:true
-                },
-                navigation:{
-                    dashboard:true
-                },
-                user:user
-            })
+            // TODO checken ob response gültig ist
+            if(response.status === 200){
+               this.setState({showSpinner:false});
+               AuthService.setAuthCookieData(response);
+               this.props.onAuthChange(true);
+            }else{
+                this.setState({showSpinner:false,loginError:true});
+            }
         })
-        .catch( (data) => {
+        .catch( (error) => {
             this.setState({showSpinner:false,loginError:true});
         });
     }
@@ -76,12 +68,10 @@ class Login extends React.Component {
              />
             <CssBaseline />
             <Container maxWidth="sm">
-            <Typography variant="h6" style={style.title}>
-                Login
-            </Typography>
-            </Container>
-            <Container maxWidth="sm">
-            <Paper style={style.padding}>
+                <Paper style={style.padding}>
+                    <Typography variant="h6" style={style.title}>
+                        Login 
+                    </Typography>
                 <div style={style.margin}>
                     <Grid container spacing={8} alignItems="flex-end">
                         <Grid item>

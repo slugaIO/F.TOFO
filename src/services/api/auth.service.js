@@ -16,16 +16,52 @@ class AuthService{
         };
         return axios(config);
     }
-    setAuthCookieData = (cookieData) => {
-        localStorage.setItem(this.COOKIE_ID, JSON.stringify(cookieData));
+    setAuthCookieData = (apiResponse) => {
+        const user   = apiResponse.data.user;
+        const token  = apiResponse.data.token;
+        localStorage.setItem(this.COOKIE_ID, JSON.stringify({user,token}));
     }
-    getAuthCookieData = () => {
-        return JSON.parse(localStorage.getItem(this.COOKIE_ID));
-    }
-    authCheck = () => {
-        const API_URL    = `${this.API_URL}/api/user/token-validation`;
+    removeAuthCookie = () => {
+        const API_URL    = `${this.API_URL}/api/user/logout`;
         const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
-        const data       = JSON.stringify({"token":`${cookieData.token.refreshToken}`});
+        const data       = JSON.stringify({
+            "token":`${cookieData.token.refreshToken}`,
+            "user":`${cookieData.user.id}`
+        });
+        const config  = {
+            method:'post',
+            url:API_URL,
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            data:data
+        };
+        localStorage.removeItem(this.COOKIE_ID);
+        return axios(config);  
+    }
+    /**
+     * return App Cookie or null
+     */
+    getCookieData = () => {
+        const cookieExist = document.cookie.indexOf(this.COOKIE_ID);
+        if(cookieExist < 1){
+            return null;
+        }
+        const cookieData = JSON.parse(localStorage.getItem(this.COOKIE_ID));
+        if( !cookieData.token || 
+            !cookieData.token.accessToken   ||
+            !cookieData.token.refreshToken  || 
+            !cookieData.user || 
+            !cookieData.user.email ||
+            !cookieData.user.id
+        ){
+            return null;
+        }
+        return cookieData;
+    }
+    authCheck = (refreshToken) => {
+        const API_URL    = `${this.API_URL}/api/user/token-validation`;
+        const data       = JSON.stringify({"token":`${refreshToken}`});
         const config  = {
             method:'post',
             url:API_URL,

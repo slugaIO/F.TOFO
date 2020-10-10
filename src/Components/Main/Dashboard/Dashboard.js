@@ -1,19 +1,17 @@
 import React from 'react';
 
 import AuthService from '../../../services/api/auth.service'
+import {Redirect} from 'react-router-dom'
 
 class Dashboard extends React.Component{
-    componentDidMount(){
-        AuthService.authCheck().then( (resolve) => {
-           // TOOO whats next
-        }).catch( (error) => {
-           // TOOO whats next
-        });
+    constructor(props){
+        super(props);
     }
     render() {
         return(
             <React.Fragment>
-            <h1>Dashboard</h1>
+            { this.props.isLoggedIn === false ? <Redirect to='/' />:null }
+            <h1>Dashboard {this.props.isLoggedIn === true ? 'JA' : 'NEIN'}</h1>
             </React.Fragment>
         )
     }
