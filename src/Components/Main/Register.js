@@ -9,15 +9,15 @@ import AuthService from '../../services/api/auth.service'
 
 // TODO add forgot password
 class Register extends React.Component {
-    state = {
-        email:'',
-        password:'',
-        gender:'', 
-        registrationError:false,
-        showSpinner:false
-    }
     constructor(props){
         super(props);
+        this.state = {
+            email:'',
+            password:'',
+            gender:'', 
+            registrationError:false,
+            showSpinner:false
+        }
     }
     setValue(property,val){
         this.setState({

@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
 class Login extends React.Component {
@@ -31,7 +30,6 @@ class Login extends React.Component {
         });
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
-            // TODO checken ob response gültig ist
             if(response.status === 200){
                this.setState({showSpinner:false});
                AuthService.setAuthCookieData(response);
