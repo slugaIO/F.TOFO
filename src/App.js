@@ -13,7 +13,7 @@ import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 
 import './App.css';
 
@@ -36,47 +36,20 @@ class App extends Component {
   updateState = (object) =>{
     this.setState(object);
   }
+  /**
+   * 1. Cookie Daten auslesen
+   */
   componentDidMount(){
-    /**
-    const userData = AuthService.getAuthCookieData();
-    if(!userData){
-      this.setState({
-        access:{
-          isAuthorized:false
-        },
-        navigation:{
-          welcome:true
-        }
-      });
-    }else{
-      Logger.table({
-        message:'user data',
-        token:userData.token,
-        user:userData.user
-      })
-      AuthService.authCheck()
+    // Prüfen ob das Cookie existiert
+    const cookieData = AuthService.getCookieData();
+    if(!cookieData) return 
+    else{
+      AuthService.authCheck(cookieData.token.refreshToken)
       .then((res) => {
-        this.setState({
-          access:{
-            isAuthorized:true
-          },
-          navigation:{
-            dashboard:true
-          }
-        });
+        this.setState({isLoggedIn:true});
       })
-      .catch(error => {
-        this.setState({
-          access:{
-            isAuthorized:false
-          },
-          navigation:{
-            welcome:true
-          }
-        });
-      })
+      .catch((error) => console.log(error));
     }
-    **/
   }
 
   render() {
@@ -106,6 +79,7 @@ class App extends Component {
     return (
       <React.Fragment>
       <Router>
+      { this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null }
       <AppBar color="primary" position='sticky'>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">

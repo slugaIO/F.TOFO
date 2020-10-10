@@ -11,8 +11,8 @@ import Logger from '../../services/debug/logger'
 import AuthService from '../../services/api/auth.service'
 
 class Login extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             email:'',
             password:'',
