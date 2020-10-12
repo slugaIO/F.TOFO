@@ -11,40 +11,23 @@ import AuthService from '../../../services/api/auth.service'
 class MainView extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            taskList:[],
-            test:'Hallo'
-        }
+        this.reloadTaskData = this.props.reloadTaskData.bind(this);
     }
-    taskReload = () => {
-        const cookieData = AuthService.getCookieData();
-        AuthService.authCheck(cookieData.token.refreshToken)
-        .then( (response) => {
-            const accessToken = response.data.accessToken;
-            AuthService.postAPICall({},accessToken,'/api/tasks/list')
-            .then( (response) => {
-                  console.table(response.data.tasks);
-                  this.setState({
-                    taskList:response.data.tasks
-                  })
-            })
-            .catch( (error) =>{
-                console.log("error in PostCall");
-            });
-        })
-        .catch( (error) => {})
-    }
+    taskReload = () => {}
     render(){
         return(
           <Container fluid>
           <Row/>
           <Row>
           <Col xs lg="2">
-              <CreateTask taskReload={this.taskReload} />
+              <CreateTask reloadTaskData={this.reloadTaskData} />
           </Col>
           <Col>
-              <TaskTable />
+              <TaskTable {...this.props} />
           </Col>
+          </Row>
+          <Row>
+                <span></span>
           </Row>
         </Container>
         )

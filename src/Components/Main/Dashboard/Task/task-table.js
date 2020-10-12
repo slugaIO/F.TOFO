@@ -1,43 +1,42 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
 
-import AuthService from '../../../../services/api/auth.service'
-
 class TaskTable extends React.Component{
   constructor(props){
     super(props);
-    this.props = props;
   }
-  componentWillMount(){
-
+  tableRow = () => {
+    let rows = [];
+    for(let i = 0; i < this.props.taskList.length;i++){
+      let date = new Date(this.props.taskList[i].createDate)
+      rows.push(
+        <tr>
+        <td>{this.props.taskList[i]._id}</td>
+        <td>{this.props.taskList[i].title}</td>
+        <td>{date.toLocaleString()}</td>
+        <td>@mdo</td>
+      </tr>
+      );
+    }
+    return rows;
   }
   render(){
-    const tableRow = () => {
-      let rows = [];
-      console.log("rows refresh : "+this.props.tasks.length);
-      for(let i = 0; i < this.state.tasks.length;i++){
-        rows.push(
-          <tr>
-          <td>{this.props.tasks[i]._id}</td>
-          <td>{this.props.tasks[i].title}</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        );
-      }
-      return rows;
-    }
+    console.table({
+        "Task Table":"loaded",
+        "tasks":this.props.taskList.length
+    });
     return(
             <Table striped bordered hover variant="dark">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Title</th>
+                <th>Erstellt</th>
                 <th>Status</th>
-                <th>Created</th>
               </tr>
             </thead>
             <tbody>
+            {this.tableRow()}
             </tbody>
           </Table>
     )

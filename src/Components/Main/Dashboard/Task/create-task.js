@@ -11,7 +11,7 @@ class CreateTask extends React.Component{
     }
     constructor(props){
         super(props);
-        this.props = props;
+        this.reloadTaskData = this.props.reloadTaskData.bind(this)
     }
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -22,10 +22,12 @@ class CreateTask extends React.Component{
         AuthService.authCheck(cookieData.token.refreshToken)
         .then( (response) => {
             const accessToken = response.data.accessToken;
+            const crDate = Date.now();
             const data = {
                 task:{
                     title:this.state.title,
-                    content:this.state.taskContent
+                    content:this.state.taskContent,
+                    createDate:crDate
                 }
             }
             AuthService.postAPICall(data,accessToken,'/api/tasks/add')
@@ -34,6 +36,8 @@ class CreateTask extends React.Component{
                     title:'',
                     taskContent:''
                 })
+                console.log("data set");
+                this.reloadTaskData();
             })
             .catch( (error) =>{
                 console.log("error in PostCall");
@@ -41,7 +45,9 @@ class CreateTask extends React.Component{
         })
         .catch( (error) => {
             // TODO logout if no new access token is available
+            console.log("error :"+error);
             console.log("error in access refresh");
+            
         });
         event.preventDefault();
     }
