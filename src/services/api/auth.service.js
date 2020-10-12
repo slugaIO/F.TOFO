@@ -16,6 +16,9 @@ class AuthService{
         };
         return axios(config);
     }
+    getAPIUrl = () => {
+        return `${this.API_URL}`;
+    }
     setAuthCookieData = (apiResponse) => {
         const user   = apiResponse.data.user;
         const token  = apiResponse.data.token;
@@ -58,13 +61,26 @@ class AuthService{
         return cookieData;
     }
     authCheck = (refreshToken) => {
-        const API_URL    = `${this.API_URL}/api/user/token-validation`;
+        const API_URL    = `${this.API_URL}/api/user/token-refresh`;
         const data       = JSON.stringify({"token":`${refreshToken}`});
         const config  = {
             method:'post',
             url:API_URL,
             headers:{
                 'Content-Type': 'application/json'
+            },
+            data:data
+        };
+        return axios(config);
+    }
+    postAPICall = (data,accessToken,endPoint) => {
+        const API_URL    = `${this.API_URL}${endPoint}`;
+        const config = {
+            method:'POST',
+            url:API_URL,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
             },
             data:data
         };

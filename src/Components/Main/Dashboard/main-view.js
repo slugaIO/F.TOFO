@@ -1,50 +1,37 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from "@material-ui/core/styles";
-import CreateTask from '../../Main/Dashboard/Task/create-task'
+import {Container} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-      },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }
-});
-  
+import CreateTask from '../../Main/Dashboard/Task/create-task'
+import TaskTable from '../../Main/Dashboard/Task/task-table'
+
+import AuthService from '../../../services/api/auth.service'
 
 class MainView extends React.Component{
     constructor(props){
         super(props);
+        this.reloadTaskData = this.props.reloadTaskData.bind(this);
     }
+    taskReload = () => {}
     render(){
-        const { classes } = this.props;
         return(
-            <div className={classes.root}>
-            <Grid container spacing={3}>
-                <Container maxWidth="md" className={classes.main}>
-                <Grid item xs={3}>
-                <CreateTask/>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-                </Container>
-            </Grid>
-           </div>
+          <Container fluid>
+          <Row/>
+          <Row>
+          <Col xs lg="2">
+              <CreateTask reloadTaskData={this.reloadTaskData} />
+          </Col>
+          <Col>
+              <TaskTable {...this.props} />
+          </Col>
+          </Row>
+          <Row>
+                <span></span>
+          </Row>
+        </Container>
         )
     }
 }
 
-export default withStyles(styles)(MainView);
+export default MainView
