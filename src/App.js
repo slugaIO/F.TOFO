@@ -51,14 +51,10 @@ class App extends Component {
       .then((res) => {
         this.setState({isLoggedIn:true});
       })
-      .catch((error) => console.log(error));
     }
   }
 
   render() {
-    return (
-      <MainView/>
-    )
     const style = {
       root:{
         flexGrow:1

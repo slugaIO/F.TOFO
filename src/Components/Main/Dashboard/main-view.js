@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from "@material-ui/core/styles";
+import CreateTask from '../../Main/Dashboard/Task/create-task'
 
 const styles = theme => ({
     root: {
@@ -28,7 +29,7 @@ class MainView extends React.Component{
             <Grid container spacing={3}>
                 <Container maxWidth="md" className={classes.main}>
                 <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
+                <CreateTask/>
               </Grid>
               <Grid item xs={3}>
                 <Paper className={classes.paper}>xs=3</Paper>
