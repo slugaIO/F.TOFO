@@ -14,7 +14,6 @@ import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-import MainView from './Components/Main/Dashboard/main-view'
 
 import './App.css';
 

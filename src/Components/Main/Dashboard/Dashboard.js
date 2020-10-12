@@ -30,10 +30,7 @@ class Dashboard extends React.Component{
                 { this.props.isLoggedIn === false ? <Redirect to='/' />:
                   this.state.initDone   === false ? this.checkUserCookie():
                   <React.Fragment>
-                  <MainView/>
-                    <Footer 
-                    text={`userID ${this.state.cookie.user.id} refreshToken ${this.state.cookie.token.refreshToken} <br/> ${this.state.cookie.token.accessToken}`}
-                    />
+                     <MainView {...this.props}/>
                   </React.Fragment>
                 }
             </React.Fragment>

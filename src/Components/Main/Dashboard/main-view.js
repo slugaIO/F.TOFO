@@ -1,50 +1,54 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from "@material-ui/core/styles";
-import CreateTask from '../../Main/Dashboard/Task/create-task'
+import {Container} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-      },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }
-});
-  
+import CreateTask from '../../Main/Dashboard/Task/create-task'
+import TaskTable from '../../Main/Dashboard/Task/task-table'
+
+import AuthService from '../../../services/api/auth.service'
 
 class MainView extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            taskList:[],
+            test:'Hallo'
+        }
+    }
+    taskReload = () => {
+        const cookieData = AuthService.getCookieData();
+        AuthService.authCheck(cookieData.token.refreshToken)
+        .then( (response) => {
+            const accessToken = response.data.accessToken;
+            AuthService.postAPICall({},accessToken,'/api/tasks/list')
+            .then( (response) => {
+                  console.table(response.data.tasks);
+                  this.setState({
+                    taskList:response.data.tasks
+                  })
+            })
+            .catch( (error) =>{
+                console.log("error in PostCall");
+            });
+        })
+        .catch( (error) => {})
     }
     render(){
-        const { classes } = this.props;
         return(
-            <div className={classes.root}>
-            <Grid container spacing={3}>
-                <Container maxWidth="md" className={classes.main}>
-                <Grid item xs={3}>
-                <CreateTask/>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-                </Container>
-            </Grid>
-           </div>
+          <Container fluid>
+          <Row/>
+          <Row>
+          <Col xs lg="2">
+              <CreateTask taskReload={this.taskReload} />
+          </Col>
+          <Col>
+              <TaskTable />
+          </Col>
+          </Row>
+        </Container>
         )
     }
 }
 
-export default withStyles(styles)(MainView);
+export default MainView
