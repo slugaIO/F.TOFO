@@ -1,6 +1,12 @@
+# Bug Tracker
+
+* [ ] Wenn man ein Cookie hat, dann wird man zu logout und dann zum Dashboard weitergeleitet
+
+# Dev 
 ## Login
 * [X] Package react-material-form 
 * [X] Register
+
 
 ## AUTH Service
 * [X] Login Auth Service
