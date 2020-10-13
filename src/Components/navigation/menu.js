@@ -5,7 +5,7 @@ import React from 'react';
 import {Redirect} from "react-router-dom";
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
 import {withRouter} from 'react-router-dom'
-import { PersonFill,KeyFill, sidebarOpen } from 'react-bootstrap-icons';
+import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
 import Sidebar from "react-sidebar";  
@@ -96,7 +96,7 @@ class TopNavigation extends React.Component{
           />
           <Nav className="mr-auto">
           <button onClick={() => this.onSetSidebarOpen(true)}>
-            <sidebarOpen/>
+            <LayoutSidebarInsetReverse/>
           </button>
           </Nav>
           <Form>
