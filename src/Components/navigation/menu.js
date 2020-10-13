@@ -1,45 +1,38 @@
+/**
+ * Main Navigaion Bar
+ */
 import React from 'react';
-
-import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import AuthService from '../../services/api/auth.service'
-import {Link, withRouter } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useParams,
+  } from "react-router-dom";
+  import { Navbar,Nav,NavDropdown,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
+  import {withRouter} from 'react-router-dom'
 
 class TopNavigation extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
-    logout = () => {
-        AuthService.removeAuthCookie()
-        .then((res) => {
-            this.props.onAuthChange(false);
-        })
-        .catch((error) => {
-            this.props.onAuthChange(false);
-        });
-    }
     render(){
         return(
-            <React.Fragment>
-            {
-                this.props.isLoggedIn === true ?
-                <React.Fragment>
-                  <Button color="inherit" onClick={this.logout}>Logout</Button>
-                  <AccountCircle />
-                </React.Fragment>
-                :
-                <React.Fragment>
-                  <Link to='/login'>
-                        <Button color="inherit" onClick={this.login}>Login</Button>
-                  </Link>
-                  <Link to='/register'>
-                        <Button color="inherit" onClick={this.register}>Register</Button>
-                  </Link>
-                </React.Fragment>
-            }
-            </React.Fragment>
-        )
+            <Navbar className="bg-light justify-content-between">
+            <Form inline>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </InputGroup>
+            </Form>
+            <Form inline>
+              <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
+              <Button type="submit">Submit</Button>
+            </Form>
+          </Navbar>
+        )  
     }
 }
 

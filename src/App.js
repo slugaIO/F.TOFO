@@ -86,22 +86,8 @@ class App extends Component {
         // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
         this.state.isLoggedIn ? <Redirect to='/dashboard'/>:<Redirect to='/?logout'/> 
       }
-      <AppBar color="primary" position='sticky'>
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" style={style.title}>
-          ToDo
-        </Typography>
-        {
-          
-          <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
-        }
-
-      </Toolbar>
-    </AppBar>
      <Switch>
+        <MenuTop/>
          <Route path='/' exact component={Welcome} />
          <Route 
             path='/login' 
