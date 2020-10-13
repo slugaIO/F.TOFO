@@ -7,6 +7,8 @@ import Welcome from './Components/Main/Welcome/Welcome'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 
+import AuthService from './services/api/auth.service'
+
 import './App.css';
 
 require('dotenv').config();
@@ -27,11 +29,27 @@ class App extends Component {
   updateState = (object) =>{
     this.setState(object);
   }
-
+  componentDidMount(){
+    // Prüfen ob das Cookie existiert
+    const cookieData = AuthService.getCookieData();
+    if(!cookieData) return 
+    else{
+      AuthService.authCheck(cookieData.token.refreshToken)
+      .then((res) => {
+        this.setState({isLoggedIn:true});
+        console.log("login user");
+      })
+      .catch((error) => console.log(error));
+    }
+  }
   render() {
     return (
       <React.Fragment>
       <Router>
+      { 
+        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
+        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
+      }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
          <Route path='/' exact component={Welcome} />
@@ -54,7 +72,6 @@ class App extends Component {
      </Switch>
      </Router>
     </React.Fragment>
-   
     )
   }
 }
