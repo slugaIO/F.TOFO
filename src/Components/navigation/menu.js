@@ -5,11 +5,10 @@ import React from 'react';
 import {Redirect} from "react-router-dom";
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
 import {withRouter} from 'react-router-dom'
-import { PersonFill,KeyFill } from 'react-bootstrap-icons';
+import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
-  
-
+import Sidebar from "react-sidebar";  
 class TopNavigation extends React.Component{
     constructor(props){
       super(props);
@@ -18,9 +17,16 @@ class TopNavigation extends React.Component{
           password:'',
           loginError:false,
           showSpinner:false,
-          rediectTo:''
+          rediectTo:'',
+          sidebarOpen: false
       }
+      this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
+    
+    onSetSidebarOpen(open) {
+      this.setState({ sidebarOpen: open });
+    }
+
     register = () => {
       this.setState({
         rediectTo:'REGISTER'
@@ -68,6 +74,14 @@ class TopNavigation extends React.Component{
     }
     render(){  
         return(
+          <React.Fragment>
+          <Sidebar
+          sidebar={<b>Sidebar content</b>}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          styles={{ sidebar: { background: "white" } }}
+        >
+        </Sidebar>
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
@@ -80,7 +94,11 @@ class TopNavigation extends React.Component{
               width={250}
               visible={this.state.showSpinner}
           />
-          <Nav className="mr-auto"> </Nav>
+          <Nav className="mr-auto">
+          <button onClick={() => this.onSetSidebarOpen(true)}>
+            <LayoutSidebarInsetReverse/>
+          </button>
+          </Nav>
           <Form>
           {
             this.props.isLoggedIn === false ? 
@@ -126,7 +144,7 @@ class TopNavigation extends React.Component{
             <Redirect to='/'></Redirect>:null
           }
         </Navbar>
-        
+        </React.Fragment>
         )  
     }
 }
