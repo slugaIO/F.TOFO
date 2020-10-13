@@ -61,5 +61,4 @@ class CreateTask extends React.Component{
         )
     }
 }
-
 export default CreateTask;
