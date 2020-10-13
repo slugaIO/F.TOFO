@@ -13,11 +13,18 @@ import {
   import { PersonFill,KeyFill } from 'react-bootstrap-icons';
 
 class TopNavigation extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+        username:'',
+        password:''
+    }
+  }
     render(){
         return(
           <Navbar bg="dark" variant="dark">
           <Nav className="mr-auto"> </Nav>
-          <Form inline>
+          <Form>
           <InputGroup  ml-auto>
           <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1"><PersonFill /></InputGroup.Text>
@@ -37,7 +44,7 @@ class TopNavigation extends React.Component{
             aria-describedby="basic-addon1"
             className="mr-sm-2"
           />
-          <Button variant="info"  className="mr-sm-2">Login</Button>
+          <Button variant="light"  className="mr-sm-2">Login</Button>
           <Button variant="success"  className="mr-sm-2">Register</Button>
         </InputGroup>
           </Form>
