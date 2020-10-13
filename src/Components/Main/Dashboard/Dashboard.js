@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from 'react-footer-comp'
 
 import AuthService from '../../../services/api/auth.service'
 import {Redirect} from 'react-router-dom'
