@@ -2,7 +2,7 @@ import React from 'react';
 
 import AuthService from '../../../services/api/auth.service'
 import MainView from './main-view'
-
+import { Container,Row, Col } from 'react-bootstrap'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -29,12 +29,11 @@ class Dashboard extends React.Component{
     }
     render(){
         return(
-            <React.Fragment>
-                  <React.Fragment>
-                     <MainView reloadTaskData={this.reloadTaskData} {...this.state} />
-                  </React.Fragment>
-            </React.Fragment>
-           
+            <Container fluid='lg' className="mx-auto my-2">
+                <Row className="justify-content-md-center">
+                    <MainView reloadTaskData={this.reloadTaskData} {...this.state} />
+                </Row>
+            </Container>
         )
     }
 }
