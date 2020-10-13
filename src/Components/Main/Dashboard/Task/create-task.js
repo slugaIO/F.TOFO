@@ -36,19 +36,11 @@ class CreateTask extends React.Component{
                     title:'',
                     taskContent:''
                 })
-                console.log("data set");
                 this.reloadTaskData();
             })
-            .catch( (error) =>{
-                console.log("error in PostCall");
-            });
+            .catch( (error) =>{});
         })
-        .catch( (error) => {
-            // TODO logout if no new access token is available
-            console.log("error :"+error);
-            console.log("error in access refresh");
-            
-        });
+        .catch( (error) => {});
         event.preventDefault();
     }
     render(){
