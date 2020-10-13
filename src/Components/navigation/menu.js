@@ -18,7 +18,7 @@ class TopNavigation extends React.Component{
           loginError:false,
           showSpinner:false,
           rediectTo:'',
-          sidebarOpen: true
+          sidebarOpen: false
       }
       this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
