@@ -10,7 +10,7 @@ class TaskTable extends React.Component{
     for(let i = 0; i < this.props.taskList.length;i++){
       let date = new Date(this.props.taskList[i].createDate)
       rows.push(
-        <tr>
+        <tr key={this.props.taskList[i]._id}>
         <td>{this.props.taskList[i]._id}</td>
         <td>{this.props.taskList[i].title}</td>
         <td>{date.toLocaleString()}</td>
@@ -21,10 +21,6 @@ class TaskTable extends React.Component{
     return rows;
   }
   render(){
-    console.table({
-        "Task Table":"loaded",
-        "tasks":this.props.taskList.length
-    });
     return(
             <Table striped bordered hover variant="dark">
             <thead>
