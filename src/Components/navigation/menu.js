@@ -18,23 +18,30 @@ class TopNavigation extends React.Component{
           password:'',
           loginError:false,
           showSpinner:false,
-          register:false,
-          dashboard:false
+          rediectTo:''
       }
     }
     register = () => {
       this.setState({
-        register:true
+        rediectTo:'REGISTER'
       })
     }
     setValue(property,val){
-      console.log(`[${property}] : ${val.target.value}`)
       this.setState({
           [property]:val.target.value
       })
     }
-    logout = () {
-      AuthService.
+    logout = () => {
+      AuthService.removeAuthCookie()
+      .then((res) => {
+          this.props.onAuthChange(false);
+          this.setState({
+            rediectTo:'HOMEPAGE'
+          })
+      })
+      .catch((error) => {
+          this.props.onAuthChange(false);
+      });
     }
     login = () => {
         this.setState({
@@ -43,9 +50,14 @@ class TopNavigation extends React.Component{
         AuthService.userLogin(this.state.email, this.state.password)
         .then( (response) => {
             if(response.status === 200){
-              this.setState({showSpinner:false,dashboard:true});
               AuthService.setAuthCookieData(response);
               this.props.onAuthChange(true);
+              this.setState({
+                showSpinner:false,
+                rediectTo:'DASHBOARD',
+                email:'',
+                password:''
+              });
             }else{
                 this.setState({showSpinner:false,loginError:true});
             }
@@ -55,7 +67,6 @@ class TopNavigation extends React.Component{
         });
     }
     render(){  
-        console.log("logged in ? "+this.props.isLoggedIn);
         return(
           <Navbar bg="dark" variant="dark">
           <Loader
@@ -103,10 +114,16 @@ class TopNavigation extends React.Component{
           }
           </Form>
           {
-            this.state.register === true ? <Redirect to='/register'></Redirect>:null
+            this.state.rediectTo === 'REGISTER' ? 
+            <Redirect to='/register'></Redirect>:null
           }
           {
-            this.state.dashboard === true ? <Redirect to='/dashboard'></Redirect>:null
+            this.state.rediectTo === 'DASHBOARD' ? 
+            <Redirect to='/dashboard'></Redirect>:null
+          }
+          {
+            this.state.rediectTo === 'HOMEPAGE'? 
+            <Redirect to='/'></Redirect>:null
           }
         </Navbar>
         

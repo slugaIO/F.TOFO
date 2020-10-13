@@ -8,6 +8,7 @@ import {Redirect} from 'react-router-dom'
 
 class Dashboard extends React.Component{
     constructor(props){
+        console.log("dashboard loaded");
         super(props);
         this.state = {
             initDone:false
