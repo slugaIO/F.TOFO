@@ -7,6 +7,9 @@
 * [X] Package react-material-form 
 * [X] Register
 
+## NPM
+* [X] Bootstrap for Design
+
 
 ## AUTH Service
 * [X] Login Auth Service
