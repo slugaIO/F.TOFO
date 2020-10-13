@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
-import AuthService from './services/api/auth.service'
-import Logger from './services/debug/logger'
-import Login from './Components/Main/Login'
 import Register from './Components/Main/Register'
 import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-import Footer from 'react-footer-comp'
 
 import './App.css';
 
@@ -38,42 +29,12 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      root:{
-        flexGrow:1
-      },
-      menuButton:{
-        
-      },
-      title:{
-        flexGrow:1
-      },
-      content:{
-        backgroundColor:'#CCC',
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      },
-      appBarSpacer:{
-        backgroundColor:'#CCC',
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }
-    }
     return (
       <React.Fragment>
       <Router>
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
          <Route path='/' exact component={Welcome} />
-         <Route 
-            path='/login' 
-            exact 
-            render={props => (
-                <Login {...props} isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-            )}
-          />
          <Route 
             path='/register' 
             exact 
