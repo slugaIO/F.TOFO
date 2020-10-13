@@ -46,6 +46,10 @@ class App extends Component {
     return (
       <React.Fragment>
       <Router>
+      { 
+        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
+        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
+      }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
          <Route path='/' exact component={Welcome} />
