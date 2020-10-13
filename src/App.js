@@ -30,29 +30,11 @@ class App extends Component {
 
   onAuthChange(isAuthorized){
       this.setState({
-      isLoggedIn:isAuthorized
-    })
+        isLoggedIn:isAuthorized
+      })
   }
   updateState = (object) =>{
     this.setState(object);
-  }
-  /**
-   * 1. Cookie Daten auslesen
-   */
-  componentDidMount(){
-    Logger.table({
-      message:'App mounted'
-    })
-    // Prüfen ob das Cookie existiert
-    const cookieData = AuthService.getCookieData();
-    if(!cookieData) return 
-    else{
-      AuthService.authCheck(cookieData.token.refreshToken)
-      .then((res) => {
-        this.setState({isLoggedIn:true});
-      })
-      .catch((error) => console.log(error));
-    }
   }
 
   render() {
@@ -82,12 +64,8 @@ class App extends Component {
     return (
       <React.Fragment>
       <Router>
-      { 
-        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:<Redirect to='/?logout'/> 
-      }
+      <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
-        <MenuTop/>
          <Route path='/' exact component={Welcome} />
          <Route 
             path='/login' 
