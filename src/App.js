@@ -30,29 +30,11 @@ class App extends Component {
 
   onAuthChange(isAuthorized){
       this.setState({
-      isLoggedIn:isAuthorized
-    })
+        isLoggedIn:isAuthorized
+      })
   }
   updateState = (object) =>{
     this.setState(object);
-  }
-  /**
-   * 1. Cookie Daten auslesen
-   */
-  componentDidMount(){
-    Logger.table({
-      message:'App mounted'
-    })
-    // Prüfen ob das Cookie existiert
-    const cookieData = AuthService.getCookieData();
-    if(!cookieData) return 
-    else{
-      AuthService.authCheck(cookieData.token.refreshToken)
-      .then((res) => {
-        this.setState({isLoggedIn:true});
-      })
-      .catch((error) => console.log(error));
-    }
   }
 
   render() {
@@ -82,25 +64,7 @@ class App extends Component {
     return (
       <React.Fragment>
       <Router>
-      { 
-        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:<Redirect to='/?logout'/> 
-      }
-      <AppBar color="primary" position='sticky'>
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" style={style.title}>
-          ToDo
-        </Typography>
-        {
-          
-          <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
-        }
-
-      </Toolbar>
-    </AppBar>
+      <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
          <Route path='/' exact component={Welcome} />
          <Route 
@@ -118,13 +82,14 @@ class App extends Component {
               )
             }
           />
-         <Route path='/dashboard'  
-         exact
-         render={props => (
-              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn}  onAuthChange={this.onAuthChange.bind(this)}  />
-          )
-         }
-         />
+          <Route 
+          path='/dashboard' 
+          exact 
+          render={props => (
+              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
+            )
+          }
+        />
      </Switch>
      </Router>
     </React.Fragment>

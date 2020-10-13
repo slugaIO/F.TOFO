@@ -1,6 +1,12 @@
+# Bug Tracker
+
+* [ ] Wenn man ein Cookie hat, dann wird man zu logout und dann zum Dashboard weitergeleitet
+
+# Dev 
 ## Login
 * [X] Package react-material-form 
 * [X] Register
+
 
 ## AUTH Service
 * [X] Login Auth Service
@@ -14,11 +20,21 @@
 * [X] Login Auth Service (Axios Implementation)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Master
 * [X] 10.10.2020 Auth Login
 =======
+=======
+## Layout
+* [X] create new bootstrap navbar
+
+>>>>>>> develop
 ## DEPLOY
 * [X] 10.10.2020 --> branch warnings-remove in develop
 ## Security
 * [X] Check Token in Dashboard Component
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+
 >>>>>>> develop
