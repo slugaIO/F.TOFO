@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 
 import Register from './Components/Main/Register'
 import MenuTop from './Components/navigation/menu'
@@ -37,7 +37,6 @@ class App extends Component {
       AuthService.authCheck(cookieData.token.refreshToken)
       .then((res) => {
         this.setState({isLoggedIn:true});
-        console.log("login user");
       })
       .catch((error) => console.log(error));
     }

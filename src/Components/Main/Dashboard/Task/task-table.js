@@ -2,9 +2,6 @@ import React from 'react';
 import {Table} from 'react-bootstrap';
 
 class TaskTable extends React.Component{
-  constructor(props){
-    super(props);
-  }
   tableRow = () => {
     let rows = [];
     for(let i = 0; i < this.props.taskList.length;i++){

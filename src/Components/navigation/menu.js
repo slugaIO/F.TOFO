@@ -3,12 +3,14 @@
  */
 import React from 'react';
 import {Redirect} from "react-router-dom";
-import { Navbar,Nav,NavDropdown,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
+import { Navbar,Nav,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
 import {withRouter} from 'react-router-dom'
 import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
-import Sidebar from "react-sidebar";  
+
+import TaskSideBar from './sidebar'
+
 class TopNavigation extends React.Component{
     constructor(props){
       super(props);
@@ -22,11 +24,9 @@ class TopNavigation extends React.Component{
       }
       this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
-    
-    onSetSidebarOpen(open) {
-      this.setState({ sidebarOpen: open });
+    onSetSidebarOpen(open = false) {
+        this.setState({ sidebarOpen: open });
     }
-
     register = () => {
       this.setState({
         rediectTo:'REGISTER'
@@ -72,16 +72,10 @@ class TopNavigation extends React.Component{
             this.setState({showSpinner:false,loginError:true});
         });
     }
-    render(){  
+    render(){ 
         return(
           <React.Fragment>
-          <Sidebar
-          sidebar={<b>Sidebar content</b>}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          styles={{ sidebar: { background: "white" } }}
-        >
-        </Sidebar>
+          <TaskSideBar isLoggedIn={this.props.isLoggedIn} sidebarOpen={this.state.sidebarOpen} onSetSidebarOpen={this.onSetSidebarOpen} />
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
@@ -91,13 +85,14 @@ class TopNavigation extends React.Component{
               type="Bars" 
               color="#CCC"
               height={250}
-              width={250}
+              width={250} 
               visible={this.state.showSpinner}
           />
           <Nav className="mr-auto">
-          <button onClick={() => this.onSetSidebarOpen(true)}>
-            <LayoutSidebarInsetReverse/>
-          </button>
+          {
+            // ! Show Sidebar Butto if logged in
+            this.props.isLoggedIn === true ? <button onClick={() => this.onSetSidebarOpen(true)}><LayoutSidebarInsetReverse/></button>:null
+          }
           </Nav>
           <Form>
           {
