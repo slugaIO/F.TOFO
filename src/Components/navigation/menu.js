@@ -75,13 +75,16 @@ class TopNavigation extends React.Component{
     render(){  
         return(
           <React.Fragment>
-          <Sidebar
-          sidebar={<b>Sidebar content</b>}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          styles={{ sidebar: { background: "white" } }}
-        >
-        </Sidebar>
+          {
+            this.props.isLoggedIn === true ? 
+                <Sidebar
+                sidebar={<b>Sidebar content</b>}
+                open={this.state.sidebarOpen}
+                onSetOpen={this.onSetSidebarOpen}
+                styles={{ sidebar: { background: "white" } }}
+                >
+                </Sidebar>:null
+          }
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
@@ -95,9 +98,13 @@ class TopNavigation extends React.Component{
               visible={this.state.showSpinner}
           />
           <Nav className="mr-auto">
-          <button onClick={() => this.onSetSidebarOpen(true)}>
-            <LayoutSidebarInsetReverse/>
-          </button>
+          {
+            this.props.isLoggedIn === true ? 
+              <button onClick={() => this.onSetSidebarOpen(true)}>
+                <LayoutSidebarInsetReverse/>
+              </button>
+              :null
+          }
           </Nav>
           <Form>
           {
