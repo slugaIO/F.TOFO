@@ -9,7 +9,7 @@ import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-i
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
 
-import Sidebar from "react-sidebar";  
+import TaskSideBar from './sidebar'
 
 class TopNavigation extends React.Component{
     constructor(props){
@@ -79,16 +79,7 @@ class TopNavigation extends React.Component{
         })
         return(
           <React.Fragment>
-          <Sidebar
-            sidebar={<b>Sidebar content</b>}
-             open={this.state.sidebarOpen}
-            onSetOpen={this.onSetSidebarOpen}
-            styles={{ sidebar: { background: "white" } }}
-          >
-          <button onClick={() => this.onSetSidebarOpen(true)}>
-             Open sidebar
-          </button>
-          </Sidebar>
+          <TaskSideBar isLoggedIn={this.props.isLoggedIn} sidebarOpen={this.state.sidebarOpen} onSetSidebarOpen={this.onSetSidebarOpen} />
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{

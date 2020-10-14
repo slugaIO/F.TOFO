@@ -9,23 +9,23 @@ class TaskSideBar extends React.Component{
 
     }
     render(){
-        console.table({
-            message:'sidebar.js',
-            propsIsLoggedIn:this.props.isLoggedIn
-        })
+        console.log("isLoggedIn : "+this.props.isLoggedIn)
+        if(!this.props.isLoggedIn){
+            return (
+               <React.Fragment/>
+            )
+        }
         return(
-            <React.Fragment>
-            {
-                this.props.isLoggedIn === 'H' ? 
-                    <Sidebar
-                    sidebar={<b>Sidebar content</b>}
-                    open={this.props.sidebarOpen}
-                    onSetOpen={this.props.onSetSidebarOpen}
-                    styles={{ sidebar: { background: "white" } }}
-                    />
-                    :null
-              }
-            </React.Fragment>
+        <Sidebar
+            sidebar={<b>Sidebar content</b>}
+            open={this.props.sidebarOpen}
+            onSetOpen={this.props.onSetSidebarOpen}
+            styles={{ sidebar: { background: "white" } }}
+        >
+        <button onClick={() => this.props.onSetSidebarOpen(true)}>
+            Open sidebar
+        </button>
+        </Sidebar>
         )
     }
 }
