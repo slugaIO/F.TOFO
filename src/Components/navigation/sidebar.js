@@ -2,14 +2,7 @@ import React from 'react';
 import Sidebar from "react-sidebar";  
 
 class TaskSideBar extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    foo(){
-
-    }
     render(){
-        console.log("isLoggedIn : "+this.props.isLoggedIn)
         if(!this.props.isLoggedIn){
             return (
                <React.Fragment/>

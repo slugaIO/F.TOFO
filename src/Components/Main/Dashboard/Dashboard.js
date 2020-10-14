@@ -2,7 +2,7 @@ import React from 'react';
 
 import AuthService from '../../../services/api/auth.service'
 import MainView from './main-view'
-import { Container,Row, Col } from 'react-bootstrap'
+import { Container,Row } from 'react-bootstrap'
 
 class Dashboard extends React.Component{
     constructor(props){
