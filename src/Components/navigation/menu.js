@@ -94,7 +94,7 @@ class TopNavigation extends React.Component{
               type="Bars" 
               color="#CCC"
               height={250}
-              width={250}
+              width={250} 
               visible={this.state.showSpinner}
           />
           <Nav className="mr-auto">
