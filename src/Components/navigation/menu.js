@@ -9,7 +9,7 @@ import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-i
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
 
-import TaskSideBar from './sidebar';
+import Sidebar from "react-sidebar";  
 
 class TopNavigation extends React.Component{
     constructor(props){
@@ -20,12 +20,11 @@ class TopNavigation extends React.Component{
           loginError:false,
           showSpinner:false,
           rediectTo:'',
-          sidebarOpen:false,
-          isLoggedIn:this.props.isLoggedIn
+          sidebarOpen: false
       }
-      console.log(`Menu isLoggedIn ${this.state.isLoggedIn}:${this.props.isLoggedIn}`)
+      this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
-    onSetSidebarOpen(open) {
+    onSetSidebarOpen(open = false) {
         this.setState({ sidebarOpen: open });
     }
     register = () => {
@@ -73,10 +72,23 @@ class TopNavigation extends React.Component{
             this.setState({showSpinner:false,loginError:true});
         });
     }
-    render(){  
+    render(){ 
+        console.table({
+          message:'menu.js',
+          propsIsLoggedIn:this.props.isLoggedIn
+        })
         return(
           <React.Fragment>
-          <TaskSideBar isLoggedIn={this.state.isLoggedIn}/>
+          <Sidebar
+            sidebar={<b>Sidebar content</b>}
+             open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            styles={{ sidebar: { background: "white" } }}
+          >
+          <button onClick={() => this.onSetSidebarOpen(true)}>
+             Open sidebar
+          </button>
+          </Sidebar>
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{

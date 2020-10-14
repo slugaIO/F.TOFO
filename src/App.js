@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Button } from 'react';
 
 import Register from './Components/Main/Register'
 import MenuTop from './Components/navigation/menu'
