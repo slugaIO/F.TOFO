@@ -8,7 +8,9 @@ import {withRouter} from 'react-router-dom'
 import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
-import Sidebar from "react-sidebar";  
+
+import TaskSideBar from './sidebar';
+
 class TopNavigation extends React.Component{
     constructor(props){
       super(props);
@@ -18,15 +20,14 @@ class TopNavigation extends React.Component{
           loginError:false,
           showSpinner:false,
           rediectTo:'',
-          sidebarOpen: false
+          sidebarOpen:false,
+          isLoggedIn:this.props.isLoggedIn
       }
-      this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+      console.log(`Menu isLoggedIn ${this.state.isLoggedIn}:${this.props.isLoggedIn}`)
     }
-    
     onSetSidebarOpen(open) {
-      this.setState({ sidebarOpen: open });
+        this.setState({ sidebarOpen: open });
     }
-
     register = () => {
       this.setState({
         rediectTo:'REGISTER'
@@ -75,16 +76,7 @@ class TopNavigation extends React.Component{
     render(){  
         return(
           <React.Fragment>
-          {
-            this.props.isLoggedIn === true ? 
-                <Sidebar
-                sidebar={<b>Sidebar content</b>}
-                open={this.state.sidebarOpen}
-                onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "white" } }}
-                >
-                </Sidebar>:null
-          }
+          <TaskSideBar isLoggedIn={this.state.isLoggedIn}/>
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
