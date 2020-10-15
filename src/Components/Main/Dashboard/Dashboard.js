@@ -12,6 +12,14 @@ class Dashboard extends React.Component{
             taskList:[]
         }
     }
+    // ! We have to map param tasks[Object] to Array[]
+    updateTaskList = (tasks) => {
+        // map from Object to Array
+        const result = Object.keys(tasks).map((key) => tasks[key]);
+        this.setState({
+            taskList:result
+        })
+    }
     reloadTaskData = () => {
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
@@ -31,7 +39,7 @@ class Dashboard extends React.Component{
         return(
             <Container fluid='lg' className="mx-auto my-2">
                 <Row className="justify-content-md-center">
-                    <MainView reloadTaskData={this.reloadTaskData} {...this.state} />
+                    <MainView reloadTaskData={this.reloadTaskData} {...this.state} updateTaskList={this.updateTaskList}  />
                 </Row>
             </Container>
         )
