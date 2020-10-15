@@ -17,10 +17,10 @@ class MainView extends React.Component{
     }
     render(){
         return(
-          <Container fluid>
+          <Container>
           <Row/>
           <Row>
-          <Col xs lg="2">
+          <Col>
              <CreateTask reloadTaskData={this.reloadTaskData} />
           </Col>
           <Col>

@@ -37,7 +37,7 @@ class Dashboard extends React.Component{
     }
     render(){
         return(
-            <Container fluid='lg' className="mx-auto my-2">
+            <Container>
                 <Row className="justify-content-md-center">
                     <MainView reloadTaskData={this.reloadTaskData} {...this.state} updateTaskList={this.updateTaskList}  />
                 </Row>
