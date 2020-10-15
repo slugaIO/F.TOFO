@@ -24,22 +24,19 @@
 * [X] Logger Factory
 * [X] Login Auth Service (Axios Implementation)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 ## Master
 * [X] 10.10.2020 Auth Login
-=======
-=======
+
 ## Layout
 * [X] create new bootstrap navbar
 
->>>>>>> develop
+
 ## DEPLOY
 * [X] 10.10.2020 --> branch warnings-remove in develop
+* 
 ## Security
 * [X] Check Token in Dashboard Component
-<<<<<<< HEAD
->>>>>>> develop
-=======
 
->>>>>>> develop
+## BUG
+* [ ] Token revalidation
