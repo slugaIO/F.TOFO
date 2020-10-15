@@ -3,6 +3,11 @@
  */
 import React from 'react';
 import Sidebar from "react-sidebar";  
+import {Container} from 'react-bootstrap';
+
+// Components
+import SidebarMenu from './inc/sidebar-menu';
+import SidebarUser from './inc/sidebar-user';
 
 class TaskSideBar extends React.Component{
     style = {
@@ -23,8 +28,7 @@ class TaskSideBar extends React.Component{
           WebkitTransition: "-webkit-transform .3s ease-out",
           willChange: "transform",
           overflowY: "auto",
-          backgroundColor:"white",
-          padding:"5%"
+          backgroundColor :'#343a40'
         },
         content: {
           position: "absolute",
@@ -63,7 +67,15 @@ class TaskSideBar extends React.Component{
         }
         return(
         <Sidebar
-            sidebar={<b>Sidebar content</b>}
+            sidebar={
+              <React.Fragment>
+              <Container fluid>
+                  <SidebarUser/>
+                  <SidebarMenu/>
+              </Container>
+              </React.Fragment>
+              
+            }
             open={this.props.sidebarOpen}
             onSetOpen={this.props.onSetSidebarOpen}
             styles={this.style}
