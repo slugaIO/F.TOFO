@@ -1,7 +1,7 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect, Link} from 'react-router-dom'
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button, Dropdown, NavItem, NavLink } from 'react-bootstrap'
-
+import {withRouter} from 'react-router-dom'
 
 
 class SidebarMenu  extends React.Component{
@@ -10,11 +10,13 @@ class SidebarMenu  extends React.Component{
     }
     render(){
         return(
-            <Nav className="flex-column">
-                <Nav.Link href="/">Tasks</Nav.Link>
-            </Nav>
+            <Router>
+                <Nav className="flex-column">
+                    <Link to="/dashboard/tasks">Tasks</Link>
+                </Nav>
+            </Router>
         )
     }
 }
 
-export default SidebarMenu;
+export default withRouter(SidebarMenu);

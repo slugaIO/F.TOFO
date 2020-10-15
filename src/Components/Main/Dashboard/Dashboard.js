@@ -3,6 +3,7 @@ import React from 'react';
 import AuthService from '../../../services/api/auth.service'
 import MainView from './main-view'
 import { Container,Row } from 'react-bootstrap'
+import {BrowserRouter as Router, Switch, Route, Redirect, withRouter} from 'react-router-dom'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -37,13 +38,15 @@ class Dashboard extends React.Component{
     }
     render(){
         return(
-            <Container>
-                <Row className="justify-content-md-center">
-                    <MainView reloadTaskData={this.reloadTaskData} {...this.state} updateTaskList={this.updateTaskList}  />
-                </Row>
-            </Container>
+            <Router>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <MainView reloadTaskData={this.reloadTaskData} {...this.state} updateTaskList={this.updateTaskList}  />
+                    </Row>
+                </Container>
+            </Router>
         )
     }
 }
 
-export default Dashboard
+export default withRouter(Dashboard)

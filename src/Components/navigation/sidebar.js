@@ -9,6 +9,8 @@ import {Container} from 'react-bootstrap';
 import SidebarMenu from './inc/sidebar-menu';
 import SidebarUser from './inc/sidebar-user';
 
+import {withRouter, BrowserRouter as Router} from 'react-router-dom'
+
 class TaskSideBar extends React.Component{
     style = {
         root: {
@@ -66,6 +68,7 @@ class TaskSideBar extends React.Component{
             )
         }
         return(
+        <Router>
         <Sidebar
             sidebar={
               <React.Fragment>
@@ -84,8 +87,9 @@ class TaskSideBar extends React.Component{
             Open sidebar
         </button>
         </Sidebar>
+        </Router>
         )
     }
 }
 
-export default TaskSideBar;
+export default withRouter(TaskSideBar);

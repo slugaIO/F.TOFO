@@ -47,7 +47,7 @@ class App extends Component {
       <Router>
       { 
         // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
+        //this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
       }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
      <Switch>
@@ -62,12 +62,20 @@ class App extends Component {
           />
           <Route 
           path='/dashboard' 
-          exact 
+          exact
           render={props => (
               <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
             )
           }
-        />
+          />
+          <Route 
+          path='/dashboard/tasks' 
+          exact
+          render={props => (
+              <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
+            )
+          }
+          />
      </Switch>
      </Router>
     </React.Fragment>
