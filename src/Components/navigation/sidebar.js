@@ -1,39 +1,91 @@
-import {Navbar, Nav, NavItem, Button, Glyphicon} from 'react-bootstrap';
+/**
+ * Todo add Menu
+ */
+import React from 'react';
+import Sidebar from "react-sidebar";  
+import {Container} from 'react-bootstrap';
 
-import React, {Component} from 'react';
+// Components
+import SidebarMenu from './inc/sidebar-menu';
+import SidebarUser from './inc/sidebar-user';
 
-import Sidebar from 'react-bootstrap-sidebar';
-
-class Sidebar extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-          isVisible: false,
-        };
-    }
-
-    updateModal(isVisible) {
-    	this.state.isVisible = isVisible;
-      this.forceUpdate();
-    }
-
-    render() {
-        return (
-              <div>
-                  <Button bsStyle="primary" onClick={ () => this.updateModal(true) }><Glyphicon glyph="menu-hamburger"/></Button>
-                  <Sidebar side='left' isVisible={ this.state.isVisible } onHide={ () => this.updateModal(false) }>
-                    <Nav>
-                      <NavItem href="#">Link 1</NavItem>
-                      <NavItem href="#">Link 2</NavItem>
-                      <NavItem href="#">Link 3</NavItem>
-                      <NavItem href="#">Link 4</NavItem>
-                    </Nav>
-                  </Sidebar>
-              </div>
-        );
+class TaskSideBar extends React.Component{
+    style = {
+        root: {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflow: "hidden"
+        },
+        sidebar: {
+          zIndex: 2,
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          transition: "transform .3s ease-out",
+          WebkitTransition: "-webkit-transform .3s ease-out",
+          willChange: "transform",
+          overflowY: "auto",
+          backgroundColor :'#343a40'
+        },
+        content: {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflowY: "auto",
+          WebkitOverflowScrolling: "touch",
+          transition: "left .3s ease-out, right .3s ease-out"
+        },
+        overlay: {
+          zIndex: 1,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          opacity: 0.5,
+          visibility: "hidden",
+          transition: "opacity .3s ease-out, visibility .3s ease-out",
+          backgroundColor: "rgba(0,0,0,.3)"
+        },
+        dragHandle: {
+          zIndex: 1,
+          position: "fixed",
+          top: 0,
+          bottom: 0
+        }
+    };
+    render(){
+        if(!this.props.isLoggedIn){
+            return (
+               <React.Fragment/>
+            )
+        }
+        return(
+        <Sidebar
+            sidebar={
+              <React.Fragment>
+              <Container fluid>
+                  <SidebarUser/>
+                  <SidebarMenu/>
+              </Container>
+              </React.Fragment>
+              
+            }
+            open={this.props.sidebarOpen}
+            onSetOpen={this.props.onSetSidebarOpen}
+            styles={this.style}
+        >
+        <button onClick={() => this.props.onSetSidebarOpen(true)}>
+            Open sidebar
+        </button>
+        </Sidebar>
+        )
     }
 }
 
-export default Sidebar;
+export default TaskSideBar;
