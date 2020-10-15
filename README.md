@@ -29,6 +29,9 @@
 
 ## DEPLOY
 * [X] 10.10.2020 --> branch warnings-remove in develop
+* 
 ## Security
 * [X] Check Token in Dashboard Component
 
+## BUG
+* [ ] Token revalidation
