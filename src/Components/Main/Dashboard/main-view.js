@@ -10,6 +10,7 @@ class MainView extends React.Component{
     constructor(props){
         super(props);
         this.reloadTaskData = this.props.reloadTaskData.bind(this);
+        this.updateTaskList = this.props.updateTaskList.bind(this);
     }
     componentDidMount(){
         this.reloadTaskData();
@@ -23,7 +24,7 @@ class MainView extends React.Component{
              <CreateTask reloadTaskData={this.reloadTaskData} />
           </Col>
           <Col>
-                <TaskTable {...this.props} />
+                <TaskTable {...this.props} updateTaskList={this.updateTaskList} />
           </Col>
           </Row>
           <Row>
