@@ -6,16 +6,23 @@ import {Form} from 'react-bootstrap';
 import AuthService from '../../../../services/api/auth.service'
 
 // misc
-var DateTimeField = require('react-bootstrap-datetimepicker').DateTimeField;
+import ReactDatePicker from 'react-date-picker-cs';
 
 class CreateTask extends React.Component{
     state = {
         title:'',
-        taskContent:''
+        taskContent:'',
+        selectedDate: '2017-08-13'
     }
-    constructor(props){
+    constructor(props,context){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
+        this.handleLog = this.handleLog.bind(this);
+    }
+    handleLog(date) {
+		this.setState({
+			selectedDate: date
+		});
     }
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -66,7 +73,12 @@ class CreateTask extends React.Component{
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Label</Form.Label>
-                    <DateTimeField />
+                    <ReactDatePicker
+                    onChange={this.handleLog} 
+                    range={[2013, 2020]} 
+                    value={this.state.selectedDate} 
+                    disabled={true}
+                />
                 </Form.Group>;
                 <Button variant="success" type="submit" onClick={this.addTask}>
                 add Task
