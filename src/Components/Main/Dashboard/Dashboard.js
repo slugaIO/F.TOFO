@@ -50,7 +50,7 @@ class Dashboard extends React.Component{
                     <Row className="justify-content-md-center">
                             <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
                             <Route path='/dashboard/tasklist' exact render={
-                                props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
+                                props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)
                             } />
                             <Route path='/dashboard/addTask' exact render={
                                 props =>  (<
