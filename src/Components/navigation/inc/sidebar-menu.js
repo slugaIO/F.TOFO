@@ -10,11 +10,12 @@ class SidebarMenu  extends React.Component{
     }
     render(){
         return(
-            <Router>
-                <Nav className="flex-column">
-                    <Link to="/dashboard/tasks">Tasks</Link>
-                </Nav>
-            </Router>
+            <Nav>
+                <Link to={"/dashboard"}>Dashboard</Link>
+                <Link to={"/register"}>register</Link>
+                <Link to={"/dashboard/addTask"}>Add Task</Link>
+                <Link to={"/dashboard/tasklist"}>Task List</Link>
+            </Nav>
         )
     }
 }

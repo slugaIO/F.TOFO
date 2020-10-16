@@ -3,8 +3,8 @@ import React from 'react';
 import AuthService from '../../../services/api/auth.service'
 import MainView from './main-view'
 import { Container,Row } from 'react-bootstrap'
-import {BrowserRouter as Router, Switch, Route, Redirect, withRouter} from 'react-router-dom'
-
+import {BrowserRouter as Router, Switch, Route, Redirect, withRouter, Link} from 'react-router-dom'
+import TaskTable from '../../Main/Dashboard/Task/task-table'
 class Dashboard extends React.Component{
     constructor(props){
         super(props);
@@ -38,13 +38,16 @@ class Dashboard extends React.Component{
     }
     render(){
         return(
-            <Router>
                 <Container>
+                <h1>Dashboard loaded</h1>
                     <Row className="justify-content-md-center">
-                        <MainView reloadTaskData={this.reloadTaskData} {...this.state} updateTaskList={this.updateTaskList}  />
+                            <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
+                            <Route path='/dashboard/tasklist' exact render={
+                                props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
+                            } />
+                            <Route path='/dashboard/addTask' exact render={props => (<div>List all Task</div>) } />
                     </Row>
                 </Container>
-            </Router>
         )
     }
 }

@@ -50,32 +50,29 @@ class App extends Component {
         //this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
       }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
-     <Switch>
-         <Route path='/' exact component={Welcome} />
-         <Route 
-            path='/register' 
-            exact 
-            render={props => (
-                <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-              )
-            }
-          />
-          <Route 
-          path='/dashboard' 
-          exact
-          render={props => (
-              <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-            )
-          }
-          />
-          <Route 
-          path='/dashboard/tasks' 
-          exact
-          render={props => (
-              <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-            )
-          }
-          />
+      <Switch>
+      {
+        this.state.isLoggedIn === true ?
+        null:<Welcome/>
+      }
+      {
+      this.state.isLoggedIn === true ?
+      <Route 
+        path='/dashboard'  
+        render={props => (
+             <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
+        )
+        }
+      />:null
+      }
+      <Route 
+        path='/register' 
+        exact 
+        render={props => (
+             <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
+        )
+        }
+     />
      </Switch>
      </Router>
     </React.Fragment>
