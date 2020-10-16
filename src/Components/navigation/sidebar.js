@@ -9,12 +9,9 @@ import {Container} from 'react-bootstrap';
 import SidebarMenu from './inc/sidebar-menu';
 import SidebarUser from './inc/sidebar-user';
 
-import {withRouter, BrowserRouter as Router, Link} from 'react-router-dom'
+import {withRouter, BrowserRouter as Router} from 'react-router-dom'
 
 class TaskSideBar extends React.Component{
-    constructor(props){
-      super(props);
-    }
     style = {
         root: {
           position: "absolute",
