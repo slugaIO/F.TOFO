@@ -5,7 +5,7 @@ import {Form, Row, Col} from 'react-bootstrap';
 import AuthService from '../../../../services/api/auth.service'
 
 // misc
-import { DatePicker, DatePickerInput } from 'rc-datepicker';
+import {DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 
 // CSS Component
