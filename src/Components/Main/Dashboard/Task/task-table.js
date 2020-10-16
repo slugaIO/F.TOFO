@@ -13,7 +13,7 @@ class TaskTable extends React.Component{
         this.taskList       = this.props.taskList;
   }
   componentDidMount(){
-    //this.updateTaskList();
+    this.reloadTaskData();
   }
   deleteTask = (id) => {
         // get new Access Token
@@ -41,9 +41,11 @@ class TaskTable extends React.Component{
       let date = new Date(this.props.taskList[i].createDate)
       rows.push(
         <tr key={this.props.taskList[i]._id}>
-        <td>{this.props.taskList[i]._id}</td>
         <td>{this.props.taskList[i].title}</td>
         <td>{date.toLocaleString()}</td>
+        <td>{
+          new Date(this.props.taskList[i].endDate).toLocaleString()
+        }</td>
         <td><Button variant="outline-danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button></td>
       </tr>
       );
@@ -60,10 +62,10 @@ class TaskTable extends React.Component{
           <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Title</th>
               <th>Erstellt</th>
-              <th>-</th>
+              <th>Deadline</th>
+              <th>Modify</th>
             </tr>
           </thead>
           <tbody>
