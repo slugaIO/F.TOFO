@@ -5,9 +5,8 @@
  */
 import React from 'react';
 import AuthService from '../../../services/api/auth.service'
-import MainView from './main-view'
 import { Container,Row } from 'react-bootstrap'
-import {BrowserRouter as Router, Switch, Route, Redirect, withRouter, Link} from 'react-router-dom'
+import {Route,withRouter} from 'react-router-dom'
 import TaskTable from '../../Main/Dashboard/Task/task-table'
 import CreateTask from '../../Main/Dashboard/Task/create-task'
 
