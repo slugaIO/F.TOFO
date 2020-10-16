@@ -1,10 +1,12 @@
-var DatePicker = require("react-bootstrap-date-picker");
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
 import {Form} from 'react-bootstrap';
 
-
+// api
 import AuthService from '../../../../services/api/auth.service'
+
+// misc
+var DateTimeField = require('react-bootstrap-datetimepicker').DateTimeField;
 
 class CreateTask extends React.Component{
     state = {
@@ -17,19 +19,6 @@ class CreateTask extends React.Component{
     }
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-    }
-    // ? needed by date-picker
-    getInitialState = () => {
-        var value = new Date().toISOString();
-        return {
-          value: value
-        }
-    }
-    // ? needed by date-picker 
-    componentDidMount(){
-        const hiddenInputElement = document.getElementById("example-datepicker");
-        console.log(hiddenInputElement.value); // ISO String, ex: "2016-11-19T12:00:00.000Z"
-        console.log(hiddenInputElement.getAttribute('data-formattedvalue')) // Formatted String, ex: "11/19/2016"
     }
     addTask  = event => {
         // get new Access Token
@@ -77,7 +66,7 @@ class CreateTask extends React.Component{
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Label</Form.Label>
-                    <DatePicker id="example-datepicker" value={this.state.value} onChange={this.handleChange} />
+                    <DateTimeField />
                 </Form.Group>;
                 <Button variant="success" type="submit" onClick={this.addTask}>
                 add Task
