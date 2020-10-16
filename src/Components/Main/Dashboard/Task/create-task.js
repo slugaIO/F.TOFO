@@ -1,22 +1,17 @@
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
-import {Form, Row, Col, Badge} from 'react-bootstrap';
-
+import {Form, Row, Col} from 'react-bootstrap';
 // api
 import AuthService from '../../../../services/api/auth.service'
 
 // misc
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-
 class CreateTask extends React.Component{
     state = {
         title:'',
         taskContent:'',
         selectedDate: new Date().toString()
-    }
-    style = {
-        rotateText:{}
     }
     constructor(props,context){
         super(props);
@@ -60,15 +55,29 @@ class CreateTask extends React.Component{
     }
     render(){
         const style = {
-            container:{
-                backgroundColor:'#ccc'
+            alignInContent:{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)'
+            },
+            headline:{
+                //transform: 'rotate(270deg)'
+            },
+            bgColorAddTask:{
+                backgroundColor:'red',
+                alignItems:'center'
+            },
+            formLayout:{
+                backgroundColor:'#CCC',
+                border:'1px solid black',
+                padding:'1rem'
             }
         }
         return(
-            <Container flui>
+            <Container style={style.alignInContent}>
+            <Container fluid>
                 <Row>
-                    <Col>
-                        <h1 style={style.rotateText}>Add Task</h1>
+                    <Col style={style.bgColorAddTask}>
+                        <h1 style={style.headline}>Add Task</h1>
                     </Col>
                     <Col>
                         <Form>
@@ -106,6 +115,7 @@ class CreateTask extends React.Component{
                         </Form>
                     </Col>
                 </Row>
+            </Container>
             </Container>
         )
     }
