@@ -2,14 +2,9 @@
  * Todo add Menu
  */
 import React from 'react';
-import Sidebar from "react-sidebar";  
-import {Container} from 'react-bootstrap';
-
 // Components
 import SidebarMenu from './inc/sidebar-menu';
-import SidebarUser from './inc/sidebar-user';
-
-import {withRouter, BrowserRouter as Router} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class TaskSideBar extends React.Component{
     style = {
@@ -71,28 +66,6 @@ class TaskSideBar extends React.Component{
           <React.Fragment>
           <SidebarMenu/>
           </React.Fragment>
-        )
-        return(
-        <Router>
-        <Sidebar
-            sidebar={
-              <React.Fragment>
-              <Container fluid>
-                  <SidebarUser/>
-                  <SidebarMenu/>
-              </Container>
-              </React.Fragment>
-              
-            }
-            open={this.props.sidebarOpen}
-            onSetOpen={this.props.onSetSidebarOpen}
-            styles={this.style}
-        >
-        <button onClick={() => this.props.onSetSidebarOpen(true)}>
-            Open sidebar
-        </button>
-        </Sidebar>
-        </Router>
         )
     }
 }
