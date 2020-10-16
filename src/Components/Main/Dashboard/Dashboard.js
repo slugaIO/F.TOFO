@@ -1,10 +1,16 @@
+/**
+ * 
+ * @TODO ! componentDidMount loads the tasks over API. But we need it maybe only one 
+ * 
+ */
 import React from 'react';
-
 import AuthService from '../../../services/api/auth.service'
 import MainView from './main-view'
 import { Container,Row } from 'react-bootstrap'
 import {BrowserRouter as Router, Switch, Route, Redirect, withRouter, Link} from 'react-router-dom'
 import TaskTable from '../../Main/Dashboard/Task/task-table'
+import CreateTask from '../../Main/Dashboard/Task/create-task'
+
 class Dashboard extends React.Component{
     constructor(props){
         super(props);
@@ -12,6 +18,9 @@ class Dashboard extends React.Component{
             initDone:false,
             taskList:[]
         }
+    }
+    componentDidMount(){
+        this.reloadTaskData();
     }
     // ! We have to map param tasks[Object] to Array[]
     updateTaskList = (tasks) => {
@@ -39,13 +48,14 @@ class Dashboard extends React.Component{
     render(){
         return(
                 <Container>
-                <h1>Dashboard loaded</h1>
                     <Row className="justify-content-md-center">
                             <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
                             <Route path='/dashboard/tasklist' exact render={
                                 props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
                             } />
-                            <Route path='/dashboard/addTask' exact render={props => (<div>List all Task</div>) } />
+                            <Route path='/dashboard/addTask' exact render={
+                                props =>  (<CreateTask taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
+                            } />
                     </Row>
                 </Container>
         )

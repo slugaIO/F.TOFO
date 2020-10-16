@@ -11,7 +11,7 @@ class CreateTask extends React.Component{
     }
     constructor(props){
         super(props);
-        this.reloadTaskData = this.props.reloadTaskData.bind(this)
+        this.updateTaskList = this.props.updateTaskList.bind(this)
     }
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table,Button} from 'react-bootstrap';
+import {Table,Button, Container, Row} from 'react-bootstrap';
 
 import AuthService from '../../../../services/api/auth.service'
 
@@ -7,8 +7,8 @@ class TaskTable extends React.Component{
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
+        this.taskList       = this.props.taskList;
   }
-
   deleteTask = (id) => {
         // get new Access Token
         const cookieData = AuthService.getCookieData();
@@ -46,19 +46,26 @@ class TaskTable extends React.Component{
   }
   render(){
     return(
-            <Table striped bordered hover variant="dark">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Erstellt</th>
-                <th>-</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.tableRow()}
-            </tbody>
-          </Table>
+      <Container>
+      <Row>
+          <h1>Task Overview</h1>
+      </Row>
+      <Row>
+          <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Erstellt</th>
+              <th>-</th>
+            </tr>
+          </thead>
+          <tbody>
+          {this.tableRow()}
+          </tbody>
+        </Table>
+      </Row>
+      </Container>
     )
   }
 }
