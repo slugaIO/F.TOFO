@@ -1,12 +1,9 @@
+/*
+ * TODO do we need this file anymore ?
+*/
 import React from 'react'
 import {Container} from 'react-bootstrap';
-import {Row} from 'react-bootstrap';
-import {Col} from 'react-bootstrap';
-
-import CreateTask from '../../Main/Dashboard/Task/create-task'
-import TaskTable from '../../Main/Dashboard/Task/task-table'
-
-import {BrowserRouter as Router, Switch, Route, Redirect, withRouter} from 'react-router-dom'
+import {BrowserRouter as Router, Switch,withRouter} from 'react-router-dom'
 
 class MainView extends React.Component{
     constructor(props){
