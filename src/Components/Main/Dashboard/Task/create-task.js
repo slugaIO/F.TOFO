@@ -31,14 +31,6 @@ class CreateTask extends React.Component{
         this.setState({ [e.target.name]: e.target.value });
     }
     addTask  = event => {
-        console.table({
-            msg:'add Task',
-            title:this.state.title,
-            task:this.state.taskContent,
-            date:this.state.selectedDate
-        })
-        event.preventDefault();
-        return;
         // get new Access Token
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
@@ -49,7 +41,8 @@ class CreateTask extends React.Component{
                 task:{
                     title:this.state.title,
                     content:this.state.taskContent,
-                    createDate:crDate
+                    createDate:crDate,
+                    endDate:this.state.selectedDate
                 }
             }
             AuthService.postAPICall(data,accessToken,'/api/tasks/add')

@@ -54,7 +54,13 @@ class Dashboard extends React.Component{
                                 props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
                             } />
                             <Route path='/dashboard/addTask' exact render={
-                                props =>  (<CreateTask taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props}  />)
+                                props =>  (<
+                                    CreateTask 
+                                    taskList={this.state.taskList} 
+                                    reloadTaskData={this.reloadTaskData} 
+                                    updateTaskList={this.updateTaskList}
+                                {...props}  
+                            />)
                             } />
                     </Row>
                 </Container>

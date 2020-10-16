@@ -7,7 +7,13 @@ class TaskTable extends React.Component{
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
+        // FIXME why we have a Cannot read property 'bind' of undefined
+        //this.reloadTaskData = this.props.reloadTaskData.bind(this);
+        this.reloadTaskData = this.props.reloadTaskData;
         this.taskList       = this.props.taskList;
+  }
+  componentDidMount(){
+    //this.updateTaskList();
   }
   deleteTask = (id) => {
         // get new Access Token
