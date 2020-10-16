@@ -7,8 +7,13 @@ class TaskTable extends React.Component{
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
+        this.taskList       = this.props.taskList;
   }
-
+  componentDidMount(){
+    console.log(this.taskList);
+    console.log("---------------------");
+    console.log(this.props.taskList);
+  }
   deleteTask = (id) => {
         // get new Access Token
         const cookieData = AuthService.getCookieData();

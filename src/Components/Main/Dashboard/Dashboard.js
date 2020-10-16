@@ -13,6 +13,9 @@ class Dashboard extends React.Component{
             taskList:[]
         }
     }
+    componentDidMount(){
+        this.reloadTaskData();
+    }
     // ! We have to map param tasks[Object] to Array[]
     updateTaskList = (tasks) => {
         // map from Object to Array
