@@ -9,7 +9,12 @@ import {Container} from 'react-bootstrap';
 import SidebarMenu from './inc/sidebar-menu';
 import SidebarUser from './inc/sidebar-user';
 
+import {withRouter, BrowserRouter as Router, Link} from 'react-router-dom'
+
 class TaskSideBar extends React.Component{
+    constructor(props){
+      super(props);
+    }
     style = {
         root: {
           position: "absolute",
@@ -66,6 +71,12 @@ class TaskSideBar extends React.Component{
             )
         }
         return(
+          <React.Fragment>
+          <SidebarMenu/>
+          </React.Fragment>
+        )
+        return(
+        <Router>
         <Sidebar
             sidebar={
               <React.Fragment>
@@ -84,8 +95,9 @@ class TaskSideBar extends React.Component{
             Open sidebar
         </button>
         </Sidebar>
+        </Router>
         )
     }
 }
 
-export default TaskSideBar;
+export default withRouter(TaskSideBar);

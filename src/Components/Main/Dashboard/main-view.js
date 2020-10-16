@@ -6,6 +6,8 @@ import {Col} from 'react-bootstrap';
 import CreateTask from '../../Main/Dashboard/Task/create-task'
 import TaskTable from '../../Main/Dashboard/Task/task-table'
 
+import {BrowserRouter as Router, Switch, Route, Redirect, withRouter} from 'react-router-dom'
+
 class MainView extends React.Component{
     constructor(props){
         super(props);
@@ -17,22 +19,25 @@ class MainView extends React.Component{
     }
     render(){
         return(
+
           <Container>
-          <Row/>
-          <Row>
-          <Col>
-             <CreateTask reloadTaskData={this.reloadTaskData} />
-          </Col>
-          <Col>
-                <TaskTable {...this.props} updateTaskList={this.updateTaskList} />
-          </Col>
-          </Row>
-          <Row>
-                <span></span>
-          </Row>
+          <Router>
+                <Switch>
+                {/*
+                <Route 
+                        path='/dashboard/tasks'
+                        exact 
+                        render={props => (
+                            <TaskTable {...this.props} updateTaskList={this.updateTaskList} />
+                        )
+                        }
+                />
+                    */}
+                </Switch>
+          </Router>
         </Container>
         )
     }
 }
 
-export default MainView
+export default withRouter(MainView)

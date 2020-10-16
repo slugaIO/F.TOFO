@@ -4,7 +4,7 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import { Navbar,Nav,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link, BrowserRouter as Router} from 'react-router-dom'
 import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
@@ -75,7 +75,7 @@ class TopNavigation extends React.Component{
     render(){ 
         return(
           <React.Fragment>
-          <TaskSideBar isLoggedIn={this.props.isLoggedIn} sidebarOpen={this.state.sidebarOpen} onSetSidebarOpen={this.onSetSidebarOpen} />
+          <TaskSideBar isLoggedIn={this.props.isLoggedIn} sidebarOpen={this.state.sidebarOpen} onSetSidebarOpen={this.onSetSidebarOpen} /> 
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
