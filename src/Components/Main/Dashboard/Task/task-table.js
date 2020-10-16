@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table,Button} from 'react-bootstrap';
+import {Table,Button, Container, Row} from 'react-bootstrap';
 
 import AuthService from '../../../../services/api/auth.service'
 
@@ -7,12 +7,13 @@ class TaskTable extends React.Component{
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
+        // FIXME why we have a Cannot read property 'bind' of undefined
+        //this.reloadTaskData = this.props.reloadTaskData.bind(this);
+        this.reloadTaskData = this.props.reloadTaskData;
         this.taskList       = this.props.taskList;
   }
   componentDidMount(){
-    console.log(this.taskList);
-    console.log("---------------------");
-    console.log(this.props.taskList);
+    this.reloadTaskData();
   }
   deleteTask = (id) => {
         // get new Access Token
@@ -40,9 +41,11 @@ class TaskTable extends React.Component{
       let date = new Date(this.props.taskList[i].createDate)
       rows.push(
         <tr key={this.props.taskList[i]._id}>
-        <td>{this.props.taskList[i]._id}</td>
         <td>{this.props.taskList[i].title}</td>
         <td>{date.toLocaleString()}</td>
+        <td>{
+          new Date(this.props.taskList[i].endDate).toLocaleString()
+        }</td>
         <td><Button variant="outline-danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button></td>
       </tr>
       );
@@ -51,19 +54,26 @@ class TaskTable extends React.Component{
   }
   render(){
     return(
-            <Table striped bordered hover variant="dark">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Erstellt</th>
-                <th>-</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.tableRow()}
-            </tbody>
-          </Table>
+      <Container>
+      <Row>
+          <h1>Task Overview</h1>
+      </Row>
+      <Row>
+          <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Erstellt</th>
+              <th>Deadline</th>
+              <th>Modify</th>
+            </tr>
+          </thead>
+          <tbody>
+          {this.tableRow()}
+          </tbody>
+        </Table>
+      </Row>
+      </Container>
     )
   }
 }

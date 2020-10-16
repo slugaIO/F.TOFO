@@ -4,7 +4,7 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import { Navbar,Nav,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
-import {withRouter, Link, BrowserRouter as Router} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'

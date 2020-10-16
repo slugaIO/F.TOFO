@@ -1,18 +1,32 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import {Form} from 'react-bootstrap';
-
+import {Button, Container} from 'react-bootstrap';
+import {Form, Row, Col} from 'react-bootstrap';
+// api
 import AuthService from '../../../../services/api/auth.service'
+
+// misc
+import {DatePickerInput } from 'rc-datepicker';
+import 'rc-datepicker/lib/style.css';
+
+// CSS Component
+import createTaskStyle from './inc/create-task-css'
 
 class CreateTask extends React.Component{
     state = {
         title:'',
-        taskContent:''
+        taskContent:'',
+        selectedDate: new Date().toString()
     }
-    constructor(props){
+    constructor(props,context){
         super(props);
-        this.reloadTaskData = this.props.reloadTaskData.bind(this)
+        this.updateTaskList = this.props.updateTaskList.bind(this)
+        this.onChange = this.onChange.bind(this);
     }
+    onChange(date) {
+		this.setState({
+			selectedDate: date
+        });
+	}
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -27,7 +41,8 @@ class CreateTask extends React.Component{
                 task:{
                     title:this.state.title,
                     content:this.state.taskContent,
-                    createDate:crDate
+                    createDate:crDate,
+                    endDate:this.state.selectedDate
                 }
             }
             AuthService.postAPICall(data,accessToken,'/api/tasks/add')
@@ -44,20 +59,52 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
+        const style = {...createTaskStyle}
         return(
-            <Form>
-            <Form.Group controlId="addTask">
-              <Form.Label>Title</Form.Label>
-              <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange}/>
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Task</Form.Label>
-                <Form.Control name='taskContent' as="textarea" value={this.state.taskContent} rows="3" onChange={this.handleChange}/>
-            </Form.Group>
-            <Button variant="success" type="submit" onClick={this.addTask}>
-              add Task
-            </Button>
-          </Form>
+            <Container style={style.alignInContent}>
+            <Container fluid>
+                <Row>
+                    <Col style={style.bgColorAddTask}>
+                        <h1 style={style.headline}>Add Task</h1>
+                    </Col>
+                    <Col>
+                        <Form>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange} autoComplete="off"/>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Timing</Form.Label>
+                                    <DatePickerInput onChange={this.onChange} value={this.state.selectedDate} className='my-custom-datepicker-component'/>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Task</Form.Label>
+                                    <Form.Control name='taskContent' as="textarea" value={this.state.taskContent} rows="3" onChange={this.handleChange}/>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Button variant="success" type="submit" onClick={this.addTask}>
+                                        add Task
+                                    </Button>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+            </Container>
         )
     }
 }
