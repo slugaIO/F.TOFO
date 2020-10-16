@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
 import {Form, Row, Col} from 'react-bootstrap';
+import base64 from 'react-native-base64'
 // api
 import AuthService from '../../../../services/api/auth.service'
 
@@ -10,6 +11,11 @@ import 'rc-datepicker/lib/style.css';
 
 // CSS Component
 import createTaskStyle from './inc/create-task-css'
+
+// rich text editor
+import { Editor } from '@tinymce/tinymce-react';
+
+
 
 class CreateTask extends React.Component{
     state = {
@@ -26,7 +32,12 @@ class CreateTask extends React.Component{
 		this.setState({
 			selectedDate: date
         });
-	}
+    }
+    handleEditorChange = (content, editor) => {
+        this.setState({
+            taskContent:base64.encode(content)
+        })
+    }
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -62,9 +73,8 @@ class CreateTask extends React.Component{
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
-            <Container fluid>
                 <Row>
-                    <Col style={style.bgColorAddTask}>
+                    <Col style={style.bgColorAddTask} md="">
                         <h1 style={style.headline}>Add Task</h1>
                     </Col>
                     <Col>
@@ -85,10 +95,23 @@ class CreateTask extends React.Component{
                         </Row>
                         <Row>
                             <Col>
-                                <Form.Group>
-                                    <Form.Label>Task</Form.Label>
-                                    <Form.Control name='taskContent' as="textarea" value={this.state.taskContent} rows="3" onChange={this.handleChange}/>
-                                </Form.Group>
+                            <Editor
+                            initialValue="<p>This is the initial content of the editor</p>"
+                            init={{
+                              height: 300,
+                              menubar: true,
+                              plugins: [
+                                'advlist autolink lists link image charmap print preview anchor',
+                                'searchreplace visualblocks code fullscreen',
+                                'insertdatetime media table paste code help wordcount'
+                              ],
+                              toolbar:
+                                'undo redo | formatselect | bold italic backcolor | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | removeformat | help'
+                            }}
+                            onEditorChange={this.handleEditorChange}
+                            />
                             </Col>
                         </Row>
                         <Row>
@@ -103,7 +126,6 @@ class CreateTask extends React.Component{
                         </Form>
                     </Col>
                 </Row>
-            </Container>
             </Container>
         )
     }
