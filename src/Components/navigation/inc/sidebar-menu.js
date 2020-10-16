@@ -1,13 +1,9 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Redirect, Link} from 'react-router-dom'
-import { Navbar,Nav,NavDropdown,Form,FormControl,Button, Dropdown, NavItem, NavLink } from 'react-bootstrap'
-import {withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {Nav} from 'react-bootstrap'
 
 
 class SidebarMenu  extends React.Component{
-    style = {
-
-    }
     render(){
         return(
             <Nav>
@@ -20,4 +16,4 @@ class SidebarMenu  extends React.Component{
     }
 }
 
-export default withRouter(SidebarMenu);
+export default SidebarMenu;
