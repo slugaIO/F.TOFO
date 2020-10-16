@@ -1,29 +1,33 @@
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
-import {Form} from 'react-bootstrap';
+import {Form, Row, Col, Badge} from 'react-bootstrap';
 
 // api
 import AuthService from '../../../../services/api/auth.service'
 
 // misc
-import ReactDatePicker from 'react-date-picker-cs';
+import { DatePicker, DatePickerInput } from 'rc-datepicker';
+import 'rc-datepicker/lib/style.css';
 
 class CreateTask extends React.Component{
     state = {
         title:'',
         taskContent:'',
-        selectedDate: '2017-08-13'
+        selectedDate: new Date().toString()
+    }
+    style = {
+        rotateText:{}
     }
     constructor(props,context){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
-        this.handleLog = this.handleLog.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
-    handleLog(date) {
+    onChange(date) {
 		this.setState({
 			selectedDate: date
 		});
-    }
+	}
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -61,29 +65,47 @@ class CreateTask extends React.Component{
             }
         }
         return(
-            <Container fluid style={style.container}>
-                <Form>
-                <Form.Group controlId="addTask">
-                <Form.Label>Title</Form.Label>
-                <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange}/>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Task</Form.Label>
-                    <Form.Control name='taskContent' as="textarea" value={this.state.taskContent} rows="3" onChange={this.handleChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Label</Form.Label>
-                    <ReactDatePicker
-                    onChange={this.handleLog} 
-                    range={[2013, 2020]} 
-                    value={this.state.selectedDate} 
-                    disabled={true}
-                />
-                </Form.Group>;
-                <Button variant="success" type="submit" onClick={this.addTask}>
-                add Task
-                </Button>
-            </Form>
+            <Container flui>
+                <Row>
+                    <Col>
+                        <h1 style={style.rotateText}>Add Task</h1>
+                    </Col>
+                    <Col>
+                        <Form>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange}/>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Timing</Form.Label>
+                                    <DatePickerInput onChange={this.onChange} value={this.state.selectedDate} className='my-custom-datepicker-component'/>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>Task</Form.Label>
+                                    <Form.Control name='taskContent' as="textarea" value={this.state.taskContent} rows="3" onChange={this.handleChange}/>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Button variant="success" type="submit" onClick={this.addTask}>
+                                        add Task
+                                    </Button>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        </Form>
+                    </Col>
+                </Row>
             </Container>
         )
     }
