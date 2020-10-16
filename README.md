@@ -40,3 +40,4 @@
 
 ## BUG
 * [ ] Token revalidation
+* [ ] react-sidebar is not working with router
