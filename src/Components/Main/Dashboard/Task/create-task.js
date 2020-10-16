@@ -7,6 +7,10 @@ import AuthService from '../../../../services/api/auth.service'
 // misc
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
+
+// CSS Component
+import createTaskStyle from './inc/create-task-css'
+
 class CreateTask extends React.Component{
     state = {
         title:'',
@@ -21,12 +25,20 @@ class CreateTask extends React.Component{
     onChange(date) {
 		this.setState({
 			selectedDate: date
-		});
+        });
 	}
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
     addTask  = event => {
+        console.table({
+            msg:'add Task',
+            title:this.state.title,
+            task:this.state.taskContent,
+            date:this.state.selectedDate
+        })
+        event.preventDefault();
+        return;
         // get new Access Token
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
@@ -54,24 +66,7 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
-        const style = {
-            alignInContent:{
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)'
-            },
-            headline:{
-                //transform: 'rotate(270deg)'
-            },
-            bgColorAddTask:{
-                backgroundColor:'red',
-                alignItems:'center'
-            },
-            formLayout:{
-                backgroundColor:'#CCC',
-                border:'1px solid black',
-                padding:'1rem'
-            }
-        }
+        const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
             <Container fluid>
@@ -85,7 +80,7 @@ class CreateTask extends React.Component{
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Title</Form.Label>
-                                    <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange}/>
+                                    <Form.Control name='title' value={this.state.title} type="text" onChange={this.handleChange} autoComplete="off"/>
                                 </Form.Group>
                             </Col>
                             <Col>
