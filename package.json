@@ -15,6 +15,7 @@
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-static-toolbar-plugin": "^3.0.1",
     "glyphicons": "^0.2.0",
+    "history": "^5.0.0",
     "material-ui": "^0.20.2",
     "rc-datepicker": "^5.0.16",
     "react": "^16.14.0",

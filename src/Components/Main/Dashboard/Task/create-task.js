@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Container} from 'react-bootstrap';
 import {Form, Row, Col} from 'react-bootstrap';
 import base64 from 'react-native-base64'
+import { Redirect } from "react-router-dom";
 // api
 import AuthService from '../../../../services/api/auth.service'
 // misc
@@ -19,8 +20,14 @@ class CreateTask extends React.Component{
         this.state = {
             title:'',
             selectedDate: new Date().toString(),
-            taskContent:''
+            taskContent:'my task',
+            redirect:false
         }
+    }
+    componentDidMount(){
+        this.setState({
+            redirect:false
+        })
     }
     onChange = (date) => {
         console.log(date);
@@ -41,12 +48,6 @@ class CreateTask extends React.Component{
         })
     }
     addTask  = event => {
-        console.table({
-            msg:'call...',
-            title:this.state.title,
-            text:this.state.taskContent,
-            date:this.state.selectedDate
-        })
         // get new Access Token
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
@@ -65,9 +66,9 @@ class CreateTask extends React.Component{
             .then( (response) => {
                 this.setState({
                     title:'',
-                    taskContent:''
+                    taskContent:'',
+                    redirect:true
                 })
-                this.reloadTaskData();
             })
             .catch( (error) =>{});
         })
@@ -75,6 +76,12 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
+        if(this.state.redirect){
+            console.log("redirect");
+            return (
+                <Redirect to='/dashboard/tasklist' />
+            )
+        }
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
@@ -98,10 +105,9 @@ class CreateTask extends React.Component{
                                 </Form.Group>
                             </Col>
                         </Row>
+
                         <Row>
-                            <Col>-</Col>
-                        </Row>
-                        <Row>
+                            <Col />
                             <Col>
                                 <Form.Group>
                                     <Button variant="success" type="submit" onClick={this.addTask}>
