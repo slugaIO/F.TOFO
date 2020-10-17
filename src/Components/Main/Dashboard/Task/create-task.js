@@ -13,23 +13,42 @@ import createTaskStyle from './inc/create-task-css'
 import TaskEditor from './inc/edit-task'
 
 class CreateTask extends React.Component{
-    state = {
-        title:'',
-        taskContent:'',
-        selectedDate: new Date().toString(),
-    }
     constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
-        this.onChange = this.onChange.bind(this);
+        this.state = {
+            title:'',
+            selectedDate: new Date().toString(),
+            taskContent:''
+        }
     }
-    onChange(date) {
+    onChange = (date) => {
+        console.log(date);
 		this.setState({
-            selectedDate: date
+            selectedDate: `${date}`
             
         });
+        console.log(this.state.selectedDate);
+    }
+    handleChange = (e) => {
+        let change = {}
+        change[e.target.name] = e.target.value
+        this.setState(change)
+    }
+    // is set by the Editor
+    setTaskContent = (content) => {
+        this.setState({
+            taskContent:base64.encode(content)
+        })
+        console.log("content set to "+this.state.taskContent);
     }
     addTask  = event => {
+        console.table({
+            msg:'call...',
+            title:this.state.title,
+            text:this.state.taskContent,
+            date:this.state.selectedDate
+        })
         // get new Access Token
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
@@ -63,7 +82,7 @@ class CreateTask extends React.Component{
             <Container style={style.alignInContent}>
                 <Row>
                     <Col>
-                        <TaskEditor/>
+                        <TaskEditor setTaskContent={this.setTaskContent}/>
                     </Col>
                     <Col>
                         <Form>

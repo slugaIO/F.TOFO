@@ -4,6 +4,10 @@ import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 const text = "task...";
 
 export default class TaskEditor extends Component {
+  constructor(props){
+    super(props);
+    this.setTaskContent = this.props.setTaskContent.bind(this);
+  }
   state = {
     editorState: createEditorStateWithText(text)
   };
@@ -12,11 +16,8 @@ export default class TaskEditor extends Component {
     this.setState({
       editorState,
     });
-  };
-
-  focus = () => {
-    this.editor.focus();
-  };
+    this.setTaskContent(editorState.getCurrentContent().getPlainText('\u0001'));
+  }
 
   render() {
     return (
