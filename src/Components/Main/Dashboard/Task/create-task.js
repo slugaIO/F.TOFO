@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
-import {Form, Row, Col} from 'react-bootstrap';
+import {Form, Row, Col, Card,OverlayTrigger, Tooltip} from 'react-bootstrap';
 import base64 from 'react-native-base64'
 import { Redirect } from "react-router-dom";
 // api
@@ -13,7 +13,14 @@ import createTaskStyle from './inc/create-task-css'
 
 import TaskEditor from './inc/edit-task'
 
+
+
 class CreateTask extends React.Component{
+    renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          click to save new task
+        </Tooltip>
+    );
     constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
@@ -85,6 +92,9 @@ class CreateTask extends React.Component{
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
+                <Card>
+                <Card.Header>Task Manager</Card.Header>
+                <Card.Body>
                 <Row>
                     <Col>
                         <TaskEditor setTaskContent={this.setTaskContent}/>
@@ -110,15 +120,19 @@ class CreateTask extends React.Component{
                             <Col />
                             <Col>
                                 <Form.Group>
-                                    <Button variant="success" type="submit" onClick={this.addTask}>
-                                        add Task
-                                    </Button>
+                                    <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={this.renderTooltip}>
+                                        <Button variant="success" type="submit" onClick={this.addTask}>
+                                            add Task
+                                        </Button>
+                                    </OverlayTrigger>
                                 </Form.Group>
                             </Col>
                         </Row>
                         </Form>
                     </Col>
                 </Row>
+                </Card.Body>
+                </Card>
             </Container>
         )
     }
