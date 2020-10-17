@@ -1,3 +1,4 @@
+
 *{
   font-family: 'Roboto', sans-serif;
 }
@@ -28,4 +29,13 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.fill-window {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: yellow;
 }

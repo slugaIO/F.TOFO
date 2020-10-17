@@ -8,5 +8,5 @@ import registerServiceWorker from './registerServiceWorker';
 
 export const browserHistory = createBrowserHistory();
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();
