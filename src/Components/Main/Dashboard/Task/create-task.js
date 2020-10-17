@@ -1,52 +1,58 @@
 import React from 'react';
 import {Button, Container} from 'react-bootstrap';
-import {Form, Row, Col} from 'react-bootstrap';
+import {Form, Row, Col, Card,OverlayTrigger, Tooltip} from 'react-bootstrap';
 import base64 from 'react-native-base64'
+import { Redirect } from "react-router-dom";
 // api
 import AuthService from '../../../../services/api/auth.service'
-
 // misc
 import {DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-
 // CSS Component
 import createTaskStyle from './inc/create-task-css'
 
-import Editor from 'draft-js-plugins-editor';
-import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
+import TaskEditor from './inc/edit-task'
 
-import SimpleStaticToolbarEditor from './inc/edit-task'
+
 
 class CreateTask extends React.Component{
-    state = {
-        title:'',
-        taskContent:'',
-        selectedDate: new Date().toString(),
-        editorState: ''
-    }
+    renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          click to save new task
+        </Tooltip>
+    );
     constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
-        this.onChange = this.onChange.bind(this);
+        this.state = {
+            title:'',
+            selectedDate: new Date().toString(),
+            taskContent:'my task',
+            redirect:false
+        }
     }
-    onChange(date) {
+    componentDidMount(){
+        this.setState({
+            redirect:false
+        })
+    }
+    onChange = (date) => {
+        console.log(date);
 		this.setState({
-            selectedDate: date
+            selectedDate: `${date}`
             
         });
     }
-    onEditorStateChange = (editorState) => {
-        this.setState({
-          editorState,
-        });
-      };
-    handleEditorChange = (content, editor) => {
+    handleChange = (e) => {
+        let change = {}
+        change[e.target.name] = e.target.value
+        this.setState(change)
+    }
+    // is set by the Editor
+    setTaskContent = (content) => {
         this.setState({
             taskContent:base64.encode(content)
         })
-    }
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
     }
     addTask  = event => {
         // get new Access Token
@@ -67,9 +73,9 @@ class CreateTask extends React.Component{
             .then( (response) => {
                 this.setState({
                     title:'',
-                    taskContent:''
+                    taskContent:'',
+                    redirect:true
                 })
-                this.reloadTaskData();
             })
             .catch( (error) =>{});
         })
@@ -77,13 +83,21 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
-        const { editorState } = this.state;
+        if(this.state.redirect){
+            console.log("redirect");
+            return (
+                <Redirect to='/dashboard/tasklist' />
+            )
+        }
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
+                <Card>
+                <Card.Header>Task Manager</Card.Header>
+                <Card.Body>
                 <Row>
                     <Col>
-                        <SimpleStaticToolbarEditor/>
+                        <TaskEditor setTaskContent={this.setTaskContent}/>
                     </Col>
                     <Col>
                         <Form>
@@ -101,21 +115,24 @@ class CreateTask extends React.Component{
                                 </Form.Group>
                             </Col>
                         </Row>
+
                         <Row>
-                            <Col>-</Col>
-                        </Row>
-                        <Row>
+                            <Col />
                             <Col>
                                 <Form.Group>
-                                    <Button variant="success" type="submit" onClick={this.addTask}>
-                                        add Task
-                                    </Button>
+                                    <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={this.renderTooltip}>
+                                        <Button variant="success" type="submit" onClick={this.addTask}>
+                                            add Task
+                                        </Button>
+                                    </OverlayTrigger>
                                 </Form.Group>
                             </Col>
                         </Row>
                         </Form>
                     </Col>
                 </Row>
+                </Card.Body>
+                </Card>
             </Container>
         )
     }
