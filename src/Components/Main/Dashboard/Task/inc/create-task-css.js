@@ -7,8 +7,9 @@ const createTaskStyle = {
         transform: 'translate(-50%, -50%)',
         border: '1px solid #CCC',
         borderRadius: '5px',
-        padding: '5rem',
-        backgroundColor:'#CCC'
+        padding: '2rem',
+        backgroundColor:'#CCC',
+        height:'80vh'
     },
     headline:{
         transform: 'rotate(270deg)'
