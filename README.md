@@ -42,6 +42,6 @@
 * [ ] Token revalidation
 * [ ] react-sidebar is not working with router
 
-## Clean Up
+## Clean Up 
 * [X] 17.10.2020 clean up in branch cleanup-includes
   
