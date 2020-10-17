@@ -28,7 +28,6 @@ class CreateTask extends React.Component{
             selectedDate: `${date}`
             
         });
-        console.log(this.state.selectedDate);
     }
     handleChange = (e) => {
         let change = {}
@@ -40,7 +39,6 @@ class CreateTask extends React.Component{
         this.setState({
             taskContent:base64.encode(content)
         })
-        console.log("content set to "+this.state.taskContent);
     }
     addTask  = event => {
         console.table({

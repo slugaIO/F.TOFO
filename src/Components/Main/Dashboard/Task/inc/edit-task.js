@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 
-const text = "task...";
 
 export default class TaskEditor extends Component {
   constructor(props){
@@ -9,7 +8,7 @@ export default class TaskEditor extends Component {
     this.setTaskContent = this.props.setTaskContent.bind(this);
   }
   state = {
-    editorState: createEditorStateWithText(text)
+    editorState: createEditorStateWithText(`my task....`)
   };
 
   onChange = (editorState) => {
@@ -22,7 +21,7 @@ export default class TaskEditor extends Component {
   render() {
     return (
       <div>
-        <div /*className={editorStyles.editor}*/ onClick={this.focus}>
+        <div onClick={this.focus}>
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
