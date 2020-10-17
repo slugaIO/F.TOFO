@@ -8,8 +8,9 @@ const createTaskStyle = {
         border: '1px solid #CCC',
         borderRadius: '5px',
         padding: '2rem',
-        backgroundColor:'#CCC',
-        height:'80vh'
+        backgroundColor:'##FFF',
+        borderRadius:'2px',
+        border:'1px solid #555'
     },
     headline:{
         transform: 'rotate(270deg)'

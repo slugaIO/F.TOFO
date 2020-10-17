@@ -4,25 +4,19 @@ import {Form, Row, Col} from 'react-bootstrap';
 import base64 from 'react-native-base64'
 // api
 import AuthService from '../../../../services/api/auth.service'
-
 // misc
 import {DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-
 // CSS Component
 import createTaskStyle from './inc/create-task-css'
 
-import Editor from 'draft-js-plugins-editor';
-import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
-
-import SimpleStaticToolbarEditor from './inc/edit-task'
+import TaskEditor from './inc/edit-task'
 
 class CreateTask extends React.Component{
     state = {
         title:'',
         taskContent:'',
         selectedDate: new Date().toString(),
-        editorState: ''
     }
     constructor(props){
         super(props);
@@ -34,19 +28,6 @@ class CreateTask extends React.Component{
             selectedDate: date
             
         });
-    }
-    onEditorStateChange = (editorState) => {
-        this.setState({
-          editorState,
-        });
-      };
-    handleEditorChange = (content, editor) => {
-        this.setState({
-            taskContent:base64.encode(content)
-        })
-    }
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
     }
     addTask  = event => {
         // get new Access Token
@@ -77,13 +58,12 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
-        const { editorState } = this.state;
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
                 <Row>
                     <Col>
-                        <SimpleStaticToolbarEditor/>
+                        <TaskEditor/>
                     </Col>
                     <Col>
                         <Form>
