@@ -43,7 +43,7 @@ class App extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="fill-window">
       <Router>
       { 
         // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
@@ -75,7 +75,7 @@ class App extends Component {
      />
      </Switch>
      </Router>
-    </React.Fragment>
+    </div>
     )
   }
 }
