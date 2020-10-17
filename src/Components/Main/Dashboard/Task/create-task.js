@@ -12,27 +12,34 @@ import 'rc-datepicker/lib/style.css';
 // CSS Component
 import createTaskStyle from './inc/create-task-css'
 
-// rich text editor
-import { Editor } from '@tinymce/tinymce-react';
+import Editor from 'draft-js-plugins-editor';
+import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
 
-
+import SimpleStaticToolbarEditor from './inc/edit-task'
 
 class CreateTask extends React.Component{
     state = {
         title:'',
         taskContent:'',
-        selectedDate: new Date().toString()
+        selectedDate: new Date().toString(),
+        editorState: ''
     }
-    constructor(props,context){
+    constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this)
         this.onChange = this.onChange.bind(this);
     }
     onChange(date) {
 		this.setState({
-			selectedDate: date
+            selectedDate: date
+            
         });
     }
+    onEditorStateChange = (editorState) => {
+        this.setState({
+          editorState,
+        });
+      };
     handleEditorChange = (content, editor) => {
         this.setState({
             taskContent:base64.encode(content)
@@ -70,12 +77,13 @@ class CreateTask extends React.Component{
         event.preventDefault();
     }
     render(){
+        const { editorState } = this.state;
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent}>
                 <Row>
-                    <Col style={style.bgColorAddTask} md="">
-                        <h1 style={style.headline}>Add Task</h1>
+                    <Col>
+                        <SimpleStaticToolbarEditor/>
                     </Col>
                     <Col>
                         <Form>
@@ -94,25 +102,7 @@ class CreateTask extends React.Component{
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
-                            <Editor
-                            initialValue="<p>This is the initial content of the editor</p>"
-                            init={{
-                              height: 300,
-                              menubar: true,
-                              plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                              ],
-                              toolbar:
-                                'undo redo | formatselect | bold italic backcolor | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | removeformat | help'
-                            }}
-                            onEditorChange={this.handleEditorChange}
-                            />
-                            </Col>
+                            <Col>-</Col>
                         </Row>
                         <Row>
                             <Col>
