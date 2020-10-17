@@ -55,16 +55,7 @@ class App extends Component {
         this.state.isLoggedIn === true ?
         null:<Welcome/>
       }
-      {
-      this.state.isLoggedIn === true ?
-      <Route 
-        path='/dashboard'  
-        render={props => (
-             <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-        )
-        }
-      />:null
-      }
+      {this.state.isLoggedIn === true ? <Route path='/dashboard' render={props => (<Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>:null}
       <Route 
         path='/register' 
         exact 
