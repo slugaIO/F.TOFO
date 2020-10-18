@@ -44,4 +44,7 @@
 
 ## Clean Up
 * [X] 17.10.2020 clean up in branch cleanup-includes
+
+## 
+* [X] Update Menu https://codepen.io/StephenScaff/pen/bVbEbJ
   
