@@ -8,10 +8,6 @@ import base64 from 'react-native-base64'
 class EditTask extends React.Component{
     constructor(props){
         super(props);
-        console.table({
-            msg:'task edit',
-            id:this.props.match.params.id
-        })
         this.state = {
             title:'',
             selectedDate: new Date().toString(),
@@ -24,6 +20,17 @@ class EditTask extends React.Component{
         this.setState({
             taskContent:base64.encode(content)
         })
+    }
+    onChange = (date) => {
+		this.setState({
+            selectedDate: `${date}`
+            
+        });
+    }
+    handleChange = (e) => {
+        let change = {}
+        change[e.target.name] = e.target.value
+        this.setState(change)
     }
     render() {
         return (

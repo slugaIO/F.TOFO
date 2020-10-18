@@ -37,7 +37,6 @@ class CreateTask extends React.Component{
         })
     }
     onChange = (date) => {
-        console.log(date);
 		this.setState({
             selectedDate: `${date}`
             
