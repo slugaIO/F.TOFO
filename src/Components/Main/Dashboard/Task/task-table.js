@@ -11,6 +11,7 @@ class TaskTable extends React.Component{
         // FIXME why we have a Cannot read property 'bind' of undefined
         this.reloadTaskData = this.props.reloadTaskData;
         this.taskList       = this.props.taskList;
+        console.table(this.taskList);
   }
   componentDidMount(){
     this.reloadTaskData();
