@@ -11,6 +11,7 @@ import TaskTable from '../../Main/Dashboard/Task/task-table'
 import CreateTask from '../../Main/Dashboard/Task/create-task'
 import EditTask from '../../Main/Dashboard/Task/edit-task'
 import SidebarMenu from '../../navigation/inc/sidebar-menu'
+import SidebarUser from '../../navigation/inc/sidebar-user'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -46,24 +47,26 @@ class Dashboard extends React.Component{
         })
         .catch( (error) => {})
     }
-    render(){
-        const style = {
-            sidebar:{
-                backgroundColor:'white',
-                padding:'32px',
-                borderRight:'2px solid #586069'
-            },
-            dashboard:{
-                backgroundColor:'#CCC'
-            }
+    dashboardStyle = {
+        sidebar:{
+            background:'rgba(0, 0, 0, 0.75)',
+            padding:'32px',
+            borderRight:'2px solid #586069'
+        },
+        dashboard:{
+            backgroundColor:'#CCC'
         }
+    }
+    render(){
         return(
                 <Container fluid className='fill-window'>
                     <Row className='fill-window'>
-                        <Col style={style.sidebar} md="auto">
-                            <SidebarMenu />
+                        <Col style={this.dashboardStyle.sidebar} md="auto">
+                            <SidebarUser/>
+                            <hr/>
+                            <SidebarMenu/>
                         </Col>
-                        <Col md="auto" xl style={style.dashboard}>
+                        <Col md="auto" xl style={this.dashboardStyle.dashboard}>
                             <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
                             <Route path='/dashboard/tasklist' exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
                             <Route path='/dashboard/addTask' exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList} {...props}  />) } />
