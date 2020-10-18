@@ -11,7 +11,7 @@ class Sidebar extends React.Component{
             <ul>
             <li>
                 <a className="#">
-                <i className="fa fa-bar-chart-o fa-2x"></i>
+                <i className="fa fa-user-circle-o fa-2x"></i>
                     <span className="nav-text">
                         Profile
                     </span>
@@ -35,7 +35,7 @@ class Sidebar extends React.Component{
             </li>
             <li>
                 <Link to={'/dashboard/addtask'}>
-                <i className="fa fa-list fa-2x"></i>
+                <i className="fa fa-plus-square fa-2x"></i>
                     <span className="nav-text">
                         Add Task
                     </span>
