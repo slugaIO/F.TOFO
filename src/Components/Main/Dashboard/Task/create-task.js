@@ -13,8 +13,6 @@ import createTaskStyle from './inc/create-task-css'
 
 import TaskEditor from './inc/edit-task'
 
-
-
 class CreateTask extends React.Component{
     renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -26,7 +24,7 @@ class CreateTask extends React.Component{
         this.updateTaskList = this.props.updateTaskList.bind(this)
         this.state = {
             title:'',
-            selectedDate: new Date().toString(),
+            selectedDate: new Date(),
             taskContent:'my task',
             redirect:false
         }
@@ -37,7 +35,6 @@ class CreateTask extends React.Component{
         })
     }
     onChange = (date) => {
-        console.log(date);
 		this.setState({
             selectedDate: `${date}`
             
@@ -98,7 +95,7 @@ class CreateTask extends React.Component{
                 <Card.Body>
                 <Row>
                     <Col>
-                        <TaskEditor setTaskContent={this.setTaskContent}/>
+                        <TaskEditor taskContent={''} setTaskContent={this.setTaskContent}/>
                     </Col>
                     <Col>
                         <Form>

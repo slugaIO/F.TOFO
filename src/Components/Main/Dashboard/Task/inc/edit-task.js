@@ -8,7 +8,7 @@ export default class TaskEditor extends Component {
     this.setTaskContent = this.props.setTaskContent.bind(this);
   }
   state = {
-    editorState: createEditorStateWithText(`my task....`)
+    editorState: createEditorStateWithText(this.props.taskContent)
   };
 
   onChange = (editorState) => {

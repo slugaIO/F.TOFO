@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table,Button, Container, Row} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 import AuthService from '../../../../services/api/auth.service'
 
@@ -51,6 +52,8 @@ class TaskTable extends React.Component{
         }</td>
         <td>
             <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button>
+           
+            <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`}>Edit</Link>
             <Button variant="success" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>?</Button>
         </td>
       </tr>
