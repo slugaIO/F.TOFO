@@ -4,10 +4,7 @@ import {Link} from 'react-router-dom'
 class Sidebar extends React.Component{
     render(){
         return(
-            <nav class="main-menu">
-            <h1>
-               
-            </h1>
+            <nav className="main-menu">
             <ul>
             <li>
                 <a className="#">

@@ -3,7 +3,7 @@
 
 
 *{
-  font-family: 'Roboto', sans-serif;
+  
 }
 .App {
   text-align: center;
@@ -40,7 +40,6 @@
   left: 0;
   width: 100%;
   overflow: hidden;
-  background-color: yellow;
 }
 
 
