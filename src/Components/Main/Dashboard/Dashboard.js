@@ -4,6 +4,7 @@
  * 
  */
 import React from 'react';
+import {Link} from 'react-router-dom';
 import AuthService from '../../../services/api/auth.service'
 import { Container,Row,Col } from 'react-bootstrap'
 import {Route,withRouter} from 'react-router-dom'
@@ -61,6 +62,45 @@ class Dashboard extends React.Component{
         return(
                 <Container fluid className='fill-window'>
                     <Row className='fill-window'>
+                    <nav class="main-menu">
+                    <h1>
+                       
+                    </h1>
+                    <ul>
+                    <li>
+                        <a className="#">
+                        <i className="fa fa-bar-chart-o fa-2x"></i>
+                            <span className="nav-text">
+                                Profile
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard'}>
+                            <i className="fa fa-bar-chart-o fa-2x"></i>
+                            <span className="nav-text">
+                                Dashboard
+                            </span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/tasklist'}>
+                        <i className="fa fa-list fa-2x"></i>
+                            <span className="nav-text">
+                                Task List
+                            </span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/addtask'}>
+                        <i className="fa fa-list fa-2x"></i>
+                            <span className="nav-text">
+                                Add Task
+                            </span>
+                        </Link>
+                    </li>
+                    </ul>
+                    </nav>
                         <Col style={this.dashboardStyle.sidebar} md="auto">
                             <SidebarUser/>
                             <hr/>
