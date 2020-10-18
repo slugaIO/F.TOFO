@@ -31,6 +31,9 @@ class SidebarMenu  extends React.Component{
                 <li  style={this.style.li}>
                     <Link to={"/dashboard/tasklist"}>Task List</Link>
                 </li>
+                <li  style={this.style.li}>
+                    <Link to={"/dashboard/edittask"}>Edit Task</Link>
+                </li>
             </ul>
             <hr/>
             <strong>Profile</strong>

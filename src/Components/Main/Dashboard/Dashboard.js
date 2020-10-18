@@ -9,6 +9,7 @@ import { Container,Row,Col } from 'react-bootstrap'
 import {Route,withRouter} from 'react-router-dom'
 import TaskTable from '../../Main/Dashboard/Task/task-table'
 import CreateTask from '../../Main/Dashboard/Task/create-task'
+import EditTask from '../../Main/Dashboard/Task/edit-task'
 import SidebarMenu from '../../navigation/inc/sidebar-menu'
 
 class Dashboard extends React.Component{
@@ -65,7 +66,9 @@ class Dashboard extends React.Component{
                         <Col md="auto" xl style={style.dashboard}>
                             <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
                             <Route path='/dashboard/tasklist' exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
-                            <Route path='/dashboard/addTask' exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList}{...props}  />) } />
+                            <Route path='/dashboard/addTask' exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList} {...props}  />) } />
+                            <Route path='/dashboard/edittask/:id' exact render={ props => (<EditTask {...props} />)}/>
+                            <Route path='/dashboard/edittask' exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
                         </Col>
                     </Row>
                 </Container>
