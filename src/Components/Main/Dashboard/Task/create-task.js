@@ -92,6 +92,7 @@ class CreateTask extends React.Component{
         const style = {...createTaskStyle}
         return(
             <Container style={style.alignInContent} fluid>
+            <h2>Create Task</h2>
                 <Card>
                 <Card.Header>Task Manager</Card.Header>
                 <Card.Body>

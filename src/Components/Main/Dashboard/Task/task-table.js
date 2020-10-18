@@ -34,6 +34,10 @@ class TaskTable extends React.Component{
         })
         .catch( (error) => {});
   }
+  /**
+   * 
+   * ? Return the Table Content
+   */
   tableRow = () => {
     let rows = [];
     for(let i = 0; i < this.props.taskList.length;i++){
@@ -45,15 +49,23 @@ class TaskTable extends React.Component{
         <td>{
           new Date(this.props.taskList[i].endDate).toLocaleString()
         }</td>
-        <td><Button variant="outline-danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button></td>
+        <td>
+            <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button>
+            <Button variant="success" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>?</Button>
+        </td>
       </tr>
       );
     }
     return rows;
   }
   render(){
+    const style = {
+      container:{
+        marginTop:'20px'
+      }
+    }
     return(
-      <Container>
+      <Container style={style.container}>
       <Row>
           <h1>Task Overview</h1>
       </Row>
