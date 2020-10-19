@@ -51,19 +51,15 @@ class App extends Component {
       }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
       <Switch>
-      {
-        this.state.isLoggedIn === true ?
-        null:<Welcome/>
-      }
-      {this.state.isLoggedIn === true ? <Route path='/dashboard' render={props => (<Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>:null}
       <Route 
-        path='/register' 
-        exact 
-        render={props => (
-             <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-        )
-        }
+      path='/register' 
+      exact 
+      render={props => (
+           <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
+      )
+      }
      />
+      {this.state.isLoggedIn === true ? <Route path='/dashboard' render={props => (<Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>:<Welcome/>}
      </Switch>
      </Router>
     </div>
