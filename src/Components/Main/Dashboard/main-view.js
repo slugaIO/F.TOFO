@@ -14,9 +14,10 @@ class MainView extends React.Component{
         super(props);
         this.taskOfToday = 1; // this.props.taskList.length;
         this.state = {
-            taskCounter:100,
-            taskForToday:200,
-            taskForWeek:300
+            taskCounter:0,
+            taskForToday:0,
+            taskForWeek:0,
+            taskForMonth:0
         }
     }
     componentDidMount(){
@@ -31,56 +32,28 @@ class MainView extends React.Component{
                 const _date  = new Date();
                 let sameDay  = 0;
                 let sameWeek = 0;
-                console.log("Tasks : "+_array.length);
-
-
+                let sameMonth = 0;
+                // check each task
                 for(let i = 0; i < _array.length; i++){
-                   
+                
                     const taskDate = new Date(_array[i].endDate);
-                    const isSameWeek = moment([_date.getFullYear(),(_date.getMonth()+1),_date.getDay()]).isSame([ taskDate.getFullYear(),(taskDate.getMonth()+1),taskDate.getDay()],'week');
+                    const isSameWeek = moment([_date.getFullYear(),(_date.getMonth()+1),_date.getDate()]).isSame([ taskDate.getFullYear(),(taskDate.getMonth()+1),taskDate.getDate()],'week');
                     if(isSameWeek) sameWeek = sameWeek + 1;
-                        
-                    if(  _date.getFullYear() === taskDate.getFullYear()   && 
-                         (_date.getMonth()+1) === (taskDate.getMonth()+1) && 
-                        _date.getDay() === taskDate.getDay()){
-                        console.log('date date');
+
+                    const isSameMonth = moment([_date.getFullYear(),(_date.getMonth()+1),_date.getDate()]).isSame([ taskDate.getFullYear(),(taskDate.getMonth()+1),taskDate.getDate()],'month');
+                    if(isSameMonth) sameMonth = sameMonth + 1;
+
+                    // count task for today
+                    if(_date.getFullYear() === taskDate.getFullYear() &&  (_date.getMonth()+1) === (taskDate.getMonth()+1) &&  _date.getDate() === taskDate.getDate()){
                         sameDay = sameDay + 1;
                     }
-                    /*
-                    else{
-                        console.log(`Different Date
-                            ${_date.getFullYear()} !== ${taskDate.ggetMonthetFullYear()}
-                            ${_date.getMonth()} !== ${taskDate.getFullYear()}
-                            ${_date.getDay()} !== ${taskDate.getDay()}
-                        `)
-                    }
-                    */
                 }
                 this.setState({
-                    taskCounter:200,
+                    taskCounter:_array.length,
                     taskForToday:sameDay,
-                    taskForWeek:sameWeek
+                    taskForWeek:sameWeek,
+                    taskForMonth:sameMonth
                 })
-                /**
-                for(i = 0; i < 10; i++){
-                    const taskDate = new Date(_array[i].endDate)
-                    console.table({
-                        task:taskDate,
-                        check:_array[i].endDate,
-                        cur:_date,
-                        same:(
-                            _date.getFullYear() === taskDate.getFullYear()  &&
-                            _date.getMonth()    === taskDate.getMonth()     &&
-                            _date.getDay()      === taskDate.getDate()      
-                        ) ? true:false
-                    })
-                    if(
-                        _date.getFullYear() === taskDate.getFullYear()  &&
-                        _date.getMonth()    === taskDate.getMonth()     &&
-                        _date.getDay()      === taskDate.getDate()      
-                    )cnt++;
-                }
-                **/
             })
             .catch( (error) =>{});
         })
@@ -126,7 +99,7 @@ class MainView extends React.Component{
                     <Col style={this.mainView.colItem}>
                         Task Month
                         <h3 style={this.mainView.colItemText}>
-                           0
+                           {this.state.taskForMonth}
                         </h3>
                     </Col>
                     <Col style={this.mainView.colItem}>
