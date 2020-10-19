@@ -47,5 +47,5 @@
 
 ## Layout
 * [X] Update Menu https://codepen.io/StephenScaff/pen/bVbEbJ
-* [ ] https://fontawesome.com/v4.7.0/ kann man das irgendwie per NPM einbinden
+* [ ] https://fontawesome.com/v4.7.0/ kann man das irgendwie per NPM einbinden 
   
