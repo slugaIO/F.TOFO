@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table,Button, Container, Row} from 'react-bootstrap';
+import {Redirect,Link} from 'react-router-dom';
 
 import AuthService from '../../../../services/api/auth.service'
 import {Trash, Pencil} from 'react-bootstrap-icons';
@@ -75,8 +76,12 @@ class TaskTable extends React.Component{
             new Date(this.props.taskList[i].endDate).toLocaleString()
           }</td>
           <td>
-              <Button style={this.style.button} variant="success" onClick={() => {}}><Pencil/></Button>
-              <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}><Trash/></Button>
+              <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}>
+                <Pencil/>
+              </Link>
+              <Link to={'#'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}>
+                <Trash/>
+              </Link>
           </td>
         </tr>
         );
