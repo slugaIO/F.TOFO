@@ -4,12 +4,10 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import { Navbar,Nav,Form,FormControl,Button,InputGroup } from 'react-bootstrap'
-import {withRouter} from 'react-router-dom'
-import { PersonFill,KeyFill, LayoutSidebarInsetReverse } from 'react-bootstrap-icons';
+import {withRouter, Link} from 'react-router-dom'
+import { PersonFill,KeyFill} from 'react-bootstrap-icons';
 import Loader from 'react-loader-spinner'
 import AuthService from '../../services/api/auth.service'
-
-import TaskSideBar from './sidebar'
 
 class TopNavigation extends React.Component{
     constructor(props){
@@ -28,6 +26,7 @@ class TopNavigation extends React.Component{
         this.setState({ sidebarOpen: open });
     }
     register = () => {
+      console.log("register");
       this.setState({
         rediectTo:'REGISTER'
       })
@@ -73,9 +72,11 @@ class TopNavigation extends React.Component{
         });
     }
     render(){ 
+        if(this.state.rediectTo === 'DASHBOARD'){
+          return (<Redirect to='/dashboard'></Redirect>)
+        }
         return(
           <React.Fragment>
-          <TaskSideBar isLoggedIn={this.props.isLoggedIn} sidebarOpen={this.state.sidebarOpen} onSetSidebarOpen={this.onSetSidebarOpen} /> 
           <Navbar bg="dark" variant="dark">
           <Loader
               style={{
@@ -88,12 +89,7 @@ class TopNavigation extends React.Component{
               width={250} 
               visible={this.state.showSpinner}
           />
-          <Nav className="mr-auto">
-          {
-            // ! Show Sidebar Butto if logged in
-            this.props.isLoggedIn === true ? <button onClick={() => this.onSetSidebarOpen(true)}><LayoutSidebarInsetReverse/></button>:null
-          }
-          </Nav>
+          <Nav className="mr-auto"></Nav>
           <Form>
           {
             this.props.isLoggedIn === false ? 
@@ -129,10 +125,6 @@ class TopNavigation extends React.Component{
           {
             this.state.rediectTo === 'REGISTER' ? 
             <Redirect to='/register'></Redirect>:null
-          }
-          {
-            this.state.rediectTo === 'DASHBOARD' ? 
-            <Redirect to='/dashboard'></Redirect>:null
           }
           {
             this.state.rediectTo === 'HOMEPAGE'? 

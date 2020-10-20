@@ -4,6 +4,9 @@ import Register from './Components/Main/Register'
 import MenuTop from './Components/navigation/menu'
 import Dashboard from './Components/Main/Dashboard/Dashboard'
 import Welcome from './Components/Main/Welcome/Welcome'
+import Profile from './Components/Main/profile/profile'
+import Sidebar from './Components/navigation/sidebar'
+import {Col} from 'react-bootstrap'
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
@@ -41,42 +44,42 @@ class App extends Component {
       .catch((error) => console.log(error));
     }
   }
+  dashboardStyle = {
+    sidebar:{
+        background:'rgba(0, 0, 0, 0.75)',
+        padding:'32px',
+        borderRight:'2px solid #586069'
+    },
+    dashboard:{
+        backgroundColor: '#fafbfe'
+    }
+}
   render() {
-    return (
-      <React.Fragment>
+    if(this.state.isLoggedIn){
+      return (
+        <Router>
+          <div className="fill-window">
+            <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
+            <Switch>
+              <Route path='/dashboard' render={props => (<Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)} />
+              <Route path='/profile'   render={props => (<Profile {...props}  />)} />
+            </Switch>
+          </div>
+        </Router>
+      )
+    }else{
+      return (
       <Router>
-      { 
-        // sobald dieser Flog gesetzt wird (login/register) kommt man zum Dashboard
-        //this.state.isLoggedIn ? <Redirect to='/dashboard'/>:null
-      }
-      <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
-      <Switch>
-      {
-        this.state.isLoggedIn === true ?
-        null:<Welcome/>
-      }
-      {
-      this.state.isLoggedIn === true ?
-      <Route 
-        path='/dashboard'  
-        render={props => (
-             <Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-        )
-        }
-      />:null
-      }
-      <Route 
-        path='/register' 
-        exact 
-        render={props => (
-             <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-        )
-        }
-     />
-     </Switch>
-     </Router>
-    </React.Fragment>
-    )
+      <div className="fill-window">
+        <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
+        <Switch>
+          <Route path='/register' exact render={props => (<Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>
+          <Route path='/' exact render={props => (<Welcome {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>
+        </Switch>
+      </div>
+      </Router>
+      )
+    }
   }
 }
 

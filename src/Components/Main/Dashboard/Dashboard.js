@@ -4,11 +4,15 @@
  * 
  */
 import React from 'react';
+import {Switch} from 'react-router-dom';
 import AuthService from '../../../services/api/auth.service'
-import { Container,Row } from 'react-bootstrap'
+import { Container,Row,Col } from 'react-bootstrap'
 import {Route,withRouter} from 'react-router-dom'
 import TaskTable from '../../Main/Dashboard/Task/task-table'
+import MainView from '../../Main/Dashboard/main-view'
 import CreateTask from '../../Main/Dashboard/Task/create-task'
+import EditTask from '../../Main/Dashboard/Task/edit-task'
+import Sidebar from '../../navigation/sidebar'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -44,7 +48,18 @@ class Dashboard extends React.Component{
         })
         .catch( (error) => {})
     }
+    dashboardStyle = {
+        sidebar:{
+            background:'rgba(0, 0, 0, 0.75)',
+            padding:'32px',
+            borderRight:'2px solid #586069'
+        },
+        dashboard:{
+            backgroundColor: '#fafbfe'
+        }
+    }
     render(){
+<<<<<<< HEAD
         return( 
                 <Container>
                     <Row className="justify-content-md-center">
@@ -61,6 +76,23 @@ class Dashboard extends React.Component{
                                 {...props}  
                             />)
                             } />
+=======
+        return(
+                <Container fluid className='fill-window'>
+                    <Row className='fill-window'>
+                        <Col style={this.dashboardStyle.sidebar} md="auto">
+                            <Sidebar />
+                        </Col>
+                        <Col md="auto" xl style={this.dashboardStyle.dashboard}>
+                            <Switch>
+                                <Route path='/dashboard'              exact render={ props => ( <MainView {...props}  /> ) } />
+                                <Route path='/dashboard/tasklist'     exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
+                                <Route path='/dashboard/addTask'      exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList} {...props}  />) } />
+                                <Route path='/dashboard/edittask/:id' exact render={ props => (<EditTask {...props} taskList={this.state.taskList} />)}/>
+                                <Route path='/dashboard/edittask'     exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
+                            </Switch>
+                        </Col>
+>>>>>>> develop
                     </Row>
                 </Container>
         )
