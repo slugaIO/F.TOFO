@@ -5,6 +5,20 @@ import {Link} from 'react-router-dom'
 import AuthService from '../../../../services/api/auth.service'
 
 class TaskTable extends React.Component{
+  style = {
+    container:{
+      marginTop:'20px'
+    },
+    emptyTable:{
+      textAlign:'center'
+    },
+    table:{
+      tr:{
+        fontWeight:'200',
+        fontFamily:'Titillium Web'
+      }
+    }
+  }
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
@@ -42,45 +56,57 @@ class TaskTable extends React.Component{
    */
   tableRow = () => {
     let rows = [];
-    for(let i = 0; i < this.props.taskList.length;i++){
-      let date = new Date(this.props.taskList[i].createDate)
+    if(this.props.taskList.length === 0){
       rows.push(
-        <tr key={this.props.taskList[i]._id}>
-        <td>{this.props.taskList[i].title}</td>
-        <td>{date.toLocaleString()}</td>
-        <td>{
-          new Date(this.props.taskList[i].endDate).toLocaleString()
-        }</td>
-        <td>
-            <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button>
-           
-            <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`}>Edit</Link>
-            <Button variant="success" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>?</Button>
-        </td>
-      </tr>
-      );
+        <tr key='emptyTable'><td colSpan='6' style={this.style.emptyTable}>No Tasks</td></tr>     
+      )
+    }else{
+      for(let i = 0; i < this.props.taskList.length;i++){
+        let date = new Date(this.props.taskList[i].createDate)
+        rows.push(
+          <tr key={this.props.taskList[i]._id}>
+          <td>{this.props.taskList[i].title}</td>
+          <td>{date.toLocaleString()}</td>
+          <td>{
+            new Date(this.props.taskList[i].endDate).toLocaleString()
+          }</td>
+          <td>
+              <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button>
+          </td>
+          <td>  
+              {
+                // <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`}>Edit</Link>
+              }
+              <Button  variant="success">
+              <i className="fa fa-bar-chart-o"></i>
+              </Button>
+          </td>
+          <td>
+              <Button className="btn"  onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}><i className="fa fa-trash"></i></Button>
+              <Button variant="success" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>?</Button>
+          </td>
+        </tr>
+        );
+      }
     }
     return rows;
   }
   render(){
-    const style = {
-      container:{
-        marginTop:'20px'
-      }
-    }
     return(
-      <Container style={style.container}>
+      <Container style={this.style.container}>
       <Row>
-          <h1>Task Overview</h1>
+          <h2 className={'dashboard'}>Task Overview</h2>
       </Row>
-      <Row>
-          <Table striped bordered hover variant="dark">
+      <Row>      
+          <Table striped bordered hover variant="grey" id={'taskOverview'}>
           <thead>
             <tr>
               <th>Title</th>
-              <th>Erstellt</th>
+              <th>Created</th>
               <th>Deadline</th>
-              <th>Modify</th>
+              <th>Delete</th>
+              <th>Edit</th>
+              <th>Done</th>
             </tr>
           </thead>
           <tbody>
