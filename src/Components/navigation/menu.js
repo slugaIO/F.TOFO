@@ -116,7 +116,6 @@ class TopNavigation extends React.Component{
             />
             <Button variant="light"  className="mr-sm-2" onClick={this.login}>Login</Button>
             <Button variant="success"  className="mr-sm-2" onClick={this.register}>Register</Button>
-            <Link to={'/register'}>Register</Link>
           </InputGroup>:
           <InputGroup>
               <Button variant="danger"  className="mr-sm-2" onClick={this.logout}>Logout</Button>
