@@ -45,7 +45,7 @@ class Dashboard extends React.Component{
         .catch( (error) => {})
     }
     render(){
-        return(
+        return( 
                 <Container>
                     <Row className="justify-content-md-center">
                             <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
