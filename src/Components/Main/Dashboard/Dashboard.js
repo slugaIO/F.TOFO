@@ -4,7 +4,7 @@
  * 
  */
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import AuthService from '../../../services/api/auth.service'
 import { Container,Row,Col } from 'react-bootstrap'
 import {Route,withRouter} from 'react-router-dom'
@@ -13,7 +13,6 @@ import MainView from '../../Main/Dashboard/main-view'
 import CreateTask from '../../Main/Dashboard/Task/create-task'
 import EditTask from '../../Main/Dashboard/Task/edit-task'
 import Sidebar from '../../navigation/sidebar'
-
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -67,11 +66,13 @@ class Dashboard extends React.Component{
                             <Sidebar />
                         </Col>
                         <Col md="auto" xl style={this.dashboardStyle.dashboard}>
-                            <Route path='/dashboard' exact render={props => ( <MainView {...props}  /> ) } />
-                            <Route path='/dashboard/tasklist' exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
-                            <Route path='/dashboard/addTask' exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList} {...props}  />) } />
-                            <Route path='/dashboard/edittask/:id' exact render={ props => (<EditTask {...props} taskList={this.state.taskList} />)}/>
-                            <Route path='/dashboard/edittask' exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
+                            <Switch>
+                                <Route path='/dashboard'              exact render={ props => ( <MainView {...props}  /> ) } />
+                                <Route path='/dashboard/tasklist'     exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
+                                <Route path='/dashboard/addTask'      exact render={ props =>  (<CreateTask  taskList={this.state.taskList}  reloadTaskData={this.reloadTaskData} updateTaskList={this.updateTaskList} {...props}  />) } />
+                                <Route path='/dashboard/edittask/:id' exact render={ props => (<EditTask {...props} taskList={this.state.taskList} />)}/>
+                                <Route path='/dashboard/edittask'     exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
+                            </Switch>
                         </Col>
                     </Row>
                 </Container>
