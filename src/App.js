@@ -8,6 +8,7 @@ import Welcome from './Components/Main/Welcome/Welcome'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 import AuthService from './services/api/auth.service'
+import Profile from './Components/Main/profile/profile'
 
 import './App.css';
 
@@ -51,14 +52,8 @@ class App extends Component {
       }
       <MenuTop isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)}/>
       <Switch>
-      <Route 
-      path='/register' 
-      exact 
-      render={props => (
-           <Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />
-      )
-      }
-     />
+      <Route path='/register' exact render={props => (<Register {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>
+      <Route path='/profile'  exact render={props => ( <Profile />)} />
       {this.state.isLoggedIn === true ? <Route path='/dashboard' render={props => (<Dashboard {...props}  isLoggedIn={this.state.isLoggedIn} onAuthChange={this.onAuthChange.bind(this)} />)}/>:<Welcome/>}
      </Switch>
      </Router>
