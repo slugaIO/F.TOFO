@@ -1,9 +1,8 @@
 import React from 'react';
 import {Table,Button, Container, Row} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
 
 import AuthService from '../../../../services/api/auth.service'
-
+import {Trash, Pencil} from 'react-bootstrap-icons';
 class TaskTable extends React.Component{
   style = {
     container:{
@@ -54,11 +53,16 @@ class TaskTable extends React.Component{
    * 
    * ? Return the Table Content
    */
+  style = {
+    button:{
+      marginRight:'0.5rem'
+    }
+  }
   tableRow = () => {
     let rows = [];
     if(this.props.taskList.length === 0){
       rows.push(
-        <tr key='emptyTable'><td colSpan='6' style={this.style.emptyTable}>No Tasks</td></tr>     
+        <tr key='emptyTable'><td colSpan='4' style={this.style.emptyTable}>No Tasks</td></tr>     
       )
     }else{
       for(let i = 0; i < this.props.taskList.length;i++){
@@ -71,19 +75,8 @@ class TaskTable extends React.Component{
             new Date(this.props.taskList[i].endDate).toLocaleString()
           }</td>
           <td>
-              <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>X</Button>
-          </td>
-          <td>  
-              {
-                // <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`}>Edit</Link>
-              }
-              <Button  variant="success">
-              <i className="fa fa-bar-chart-o"></i>
-              </Button>
-          </td>
-          <td>
-              <Button className="btn"  onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}><i className="fa fa-trash"></i></Button>
-              <Button variant="success" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}>?</Button>
+              <Button style={this.style.button} variant="success" onClick={() => {}}><Pencil/></Button>
+              <Button variant="danger" onClick={() => {this.deleteTask(this.props.taskList[i]._id)}}><Trash/></Button>
           </td>
         </tr>
         );
@@ -104,9 +97,7 @@ class TaskTable extends React.Component{
               <th>Title</th>
               <th>Created</th>
               <th>Deadline</th>
-              <th>Delete</th>
-              <th>Edit</th>
-              <th>Done</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
