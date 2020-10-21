@@ -49,8 +49,6 @@ class MainView extends React.Component{
                         sameDay = sameDay + 1;
                     }
                 }
-                console.log("read Data");
-                console.log(_array);
                 this.setState({
                     taskCounter:_array.length,
                     taskForToday:sameDay,

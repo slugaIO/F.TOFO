@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col} from 'react-bootstrap';
+import {Col,Row} from 'react-bootstrap';
 
 class TaskItem extends React.Component{
     style = {
@@ -14,9 +14,20 @@ class TaskItem extends React.Component{
             fontWeight:400,
             borderBottom:'1px solid black'
         },
-        taskTodayTitle:{
-            fontSize:'14px',
-            color:'#CCC'
+        headLineTaskToday:{
+            fontWeight:400,
+            color:'black',
+            fontSize:'16px'
+        },
+        labelToday:{
+            backgroundColor:'#d1453b',
+            borderRadius:'10px',
+            padding:'0.1rem',
+            paddingLeft:'0.5rem',
+            paddingRight:'0.5rem',
+            float:'right',
+            color:'white',
+            fontWeight:'400'
         }
     }
     constructor(props){
@@ -24,35 +35,40 @@ class TaskItem extends React.Component{
         this.state = {
             taskList : this.props.taskList
         }
-        console.log(this.props.taskList);
-        console.log(this.props.taskLength);
-        console.log(this.props);
     }
-    createItemList(_array){
-        let cols    = [];
-        let index   = 0;
-        for(index = 0; index < _array.length; index++){
-            cols.push( () => {
-                return(
-                    <col style={this.style.taskItem}>
-                        <span style={this.style.taskTitle}>Task</span>
-                    </col>
-                )
-            })
+    taskItem(task){
+        let taskDate = new Date(task.endDate);
+        let _date    = new Date();
+        if(_date.getFullYear() === taskDate.getFullYear() &&  (_date.getMonth()+1) === (taskDate.getMonth()+1) &&  _date.getDate() === taskDate.getDate()){
+            return (
+                <Col key={task._id} style={this.style.taskItem}>
+                <Row>
+                    <Col>
+                        <span style={this.style.taskTitle}>{task.title}</span>
+                    </Col>
+                    <Col>
+                        <span style={this.style.labelToday}>Today</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
+                    </Col>
+                </Row>
+            </Col>
+        )
         }
-        return cols;
+        return '';
     }
     render(){
         return(
             <React.Fragment>
-            <h3 style={this.style.taskTodayTitle}>Task Today</h3>
+            <Col>
+                <h3 style={this.style.headLineTaskToday}>Task Today</h3>
+            </Col>
             {
                 this.props.taskList.map((n) => {
-                    return <Col key={n._id} style={this.style.taskItem}>
-                        <span style={this.style.taskTitle}>{n.title}</span>
-                        <hr />
-                        {`${("0" + new Date(n.endDate).getDay()).slice(-2)}.${("0" + new Date(n.endDate).getMonth()).slice(-2)}.${new Date(n.endDate).getFullYear()}`}
-                    </Col>
+                    return this.taskItem(n);
                 })     
             }
             </React.Fragment>
