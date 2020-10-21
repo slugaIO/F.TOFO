@@ -15,35 +15,44 @@ class TaskItem extends React.Component{
         }
         this.style  = {...componentStyle};
     }
+    renderHTMLItem(task, CSSLabel){
+        let taskDate = new Date(task.endDate);
+        return (
+            <Col key={task._id} style={this.style.taskItem}>
+            <Row>
+                <Col>
+                    <span style={this.style.taskTitle}>{task.title}</span>
+                </Col>
+                <Col> 
+                     <span style={{
+                        ...CSSLabel,
+                        ...this.style.labelTiming
+                     }} ><i><FeatherIcon icon="info" size="24" style={this.style.iconMargin} /></i>Delay</span>
+                </Col>
+            </Row>
+            <Row>
+                <Col style={this.style.taskContent}>
+                    {base64.decode(task.content).substring(0, 64)}...
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <i><FeatherIcon icon="clock" size="24"  style={this.style.iconMargin}/></i>{`${("0" + taskDate.getDate()).slice(-2)}.${("0" + (taskDate.getMonth()+1)).slice(-2)}.${taskDate.getFullYear()}`}
+                </Col>
+                <Col md="auto">
+                    <i><FeatherIcon icon="trash" size="24" style={this.style.iconMargin} /></i>
+                    <i><FeatherIcon icon="check-circle" size="24" style={this.style.iconMargin} /></i>
+                    <i><FeatherIcon icon="eye" size="24" style={this.style.iconMargin}  /></i>
+                </Col>
+            </Row>
+        </Col>
+        )
+    }
     renderYesterDay(task){
         let taskDate = new Date(task.endDate);
         let _date    = new Date();
         if(moment(taskDate.toISOString()).isBefore(_date.toISOString(),'day')){
-            return (
-                <Col key={task._id} style={this.style.taskItem}>
-                <Row>
-                    <Col>
-                        <span style={this.style.taskTitle}>{task.title}</span>
-                    </Col>
-                    <Col> 
-                         <span style={{
-                             ...this.style.labelDelay,
-                             ...this.style.labelTiming
-                         }} ><i><FeatherIcon icon="info" size="24" /></i>Delay</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={this.style.taskContent}>
-                        {base64.decode(task.content).substring(0, 64)}...
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                    <i><FeatherIcon icon="clock" size="24" /></i>{`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
-                    </Col>
-                </Row>
-            </Col>
-            )
+            return this.renderHTMLItem(task,this.style.labelDelay);
         }
         return '';
     }
@@ -51,31 +60,7 @@ class TaskItem extends React.Component{
         let taskDate = new Date(task.endDate);
         let _date    = new Date();
         if(moment(taskDate.toISOString()).isSame(_date.toISOString(),'day')){
-            return (
-                <Col key={task._id} style={this.style.taskItem}>
-                <Row>
-                    <Col>
-                        <span style={this.style.taskTitle}>{task.title}</span>
-                    </Col>
-                    <Col>
-                        <span style={{
-                            ...this.style.labelToday,
-                            ...this.style.labelTiming
-                        }}><i><FeatherIcon icon="info" size="24" /></i>Today</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={this.style.taskContent}>
-                        {base64.decode(task.content).substring(0, 64)}...
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                    <i><FeatherIcon icon="clock" size="24" /></i>{`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
-                    </Col>
-                </Row>
-            </Col>
-            )
+            return this.renderHTMLItem(task,this.style.labelToday);
         }
         return '';
     }
@@ -83,11 +68,11 @@ class TaskItem extends React.Component{
         return(
             <React.Fragment>
             <Col>
-                <h3 style={this.style.headLineTaskToday}>
+                <h3>
                     <i>
                         <FeatherIcon icon="info" size="24" />
                     </i>
-                    Task Today
+                    <span  style={this.style.headLineTaskToday}>&nbsp;Task Today</span>
                 </h3>
             </Col>
             {

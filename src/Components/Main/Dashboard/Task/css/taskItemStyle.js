@@ -14,7 +14,9 @@ const style = {
         fontWeight:600,
         color:'black',
         fontSize:'16px',
-        fontFamily: 'Commissioner, sanf-serif'
+        fontFamily: 'Commissioner, sanf-serif',
+        paddingTop:'0.5rem',
+        paddingBottom:'0.5rem'
     },
     labelTiming:{
         borderRadius:'10px',
@@ -34,6 +36,10 @@ const style = {
     taskContent:{
         fontStyle:'italic',
         padding:'0.9rem'
+    },
+    iconMargin:{
+        paddingRight:'0.2rem',
+        paddingLeft:'0.2rem'
     }
 }
 
