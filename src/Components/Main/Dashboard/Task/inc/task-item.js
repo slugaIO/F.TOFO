@@ -1,9 +1,13 @@
-import React from 'react';
-import {Col,Row} from 'react-bootstrap';
-import base64 from 'react-native-base64'
-import moment from 'moment';
-import componentStyle  from '../css/taskItemStyle'
-import ReactModal from 'react-modal';
+/**
+ * 
+ * TODO create reac modal for Task Detail View
+ */
+import React            from 'react';
+import {Col,Row}        from 'react-bootstrap';
+import base64           from 'react-native-base64'
+import moment           from 'moment';
+import componentStyle   from '../css/taskItemStyle'
+import ReactModal       from 'react-modal';
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
