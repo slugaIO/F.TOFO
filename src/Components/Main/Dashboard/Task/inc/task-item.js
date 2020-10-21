@@ -2,6 +2,9 @@ import React from 'react';
 import {Col,Row} from 'react-bootstrap';
 import base64 from 'react-native-base64'
 
+// icon set
+import FeatherIcon from 'feather-icons-react';
+
 class TaskItem extends React.Component{
     style = {
         taskItem:{
@@ -16,9 +19,10 @@ class TaskItem extends React.Component{
             borderBottom:'1px solid black'
         },
         headLineTaskToday:{
-            fontWeight:400,
+            fontWeight:600,
             color:'black',
-            fontSize:'16px'
+            fontSize:'16px',
+            fontFamily: 'Commissioner, sanf-serif'
         },
         labelToday:{
             backgroundColor:'#28a745',
@@ -52,7 +56,7 @@ class TaskItem extends React.Component{
                         <span style={this.style.taskTitle}>{task.title}</span>
                     </Col>
                     <Col>
-                        <span style={this.style.labelToday}>Today</span>
+                        <span style={this.style.labelToday}><i><FeatherIcon icon="info" size="24" /></i>Today</span>
                     </Col>
                 </Row>
                 <Row>
@@ -62,7 +66,7 @@ class TaskItem extends React.Component{
                 </Row>
                 <Row>
                     <Col>
-                        {`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
+                    <i><FeatherIcon icon="clock" size="24" /></i>{`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
                     </Col>
                 </Row>
             </Col>
@@ -74,7 +78,12 @@ class TaskItem extends React.Component{
         return(
             <React.Fragment>
             <Col>
-                <h3 style={this.style.headLineTaskToday}>Task Today</h3>
+                <h3 style={this.style.headLineTaskToday}>
+                    <i>
+                        <FeatherIcon icon="info" size="24" />
+                    </i>
+                    Task Today
+                </h3>
             </Col>
             {
                 this.props.taskList.map((n) => {
