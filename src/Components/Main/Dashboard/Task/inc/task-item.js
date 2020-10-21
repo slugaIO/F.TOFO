@@ -1,5 +1,6 @@
 import React from 'react';
 import {Col,Row} from 'react-bootstrap';
+import base64 from 'react-native-base64'
 
 class TaskItem extends React.Component{
     style = {
@@ -20,7 +21,7 @@ class TaskItem extends React.Component{
             fontSize:'16px'
         },
         labelToday:{
-            backgroundColor:'#d1453b',
+            backgroundColor:'#28a745',
             borderRadius:'10px',
             padding:'0.1rem',
             paddingLeft:'0.5rem',
@@ -28,6 +29,10 @@ class TaskItem extends React.Component{
             float:'right',
             color:'white',
             fontWeight:'400'
+        },
+        taskContent:{
+            fontStyle:'italic',
+            padding:'0.9rem'
         }
     }
     constructor(props){
@@ -48,6 +53,11 @@ class TaskItem extends React.Component{
                     </Col>
                     <Col>
                         <span style={this.style.labelToday}>Today</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={this.style.taskContent}>
+                        {base64.decode(task.content).substring(0, 64)}...
                     </Col>
                 </Row>
                 <Row>
