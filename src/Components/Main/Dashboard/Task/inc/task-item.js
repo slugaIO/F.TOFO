@@ -1,62 +1,35 @@
 import React from 'react';
 import {Col,Row} from 'react-bootstrap';
 import base64 from 'react-native-base64'
+import moment from 'moment';
+import componentStyle  from '../css/taskItemStyle'
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
 
 class TaskItem extends React.Component{
-    style = {
-        taskItem:{
-            backgroundColor:'white',
-            border:'1px solid rgb(123,174,234)',
-            margin:'0.5rem',
-            padding:'0.5rem',
-            color:'rgb(152, 166, 173)'
-        },
-        taskTitle:{
-            fontWeight:400,
-            borderBottom:'1px solid black'
-        },
-        headLineTaskToday:{
-            fontWeight:600,
-            color:'black',
-            fontSize:'16px',
-            fontFamily: 'Commissioner, sanf-serif'
-        },
-        labelToday:{
-            backgroundColor:'#28a745',
-            borderRadius:'10px',
-            padding:'0.1rem',
-            paddingLeft:'0.5rem',
-            paddingRight:'0.5rem',
-            float:'right',
-            color:'white',
-            fontWeight:'400'
-        },
-        taskContent:{
-            fontStyle:'italic',
-            padding:'0.9rem'
-        }
-    }
     constructor(props){
         super(props);
         this.state = {
             taskList : this.props.taskList
         }
+        this.style  = {...componentStyle};
     }
-    taskItem(task){
+    renderYesterDay(task){
         let taskDate = new Date(task.endDate);
         let _date    = new Date();
-        if(_date.getFullYear() === taskDate.getFullYear() &&  (_date.getMonth()+1) === (taskDate.getMonth()+1) &&  _date.getDate() === taskDate.getDate()){
+        if(moment(taskDate.toISOString()).isBefore(_date.toISOString(),'day')){
             return (
                 <Col key={task._id} style={this.style.taskItem}>
                 <Row>
                     <Col>
                         <span style={this.style.taskTitle}>{task.title}</span>
                     </Col>
-                    <Col>
-                        <span style={this.style.labelToday}><i><FeatherIcon icon="info" size="24" /></i>Today</span>
+                    <Col> 
+                         <span style={{
+                             ...this.style.labelDelay,
+                             ...this.style.labelTiming
+                         }} ><i><FeatherIcon icon="info" size="24" /></i>Delay</span>
                     </Col>
                 </Row>
                 <Row>
@@ -70,7 +43,39 @@ class TaskItem extends React.Component{
                     </Col>
                 </Row>
             </Col>
-        )
+            )
+        }
+        return '';
+    }
+    renderToday(task){
+        let taskDate = new Date(task.endDate);
+        let _date    = new Date();
+        if(moment(taskDate.toISOString()).isSame(_date.toISOString(),'day')){
+            return (
+                <Col key={task._id} style={this.style.taskItem}>
+                <Row>
+                    <Col>
+                        <span style={this.style.taskTitle}>{task.title}</span>
+                    </Col>
+                    <Col>
+                        <span style={{
+                            ...this.style.labelToday,
+                            ...this.style.labelTiming
+                        }}><i><FeatherIcon icon="info" size="24" /></i>Today</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={this.style.taskContent}>
+                        {base64.decode(task.content).substring(0, 64)}...
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <i><FeatherIcon icon="clock" size="24" /></i>{`${("0" + taskDate.getDay()).slice(-2)}.${("0" + taskDate.getMonth()).slice(-2)}.${taskDate.getFullYear()}`}
+                    </Col>
+                </Row>
+            </Col>
+            )
         }
         return '';
     }
@@ -87,8 +92,13 @@ class TaskItem extends React.Component{
             </Col>
             {
                 this.props.taskList.map((n) => {
-                    return this.taskItem(n);
-                })     
+                    return this.renderYesterDay(n);
+                })    
+            }
+            {
+                this.props.taskList.map((n) => {
+                    return this.renderToday(n);
+                })    
             }
             </React.Fragment>
         )
