@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Switch,withRouter} from 'react-router-dom'
 import moment from 'moment'
 
 import AuthService from '../../../services/api/auth.service'
+import TaskItem    from './Task/inc/task-item';
 
 class MainView extends React.Component{
     constructor(props){
@@ -17,17 +18,17 @@ class MainView extends React.Component{
             taskCounter:0,
             taskForToday:0,
             taskForWeek:0,
-            taskForMonth:0
+            taskForMonth:0,
+            taskList:[]
         }
     }
-    componentDidMount(){
+    apiLoadTasks(){
         const cookieData = AuthService.getCookieData();
         AuthService.authCheck(cookieData.token.refreshToken)
         .then( (response) => {
             const accessToken = response.data.accessToken;
             AuthService.postAPICall({},accessToken,'/api/tasks/list')
             .then( (response) => {
-                console.log(response.data.tasks);
                 const _array = response.data.tasks;
                 const _date  = new Date();
                 let sameDay  = 0;
@@ -48,16 +49,22 @@ class MainView extends React.Component{
                         sameDay = sameDay + 1;
                     }
                 }
+                console.log("read Data");
+                console.log(_array);
                 this.setState({
                     taskCounter:_array.length,
                     taskForToday:sameDay,
                     taskForWeek:sameWeek,
-                    taskForMonth:sameMonth
+                    taskForMonth:sameMonth,
+                    taskList:_array
                 })
             })
             .catch( (error) =>{});
         })
         .catch( (error) => {})
+    }
+    componentDidMount(){
+        this.apiLoadTasks();
     }
     mainView = {
         headline:{
@@ -69,8 +76,8 @@ class MainView extends React.Component{
             backgroundColor:'white',
             margin:'1rem',
             color:'#98a6ad',
-            borderRadius:'10px',
-            padding:'1rem'
+            padding:'1rem',
+            border:'1px solid rgb(123,174,234)',
         },
         colItemText:{
             color:'#2c8ef8',
@@ -107,6 +114,14 @@ class MainView extends React.Component{
                     <h3 style={this.mainView.colItemText}>
                         {this.state.taskCounter}
                     </h3>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+             
+                    </Col>
+                    <Col>
+                        <TaskItem taskTotal={this.state.taskCounter} taskList={this.state.taskList} taskLength={this.state.taskList.length}/>
                     </Col>
                 </Row>
             </Container>
