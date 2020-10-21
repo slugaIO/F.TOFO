@@ -3,17 +3,41 @@ import {Col,Row} from 'react-bootstrap';
 import base64 from 'react-native-base64'
 import moment from 'moment';
 import componentStyle  from '../css/taskItemStyle'
+import ReactModal from 'react-modal';
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      backgroundColor       : '#f6f8fa',
+      border                : '1px solid #444d56',
+      borderRadius          : '10px'
+    }
+  };
 
 class TaskItem extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            taskList : this.props.taskList
+            taskList : this.props.taskList,
+            showModal:false
         }
         this.style  = {...componentStyle};
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this); 
+    }
+    handleOpenModal = () => {
+        this.setState({ showModal: true });
+    }
+    handleCloseModal = () => {
+        this.setState({ showModal: false });
     }
     renderHTMLItem(task, CSSLabel, labelText){
         let taskDate = new Date(task.endDate);
@@ -85,6 +109,15 @@ class TaskItem extends React.Component{
                     return this.renderToday(n);
                 })    
             }
+            <button onClick={this.handleOpenModal}>Trigger Modal</button>
+            <ReactModal 
+               isOpen={this.state.showModal}
+               contentLabel="Minimal Modal Example"
+               style={customStyles}
+            >
+               <h1>Task Details</h1>
+              <button onClick={this.handleCloseModal}>Close Modal</button>
+            </ReactModal>
             </React.Fragment>
         )
     }
