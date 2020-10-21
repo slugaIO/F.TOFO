@@ -7,12 +7,12 @@ class Sidebar extends React.Component{
             <nav className="main-menu">
             <ul>
             <li>
-                <a className="#">
+                <Link to={'/profile'}>
                 <i className="fa fa-user-circle-o fa-2x"></i>
                     <span className="nav-text">
                         Profile
                     </span>
-                </a>
+                </Link>
             </li>
             <li>
                 <Link to={'/dashboard'}>
