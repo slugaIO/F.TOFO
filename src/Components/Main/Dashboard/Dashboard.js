@@ -59,24 +59,6 @@ class Dashboard extends React.Component{
         }
     }
     render(){
-<<<<<<< HEAD
-        return( 
-                <Container>
-                    <Row className="justify-content-md-center">
-                            <Route path='/dashboard' exact render={props => (<div>DASHBOARD</div>) } />
-                            <Route path='/dashboard/tasklist' exact render={
-                                props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)
-                            } />
-                            <Route path='/dashboard/addTask' exact render={
-                                props =>  (<
-                                    CreateTask 
-                                    taskList={this.state.taskList} 
-                                    reloadTaskData={this.reloadTaskData} 
-                                    updateTaskList={this.updateTaskList}
-                                {...props}  
-                            />)
-                            } />
-=======
         return(
                 <Container fluid className='fill-window'>
                     <Row className='fill-window'>
@@ -92,7 +74,6 @@ class Dashboard extends React.Component{
                                 <Route path='/dashboard/edittask'     exact render={ props => (<TaskTable taskList={this.state.taskList} updateTaskList={this.updateTaskList} {...props} reloadTaskData={this.reloadTaskData}  />)} />
                             </Switch>
                         </Col>
->>>>>>> develop
                     </Row>
                 </Container>
         )
