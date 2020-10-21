@@ -1,6 +1,7 @@
 /**
  * 
  * TODO create reac modal for Task Detail View
+ * TODO CSS for modal does not work
  */
 import React            from 'react';
 import {Col,Row}        from 'react-bootstrap';
@@ -11,20 +12,6 @@ import ReactModal       from 'react-modal';
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
-
-const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      backgroundColor       : '#f6f8fa',
-      border                : '1px solid #444d56',
-      borderRadius          : '10px'
-    }
-  };
 
 class TaskItem extends React.Component{
     constructor(props){
@@ -93,6 +80,7 @@ class TaskItem extends React.Component{
         return '';
     }
     render(){
+        console.table(this.style.modalComponent);
         return(
             <React.Fragment>
             <Col>
@@ -117,7 +105,7 @@ class TaskItem extends React.Component{
             <ReactModal 
                isOpen={this.state.showModal}
                contentLabel="Minimal Modal Example"
-               style={customStyles}
+               style={this.style.modalComponent}
             >
                <h1>Task Details</h1>
               <button onClick={this.handleCloseModal}>Close Modal</button>
