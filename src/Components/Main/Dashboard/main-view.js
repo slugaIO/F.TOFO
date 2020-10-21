@@ -118,7 +118,7 @@ class MainView extends React.Component{
                 </Row>
                 <Row>
                     <Col>
-                    -
+             
                     </Col>
                     <Col>
                         <TaskItem taskTotal={this.state.taskCounter} taskList={this.state.taskList} taskLength={this.state.taskList.length}/>
