@@ -49,8 +49,6 @@ class MainView extends React.Component{
                         sameDay = sameDay + 1;
                     }
                 }
-                console.log("read Data");
-                console.log(_array);
                 this.setState({
                     taskCounter:_array.length,
                     taskForToday:sameDay,
@@ -76,8 +74,8 @@ class MainView extends React.Component{
             backgroundColor:'white',
             margin:'1rem',
             color:'#98a6ad',
-            borderRadius:'10px',
-            padding:'1rem'
+            padding:'1rem',
+            border:'1px solid rgb(123,174,234)',
         },
         colItemText:{
             color:'#2c8ef8',
@@ -118,7 +116,7 @@ class MainView extends React.Component{
                 </Row>
                 <Row>
                     <Col>
-                    -
+             
                     </Col>
                     <Col>
                         <TaskItem taskTotal={this.state.taskCounter} taskList={this.state.taskList} taskLength={this.state.taskList.length}/>
