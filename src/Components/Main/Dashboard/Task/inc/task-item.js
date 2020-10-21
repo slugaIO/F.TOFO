@@ -15,7 +15,7 @@ class TaskItem extends React.Component{
         }
         this.style  = {...componentStyle};
     }
-    renderHTMLItem(task, CSSLabel){
+    renderHTMLItem(task, CSSLabel, labelText){
         let taskDate = new Date(task.endDate);
         return (
             <Col key={task._id} style={this.style.taskItem}>
@@ -27,7 +27,7 @@ class TaskItem extends React.Component{
                      <span style={{
                         ...CSSLabel,
                         ...this.style.labelTiming
-                     }} ><i><FeatherIcon icon="info" size="24" style={this.style.iconMargin} /></i>Delay</span>
+                     }} ><i><FeatherIcon icon="info" size="24" style={this.style.iconMargin} /></i>{labelText}</span>
                 </Col>
             </Row>
             <Row>
@@ -52,7 +52,7 @@ class TaskItem extends React.Component{
         let taskDate = new Date(task.endDate);
         let _date    = new Date();
         if(moment(taskDate.toISOString()).isBefore(_date.toISOString(),'day')){
-            return this.renderHTMLItem(task,this.style.labelDelay);
+            return this.renderHTMLItem(task,this.style.labelDelay,'Delay');
         }
         return '';
     }
@@ -60,7 +60,7 @@ class TaskItem extends React.Component{
         let taskDate = new Date(task.endDate);
         let _date    = new Date();
         if(moment(taskDate.toISOString()).isSame(_date.toISOString(),'day')){
-            return this.renderHTMLItem(task,this.style.labelToday);
+            return this.renderHTMLItem(task,this.style.labelToday,'Today');
         }
         return '';
     }
