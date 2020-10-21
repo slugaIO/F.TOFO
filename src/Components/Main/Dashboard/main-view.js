@@ -76,8 +76,8 @@ class MainView extends React.Component{
             backgroundColor:'white',
             margin:'1rem',
             color:'#98a6ad',
-            borderRadius:'10px',
-            padding:'1rem'
+            padding:'1rem',
+            border:'1px solid rgb(123,174,234)',
         },
         colItemText:{
             color:'#2c8ef8',

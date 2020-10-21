@@ -46,16 +46,15 @@ class TaskItem extends React.Component{
         return(
             <React.Fragment>
             <h3 style={this.style.taskTodayTitle}>Task Today</h3>
-            <Col style={this.style.taskItem}>A</Col>
             {
                 this.props.taskList.map((n) => {
                     return <Col key={n._id} style={this.style.taskItem}>
-                        {n.title}
-                        {n.endDate}
+                        <span style={this.style.taskTitle}>{n.title}</span>
+                        <hr />
+                        {`${("0" + new Date(n.endDate).getDay()).slice(-2)}.${("0" + new Date(n.endDate).getMonth()).slice(-2)}.${new Date(n.endDate).getFullYear()}`}
                     </Col>
                 })     
             }
-            <Col style={this.style.taskItem}>H</Col>
             </React.Fragment>
         )
     }
