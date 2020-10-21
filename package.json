@@ -16,6 +16,7 @@
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-static-toolbar-plugin": "^3.0.1",
     "feather-icons": "^4.28.0",
+    "feather-icons-react": "^0.4.1",
     "glyphicons": "^0.2.0",
     "material-ui": "^0.20.2",
     "moment": "^2.29.1",

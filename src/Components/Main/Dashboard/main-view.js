@@ -68,7 +68,8 @@ class MainView extends React.Component{
         headline:{
             fontWeihg:300,
             color:'#98a6ad',
-            lineHeigh:'75px'
+            lineHeigh:'75px',
+            fontFamily: 'Commissioner, sanf-serif'
         },
         colItem:{
             backgroundColor:'white',
@@ -81,6 +82,10 @@ class MainView extends React.Component{
             color:'#2c8ef8',
             fontSize:'20px',
             textAlign:'center'
+        },
+        divider:{
+            borderTop:'2px dotted #CCC',
+            paddingTop:'0.5rem'
         }
     }
     render(){
@@ -88,7 +93,7 @@ class MainView extends React.Component{
         <React.Fragment>
             <Container fluid>
                 <h1 style={this.mainView.headline}>Dashboard</h1>
-                <Row>
+                <Row style={this.mainView.divider}>
                     <Col style={this.mainView.colItem}>
                         Task Today
                         <h3 style={this.mainView.colItemText}>
@@ -114,7 +119,7 @@ class MainView extends React.Component{
                     </h3>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={this.mainView.divider}>
                     <Col>
              
                     </Col>
