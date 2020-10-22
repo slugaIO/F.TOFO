@@ -9,6 +9,11 @@
   text-align: center;
 }
 
+.iconMargin{
+  padding-left:'0.4rem';
+  padding-right:'0.4rem';
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
