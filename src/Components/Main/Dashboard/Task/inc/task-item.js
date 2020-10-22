@@ -4,14 +4,17 @@
  * TODO CSS for modal does not work
  */
 import React            from 'react';
+import {Link}           from 'react-router-dom';
 import {Col,Row}        from 'react-bootstrap';
 import base64           from 'react-native-base64'
 import moment           from 'moment';
-import componentStyle   from '../css/taskItemStyle'
 import ReactModal       from 'react-modal';
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
+
+// CSS 
+import componentStyle   from '../css/taskItemStyle'
 
 class TaskItem extends React.Component{
     constructor(props){
@@ -57,7 +60,14 @@ class TaskItem extends React.Component{
                 <Col md="auto">
                     <i><FeatherIcon icon="trash" size="24" style={this.style.iconMargin} /></i>
                     <i><FeatherIcon icon="check-circle" size="24" style={this.style.iconMargin} /></i>
-                    <i><FeatherIcon icon="eye" size="24" style={this.style.iconMargin}  /></i>
+                    <Link to={`#`} onClick={ () => {
+                        this.setState({
+                            showModal:true
+                        })
+                    }}>
+                        <i><FeatherIcon icon="eye" size="24" style={this.style.iconMargin}  /></i>
+                    </Link>
+                    
                 </Col>
             </Row>
         </Col>
@@ -78,6 +88,14 @@ class TaskItem extends React.Component{
             return this.renderHTMLItem(task,this.style.labelToday,'Today');
         }
         return '';
+    }
+    modalContent(){
+        return (
+            <React.Fragment>
+                <h1>Task Details</h1>
+                <button onClick={this.handleCloseModal}>Close Modal</button>
+            </React.Fragment>
+        )
     }
     render(){
         console.table(this.style.modalComponent);
@@ -107,8 +125,7 @@ class TaskItem extends React.Component{
                contentLabel="Minimal Modal Example"
                style={this.style.modalComponent}
             >
-               <h1>Task Details</h1>
-              <button onClick={this.handleCloseModal}>Close Modal</button>
+                {this.modalContent()}
             </ReactModal>
             </React.Fragment>
         )
