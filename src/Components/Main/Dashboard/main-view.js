@@ -3,13 +3,14 @@
 */
 import { Rowing } from '@material-ui/icons';
 import React from 'react'
-import {Container,Row,Col} from 'react-bootstrap';
+import {Container, Row,Col} from 'react-bootstrap';
 import {BrowserRouter as Router, Switch,withRouter} from 'react-router-dom'
 import moment from 'moment'
 import FeatherIcon from 'feather-icons-react';
 
 import AuthService from '../../../services/api/auth.service'
 import TaskItem    from './Task/inc/task-item';
+import { FileX } from 'react-bootstrap-icons';
 
 class MainView extends React.Component{
     constructor(props){
@@ -93,12 +94,18 @@ class MainView extends React.Component{
             border:'1px solid rgb(123,174,234)',
             margin:'0.5rem',
             background: '#CCC',
+        },
+        rightContainer:{
+            overflow:'scroll'
+        },
+        rowContainer:{
+            height:'50vh'
         }
     }
     render(){
         return(
         <React.Fragment>
-            <Container fluid>
+            <Container  fluid>
                 <h1 style={this.mainView.headline}>Dashboard</h1>
                 <Row style={this.mainView.divider}>
                     <Col style={this.mainView.colItem}>
@@ -126,17 +133,19 @@ class MainView extends React.Component{
                     </h3>
                     </Col>
                 </Row>
-                <Row style={this.mainView.divider}>
-                   <Col key={'left'} style={this.mainView.colColor}>
+            </Container>
+            <Container fluid style={this.mainView.rowContainer}>
+                <Row>
+                   <Col key={'left'} >
                             <h3>
                                 <i><FeatherIcon icon="info" size="24" /></i><span>Done</span>
                             </h3>
                     </Col>
-                    <Col key={'right'}   style={this.mainView.colColor}>
+                    <Col key={'right'} style={this.mainView.rightContainer}>
                         <TaskItem taskTotal={this.state.taskCounter} taskList={this.state.taskList} taskLength={this.state.taskList.length}/>
                     </Col>
                 </Row>
-            </Container>
+           </Container>
         </React.Fragment>
         )
     }
