@@ -34,7 +34,7 @@ class TaskItem extends React.Component{
     renderHTMLItem(task, CSSLabel, labelText){
         let taskDate = new Date(task.endDate);
         return (
-            <Draggable>
+            <Draggable key={task._id} >
             <Col key={task._id} style={this.style.taskItem}>
             <Row>
                 <Col>

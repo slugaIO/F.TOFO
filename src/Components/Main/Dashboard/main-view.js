@@ -6,7 +6,7 @@ import React from 'react'
 import {Container,Row,Col} from 'react-bootstrap';
 import {BrowserRouter as Router, Switch,withRouter} from 'react-router-dom'
 import moment from 'moment'
-
+import FeatherIcon from 'feather-icons-react';
 
 import AuthService from '../../../services/api/auth.service'
 import TaskItem    from './Task/inc/task-item';
@@ -87,6 +87,12 @@ class MainView extends React.Component{
         divider:{
             borderTop:'2px dotted #CCC',
             paddingTop:'0.5rem'
+        },
+        colColor:{
+            padding:'0.5rem',
+            border:'1px solid rgb(123,174,234)',
+            margin:'0.5rem',
+            background: '#CCC',
         }
     }
     render(){
@@ -121,10 +127,12 @@ class MainView extends React.Component{
                     </Col>
                 </Row>
                 <Row style={this.mainView.divider}>
-                    <Col>
-             
+                   <Col key={'left'} style={this.mainView.colColor}>
+                            <h3>
+                                <i><FeatherIcon icon="info" size="24" /></i><span>Done</span>
+                            </h3>
                     </Col>
-                    <Col>
+                    <Col key={'right'}   style={this.mainView.colColor}>
                         <TaskItem taskTotal={this.state.taskCounter} taskList={this.state.taskList} taskLength={this.state.taskList.length}/>
                     </Col>
                 </Row>
