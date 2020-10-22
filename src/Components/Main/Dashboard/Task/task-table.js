@@ -2,12 +2,12 @@
  * 
  * ! Cool Layout https://dribbble.com/shots/5908138-Textemo-business-dashboard-for-translations/attachments/1270845
  */
-import React from 'react';
-import {Table,Button, Container, Row} from 'react-bootstrap';
-import {Redirect,Link} from 'react-router-dom';
+import React                   from 'react';
+import {Table, Container, Row} from 'react-bootstrap';
+import {Link}                  from 'react-router-dom';
 
-import AuthService from '../../../../services/api/auth.service'
-import {Trash, Pencil} from 'react-bootstrap-icons';
+import AuthService             from '../../../../services/api/auth.service'
+import {Trash, Pencil}         from 'react-bootstrap-icons';
 class TaskTable extends React.Component{
   style = {
     container:{
@@ -63,6 +63,11 @@ class TaskTable extends React.Component{
       marginRight:'0.5rem'
     }
   }
+  /**
+   * Create all Rows of the Table
+   * 
+   * TODO Order this.props.taskList by Date
+   */
   tableRow = () => {
     let rows = [];
     if(this.props.taskList.length === 0){
