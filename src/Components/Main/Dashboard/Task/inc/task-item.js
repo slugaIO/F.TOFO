@@ -8,7 +8,7 @@ import {Link}           from 'react-router-dom';
 import {Col,Row}        from 'react-bootstrap';
 import base64           from 'react-native-base64'
 import moment           from 'moment';
-
+import Draggable        from 'react-draggable'
 // icon set
 import FeatherIcon from 'feather-icons-react';
 
@@ -34,6 +34,7 @@ class TaskItem extends React.Component{
     renderHTMLItem(task, CSSLabel, labelText){
         let taskDate = new Date(task.endDate);
         return (
+            <Draggable>
             <Col key={task._id} style={this.style.taskItem}>
             <Row>
                 <Col>
@@ -74,6 +75,7 @@ class TaskItem extends React.Component{
                 </Col>
             </Row>
         </Col>
+        </Draggable>
         )
     }
     renderYesterDay(task){
