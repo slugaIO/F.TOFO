@@ -8,30 +8,28 @@ import {Link}           from 'react-router-dom';
 import {Col,Row}        from 'react-bootstrap';
 import base64           from 'react-native-base64'
 import moment           from 'moment';
-import ReactModal       from 'react-modal';
 
 // icon set
 import FeatherIcon from 'feather-icons-react';
 
 // CSS 
-import componentStyle   from '../css/taskItemStyle'
+import componentStyle   from '../css/taskItemStyle';
+// Modal
+import TaskDetail from '../inc/task-detail-modal';
 
 class TaskItem extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             taskList : this.props.taskList,
-            showModal:false
+            showModal:false,
+            task:{
+                title:'',
+                _id:'undefined',
+                content:''
+            }
         }
         this.style  = {...componentStyle};
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this); 
-    }
-    handleOpenModal = () => {
-        this.setState({ showModal: true });
-    }
-    handleCloseModal = () => {
-        this.setState({ showModal: false });
     }
     renderHTMLItem(task, CSSLabel, labelText){
         let taskDate = new Date(task.endDate);
@@ -62,10 +60,15 @@ class TaskItem extends React.Component{
                     <i><FeatherIcon icon="check-circle" size="24" style={this.style.iconMargin} /></i>
                     <Link to={`#`} onClick={ () => {
                         this.setState({
-                            showModal:true
+                            showModal:true,
+                            task:{
+                                title:task.title,
+                                _id:task._id,
+                                content:task.content
+                            }
                         })
                     }}>
-                        <i><FeatherIcon icon="eye" size="24" style={this.style.iconMargin}  /></i>
+                    <i><FeatherIcon icon="eye" size="24" style={this.style.iconMargin}  /></i>
                     </Link>
                     
                 </Col>
@@ -89,16 +92,7 @@ class TaskItem extends React.Component{
         }
         return '';
     }
-    modalContent(){
-        return (
-            <React.Fragment>
-                <h1>Task Details</h1>
-                <button onClick={this.handleCloseModal}>Close Modal</button>
-            </React.Fragment>
-        )
-    }
     render(){
-        console.table(this.style.modalComponent);
         return(
             <React.Fragment>
             <Col>
@@ -109,25 +103,12 @@ class TaskItem extends React.Component{
                     <span  style={this.style.headLineTaskToday}>&nbsp;Task Today</span>
                 </h3>
             </Col>
-            {
-                this.props.taskList.map((n) => {
-                    return this.renderYesterDay(n);
-                })    
-            }
-            {
-                this.props.taskList.map((n) => {
-                    return this.renderToday(n);
-                })    
-            }
-            <button onClick={this.handleOpenModal}>Trigger Modal</button>
-            <ReactModal 
-               isOpen={this.state.showModal}
-               contentLabel="Minimal Modal Example"
-               style={this.style.modalComponent}
-            >
-                {this.modalContent()}
-            </ReactModal>
-            </React.Fragment>
+            {this.props.taskList.map((n) => {return this.renderYesterDay(n);})}
+            {this.props.taskList.map((n) => {return this.renderToday(n);})}
+            
+            <TaskDetail show={this.state.showModal} task={this.state.task} onHide={() => this.setState({showModal:false})}/>
+          
+        </React.Fragment>
         )
     }
 }

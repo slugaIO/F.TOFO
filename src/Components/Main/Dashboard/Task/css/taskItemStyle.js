@@ -2,18 +2,6 @@
  * ? Style Object for TaskItem in Dashboard
  */
 const style = {
-    modalComponent : {
-        top                 : '50%',
-        left                : '50%',
-        right               : 'auto',
-        bottom              : 'auto',
-        marginRight         : '-50%',
-        transform           : 'translate(-50%, -50%)',
-        backgroundColor     : '#f6f8fa',
-        border              : '1px solid #444d56',
-        borderRadius        : '10px',
-        backgroundColor     : 'red'
-    },
     taskItem:{
         backgroundColor     : 'white',
         border              : '1px solid rgb(123,174,234)',
