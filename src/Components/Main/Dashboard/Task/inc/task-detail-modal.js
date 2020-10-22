@@ -1,6 +1,7 @@
  /**
-  * @package props Task and Hide State
   * ? Modal to show Task Details
+  *  @package props Task and Hide State
+  * 
   */
  import React            from 'react';
  import {Modal,Button}   from 'react-bootstrap';

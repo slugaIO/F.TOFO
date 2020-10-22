@@ -7,7 +7,11 @@ import {Table, Container, Row} from 'react-bootstrap';
 import {Link}                  from 'react-router-dom';
 
 import AuthService             from '../../../../services/api/auth.service'
-import {Trash, Pencil}         from 'react-bootstrap-icons';
+import {Trash, Pencil, Eye}    from 'react-bootstrap-icons';
+
+// Modal
+import TaskDetail              from '../Task/inc/task-detail-modal';
+
 class TaskTable extends React.Component{
   style = {
     container:{
@@ -29,7 +33,14 @@ class TaskTable extends React.Component{
         // FIXME why we have a Cannot read property 'bind' of undefined
         this.reloadTaskData = this.props.reloadTaskData;
         this.taskList       = this.props.taskList;
-        console.table(this.taskList);
+        this.state = {
+            showModal:false,
+            task:{
+              title:'',
+              _id:'undefined',
+              content:''
+          }
+        }
   }
   componentDidMount(){
     this.reloadTaskData();
@@ -91,6 +102,18 @@ class TaskTable extends React.Component{
               <Link to={'#'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}>
                 <Trash/>
               </Link>
+              <Link to={`#`} onClick={ () => {
+                    this.setState({
+                        showModal:true,
+                        task:{
+                            title:this.props.taskList[i].title,
+                            _id:this.props.taskList[i]._id,
+                            content:this.props.taskList[i].content
+                        }
+                    })
+                }}>
+                <Eye/>
+                </Link>
           </td>
         </tr>
         );
@@ -119,6 +142,7 @@ class TaskTable extends React.Component{
           </tbody>
         </Table>
       </Row>
+      <TaskDetail show={this.state.showModal} task={this.state.task} onHide={() => this.setState({showModal:false})}/>
       </Container>
     )
   }
