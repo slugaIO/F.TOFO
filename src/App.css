@@ -23,17 +23,6 @@ h2.dashboard{
   font-family: 'Titillium Web', sans-serif;
 }
 
-table#taskOverview tr, 
-table#taskOverview td,
-table#taskOverview th{
-  font-family: 'Titillium Web', sans-serif;
-  font-weight:200
-}
-table#taskOverview th{
-  font-weight: 400;
-  color:black
-}
-
 .App-header {
   background-color: #222;
   height: 150px;

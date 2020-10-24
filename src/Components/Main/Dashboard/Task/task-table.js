@@ -9,24 +9,21 @@ import {Link}                  from 'react-router-dom';
 import AuthService             from '../../../../services/api/auth.service'
 import {Trash, Pencil, Eye}    from 'react-bootstrap-icons';
 
+// date
+import moment                  from 'moment';
+
 // Modal
 import TaskDetail              from '../Task/inc/task-detail-modal';
+// CSS
+import TaskTableStyle          from '../Task/css/taskTableStyle'
+
+
+const CreateRowItem = (props) => {
+  console.log(props);
+}
 
 class TaskTable extends React.Component{
-  style = {
-    container:{
-      marginTop:'20px'
-    },
-    emptyTable:{
-      textAlign:'center'
-    },
-    table:{
-      tr:{
-        fontWeight:'200',
-        fontFamily:'Titillium Web'
-      }
-    }
-  }
+  style = {}
   constructor(props){
         super(props);
         this.updateTaskList = this.props.updateTaskList.bind(this);
@@ -41,6 +38,7 @@ class TaskTable extends React.Component{
               content:''
           }
         }
+        this.style = {...TaskTableStyle};
   }
   componentDidMount(){
     this.reloadTaskData();
@@ -57,7 +55,6 @@ class TaskTable extends React.Component{
             AuthService.postAPICall(data,accessToken,'/api/tasks/delete')
             .then( (response) => {
               if(response.status === 200){
-                console.log(response);
                 if(response.data.task) this.updateTaskList(response.data.task)
               }
             })
@@ -89,20 +86,14 @@ class TaskTable extends React.Component{
       for(let i = 0; i < this.props.taskList.length;i++){
         let date = new Date(this.props.taskList[i].createDate)
         rows.push(
-          <tr key={this.props.taskList[i]._id}>
-          <td>{this.props.taskList[i].title}</td>
-          <td>{date.toLocaleString()}</td>
-          <td>{
-            new Date(this.props.taskList[i].endDate).toLocaleString()
-          }</td>
-          <td>
-              <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}>
-                <Pencil/>
-              </Link>
-              <Link to={'#'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}>
-                <Trash/>
-              </Link>
-              <Link to={`#`} onClick={ () => {
+          <tr key={this.props.taskList[i]._id} style={this.style.tr}>
+          <td style={this.style.td}>{this.props.taskList[i].title}</td>
+          <td style={this.style.td}>{moment(date).format('dddd')}</td>
+          <td style={this.style.td}>{moment(date).format("DD-MMM-YYYY")}</td>
+          <td  style={this.style.td}>
+              <Link id={'1'}         style={this.style.hyperlink} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
+              <Link id={'2'}         style={this.style.hyperlink} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
+              <Link text={'details'} style={this.style.hyperlink} to={`#`} onClick={ () => {
                     this.setState({
                         showModal:true,
                         task:{
@@ -113,7 +104,7 @@ class TaskTable extends React.Component{
                     })
                 }}>
                 <Eye/>
-                </Link>
+               </Link>
           </td>
         </tr>
         );
@@ -124,15 +115,13 @@ class TaskTable extends React.Component{
   render(){
     return(
       <Container style={this.style.container}>
-      <Row>
-          <h2 className={'dashboard'}>Task Overview</h2>
-      </Row>
+      <Row><h2 className={'dashboard'}>Task Overview</h2></Row>
       <Row>      
           <Table striped bordered hover variant="grey" id={'taskOverview'}>
           <thead>
             <tr>
               <th>Title</th>
-              <th>Created</th>
+              <th>Weekday</th>
               <th>Deadline</th>
               <th>Actions</th>
             </tr>
