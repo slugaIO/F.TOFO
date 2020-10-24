@@ -123,6 +123,12 @@ vertical-align:middle;
 font-size:18px;
 }
 
+/** task-table.js **/
+a.taskOverview{
+  margin-left:0.15rem;
+  margin-right:0.15rem;
+}
+
 .main-menu .nav-text {
 position:relative;
 display:table-cell;

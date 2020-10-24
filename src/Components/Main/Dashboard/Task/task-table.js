@@ -70,6 +70,7 @@ class TaskTable extends React.Component{
    * TODO Order this.props.taskList by Date
    */
   tableRow = () => {
+    console.log(TaskTableStyle)
     let rows = [];
     if(this.props.taskList.length === 0){
       rows.push(
@@ -86,13 +87,9 @@ class TaskTable extends React.Component{
             new Date(this.props.taskList[i].endDate).toLocaleString()
           }</td>
           <td  style={this.style.td}>
-              <Link to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}>
-                <Pencil/>
-              </Link>
-              <Link to={'#'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}>
-                <Trash/>
-              </Link>
-              <Link to={`#`} onClick={ () => {
+              <Link className={'taskOverview'} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
+              <Link className={'taskOverview'} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
+              <Link className={'taskOverview'} to={`#`} onClick={ () => {
                     this.setState({
                         showModal:true,
                         task:{
