@@ -9,10 +9,18 @@ import {Link}                  from 'react-router-dom';
 import AuthService             from '../../../../services/api/auth.service'
 import {Trash, Pencil, Eye}    from 'react-bootstrap-icons';
 
+// date
+import moment                  from 'moment';
+
 // Modal
 import TaskDetail              from '../Task/inc/task-detail-modal';
 // CSS
 import TaskTableStyle          from '../Task/css/taskTableStyle'
+
+
+const CreateRowItem = (props) => {
+  console.log(props);
+}
 
 class TaskTable extends React.Component{
   style = {}
@@ -47,7 +55,6 @@ class TaskTable extends React.Component{
             AuthService.postAPICall(data,accessToken,'/api/tasks/delete')
             .then( (response) => {
               if(response.status === 200){
-                console.log(response);
                 if(response.data.task) this.updateTaskList(response.data.task)
               }
             })
@@ -70,7 +77,6 @@ class TaskTable extends React.Component{
    * TODO Order this.props.taskList by Date
    */
   tableRow = () => {
-    console.log(TaskTableStyle)
     let rows = [];
     if(this.props.taskList.length === 0){
       rows.push(
@@ -82,14 +88,12 @@ class TaskTable extends React.Component{
         rows.push(
           <tr key={this.props.taskList[i]._id} style={this.style.tr}>
           <td style={this.style.td}>{this.props.taskList[i].title}</td>
-          <td style={this.style.td}>{date.toLocaleString()}</td>
-          <td style={this.style.td}>{
-            new Date(this.props.taskList[i].endDate).toLocaleString()
-          }</td>
+          <td style={this.style.td}>{moment(date).format('dddd')}</td>
+          <td style={this.style.td}>{moment(date).format("DD-MMM-YYYY")}</td>
           <td  style={this.style.td}>
-              <Link className={'taskOverview'} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
-              <Link className={'taskOverview'} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
-              <Link className={'taskOverview'} to={`#`} onClick={ () => {
+              <Link style={this.style.hyperlink} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
+              <Link style={this.style.hyperlink} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
+              <Link text={'details'} style={this.style.hyperlink} to={`#`} onClick={ () => {
                     this.setState({
                         showModal:true,
                         task:{
@@ -100,7 +104,7 @@ class TaskTable extends React.Component{
                     })
                 }}>
                 <Eye/>
-                </Link>
+               </Link>
           </td>
         </tr>
         );
@@ -111,15 +115,13 @@ class TaskTable extends React.Component{
   render(){
     return(
       <Container style={this.style.container}>
-      <Row>
-          <h2 className={'dashboard'}>Task Overview</h2>
-      </Row>
+      <Row><h2 className={'dashboard'}>Task Overview</h2></Row>
       <Row>      
           <Table striped bordered hover variant="grey" id={'taskOverview'}>
           <thead>
             <tr>
               <th>Title</th>
-              <th>Created</th>
+              <th>Weekday</th>
               <th>Deadline</th>
               <th>Actions</th>
             </tr>

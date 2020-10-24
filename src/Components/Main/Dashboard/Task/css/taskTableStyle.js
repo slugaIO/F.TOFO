@@ -12,13 +12,13 @@ const TaskTableStyle = {
         }
       },
       td:{
-          fontWeight:'600',
-          a:{
-            color:'red'
-          }
       },
       tr:{
 
+      },
+      hyperlink:{
+        paddingLeft:'0.25rem',
+        color:'#212529'
       }
 }
 
