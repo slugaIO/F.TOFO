@@ -91,8 +91,8 @@ class TaskTable extends React.Component{
           <td style={this.style.td}>{moment(date).format('dddd')}</td>
           <td style={this.style.td}>{moment(date).format("DD-MMM-YYYY")}</td>
           <td  style={this.style.td}>
-              <Link style={this.style.hyperlink} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
-              <Link style={this.style.hyperlink} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
+              <Link id={'1'}  style={this.style.hyperlink} to={`/dashboard/edittask/${this.props.taskList[i]._id}`} style={this.style.button}><Pencil/></Link>
+              <Link id={'2'} style={this.style.hyperlink} to={'/dashboard/delete/task'} onClick={() => {this.deleteTask(this.props.taskList[i]._id)}} style={this.style.button}><Trash/></Link>
               <Link text={'details'} style={this.style.hyperlink} to={`#`} onClick={ () => {
                     this.setState({
                         showModal:true,
